@@ -9,6 +9,7 @@
 #include "Subject.h"
 #include "GenericBlock.h"
 #include "GenericLevel.h"
+#include <string>
 
 class BoardModel: public Subject {
   // does not communicate with the user at all
@@ -39,17 +40,17 @@ public:
   bool checkIfValidMove(int. int, int); // check if any of the 4 coordinates overlaps with a filled cell on the grid.
   void checkCompletedRows();
   void calcScore();
-  void left();
-  void right();
-  void down();
-  void clockwise();
-  void counterclockwise();
-  void drop();
-  void levelup();
-  void leveldown();
-  void norandom();
+  void left(int);
+  void right(int);
+  void down(int);
+  void clockwise(int);
+  void counterclockwise(int);
+  void drop(int);
+  void levelup(int);
+  void leveldown(int);
+  void norandom(std::string);
   void random();
-  void sequence();
+  void sequence(std::string);
   void I();
   void J();
   void L();
