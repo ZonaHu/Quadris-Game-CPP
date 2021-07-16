@@ -8,13 +8,16 @@
 #include "BoardModel.h"
 #include <string>
 #include <cstdlib>
+#include <map>
+#include <algorithm>
 
 class Controller {
 private:
   BoardModel* boardModel_; // Pointer to BoardModel.
   std::vector <std::string> commandList_;  // vector of strings representing each command name
-
-// TODO; update
+  std::map <std::string, std::vector<std::tuple<int, int, std::string>>> macroMap_;
+  void extractMultiplier(std::string);
+  void execCommand(std::string, int);
 
 public:
   Controller();
