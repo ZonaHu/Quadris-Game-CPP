@@ -16,7 +16,8 @@ enum BlockType{
   O, // denotes Blocks with Type O
   S, // denotes Blocks with Type S
   Z, // denotes Blocks with Type Z
-  T  // denotes Blocks with Type T
+  T,  // denotes Blocks with Type T
+  Star // denotes the star block in level 4
 };
 
 class GenericBlock {
