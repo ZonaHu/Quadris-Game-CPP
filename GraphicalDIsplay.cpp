@@ -7,3 +7,6 @@
 #include "GraphicalDIsplay.h"
 
 // TODO:
+GraphicalDisplay::GraphicalDisplay() {}
+GraphicalDisplay::~GraphicalDisplay() {}
+void GraphicalDisplay::update(Subject *) {}

@@ -7,11 +7,18 @@
 #define PROJECT_2_3_GRAPHICALDISPLAY_H
 #include "Observer.h"
 
+
 class BoardModel;
 
 class GraphicalDisplay: public Observer{
   // TODO: To be implemented
+private:
+  BoardModel* boardModel_;
 
+public:
+  GraphicalDisplay();
+  ~GraphicalDisplay();
+  void update (Subject*) override; //function for updating in observer
 
 };
 

@@ -17,6 +17,4 @@ GenericLevel::~GenericLevel() {
 void GenericLevel::generateNextBlock() {}
 void GenericLevel::postMoveOperation() {}
 void GenericLevel::postDropOperation() {}
-int GenericLevel::getNonClearStreak() const { return 0; }
-void GenericLevel::setNonClearStreak() {}
 
