@@ -6,6 +6,14 @@
 
 Level1::Level1() {}
 Level1::~Level1() {}
-void Level1::generateNextBlock() { GenericLevel::generateNextBlock(); }
-void Level1::postMoveOperation() { GenericLevel::postMoveOperation(); }
-void Level1::postDropOperation() { GenericLevel::postDropOperation(); }
+void Level1::generateNextBlock() {
+
+  GenericLevel::generateNextBlock();
+
+}
+void Level1::postMoveOperation() {
+  GenericLevel::postMoveOperation();
+}
+void Level1::postDropOperation() {
+  GenericLevel::postDropOperation();
+}

@@ -6,11 +6,11 @@
 #include "GenericBlock.h"
 
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
-SingleBlock::SingleBlock() {
+StarBlock::StarBlock() {
   // TODO: implement this
 }
 
-SingleBlock::~SingleBlock() {
+StarBlock::~StarBlock() {
   // TODO: implement this
 
 }

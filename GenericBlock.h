@@ -116,12 +116,12 @@ public:
   ~TBlock(); // destructor to clean up memory
 };
 
-class SingleBlock: public GenericBlock{
+class StarBlock: public GenericBlock{
   // the special block in level 4 (indicated by * in text, and by the colour brown in graphics)
 public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
-  SingleBlock();
-  ~SingleBlock(); // destructor to clean up memory
+  StarBlock();
+  ~StarBlock(); // destructor to clean up memory
 };
 
 #endif // PROJECT_2_3_GENERICBLOCK_H
