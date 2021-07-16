@@ -13,26 +13,19 @@ protected:
   // Pointer to BoardModel object
   BoardModel* boardModel_;
 
-  // Counts number of times you placed a block without clearing at least one row
-  int nonClearStreak_;
 
 public:
   GenericLevel(); // default constructor
   ~GenericLevel(); // destructor
 
   // Determines next block based on probability or sequence file, depending on the level
-  virtual void generateNextBlock();
+  virtual void generateNextBlock() = 0;
 
   // Gets called after every move in BoardModel
-  virtual void postMoveOperation();
+  virtual void postMoveOperation() = 0;
 
   // Gets called after every drop() in BoardModel
-  virtual void postDropOperation();
-
-  // getter for nonClearStreak_
-  int getNonClearStreak() const;
-  // setter for nonClearStreak_
-  void setNonClearStreak();
+  virtual void postDropOperation() = 0;
 };
 
 class Level0: public GenericLevel{

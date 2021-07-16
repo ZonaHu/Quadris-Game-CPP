@@ -7,6 +7,7 @@
 #define PROJECT_2_3_CONTROLLER_H
 #include "BoardModel.h"
 #include <string>
+#include <cstdlib>
 
 class Controller {
 private:

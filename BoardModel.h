@@ -14,6 +14,9 @@ class BoardModel: public Subject {
   // does not communicate with the user at all
   // notify the observers when appropriate
 private:
+  // Counts number of times you placed a block without clearing at least one row
+  int nonClearStreak_;
+
   // 11x18 vector of chars representing cells. The char represents the Block type.
   std::vector<std::vector <char>> grid_;
 
@@ -65,6 +68,10 @@ public:
   int getScore() const;
   int getHiScore() const;
   int getLevel() const;
+  // getter for nonClearStreak_
+  int getNonClearStreak() const;
+  // setter for nonClearStreak_
+  void setNonClearStreak();
 };
 
 #endif // PROJECT_2_3_BOARDMODEL_H

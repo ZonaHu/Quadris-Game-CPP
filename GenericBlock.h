@@ -117,6 +117,7 @@ public:
 };
 
 class SingleBlock: public GenericBlock{
+  // the special block in level 4 (indicated by * in text, and by the colour brown in graphics)
 public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
   SingleBlock();
