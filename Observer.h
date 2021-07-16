@@ -7,6 +7,13 @@
 #ifndef PROJECT_2_3_OBSERVER_H
 #define PROJECT_2_3_OBSERVER_H
 
-class Observer {};
+class Subject;
+
+class Observer {
+public:
+  Observer(){}; // constructor
+  virtual ~Observer(){}; // destructor
+  virtual void update(Subject*) = 0;
+};
 
 #endif // PROJECT_2_3_OBSERVER_H

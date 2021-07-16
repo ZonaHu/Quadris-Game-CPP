@@ -5,7 +5,14 @@
 
 #ifndef PROJECT_2_3_GRAPHICALDISPLAY_H
 #define PROJECT_2_3_GRAPHICALDISPLAY_H
+#include "Observer.h"
 
-class GraphicalDIsplay {};
+class BoardModel;
+
+class GraphicalDisplay: public Observer{
+  // TODO: To be implemented
+
+
+};
 
 #endif // PROJECT_2_3_GRAPHICALDISPLAY_H
