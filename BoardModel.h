@@ -28,7 +28,6 @@ private:
 
   int score_; // keep track of the score
   int hi_score_; // keep track of the highest score
-  GenericLevel* genericLevel_; // pointer to a genericlevel object
   int level_; // keep track of the curent level
 
   // Vector of pointers to GenericLevel object, each level at corresponding index
