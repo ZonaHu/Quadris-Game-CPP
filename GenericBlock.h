@@ -25,7 +25,7 @@ protected:
   BlockType type_; // Takes on an enum type representing the block type
 
   std::vector <std::tuple<std::pair<int, int> , std::pair<int, int>, std::pair<int, int> ,std::pair<int, int>>>
-      cells; // A 4-long vector of 4-tuples each containing the relative coordinates
+      cells_; // A 4-long vector of 4-tuples each containing the relative coordinates
              // (relative to bottom left) of the cells of the block for each rotation
 
   int rotation_; // Represents the index in cells for each rotation.
@@ -43,23 +43,21 @@ public:
   // getter for a block's type
   BlockType getType() const;
   // setter for a block's type
-  void setType();
+  void setType(BlockType);
 
   // getter for current cells
   std::vector <std::tuple<std::pair<int, int> , std::pair<int, int>, std::pair<int, int> ,std::pair<int, int>>>
     getCells();
-  // setter for current cells
-  void setCells();
 
   // getter for current rotation
   int getRotation() const;
   // setter for current rotation
-  void setRotation();
+  void setRotation(int);
 
   // getter for current coordinates
   std::pair <int, int> getCoords() const;
   // setter for current coordinates
-  void setCoords();
+  void setCoords(int, int);
 };
 
 class IBlock: public GenericBlock{

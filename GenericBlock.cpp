@@ -15,20 +15,17 @@ GenericBlock::~GenericBlock() {
 
 // TODO: implement the rest
 BlockType GenericBlock::getType() const { return L; }
-
-void GenericBlock::setType() {}
+void GenericBlock::setType(BlockType type) { type_ = type; }
 
 std::vector<std::tuple<std::pair<int, int>, std::pair<int, int>,
                        std::pair<int, int>, std::pair<int, int>>>
-GenericBlock::getCells() {
-  return std::vector<std::tuple<std::pair<int, int>, std::pair<int, int>,
-                                std::pair<int, int>, std::pair<int, int>>>();
-}
+GenericBlock::getCells() { return cells_; }
 
-void GenericBlock::setCells() {}
-int GenericBlock::getRotation() const { return 0; }
-void GenericBlock::setRotation() {}
-std::pair<int, int> GenericBlock::getCoords() const {
-  return std::pair<int, int>();
+int GenericBlock::getRotation() const { return rotation_; }
+void GenericBlock::setRotation(int rotation) { rotation_ = rotation; }
+
+std::pair<int, int> GenericBlock::getCoords() const {return std::pair<int, int>{x_, y_}; }
+void GenericBlock::setCoords(int x, int y) {
+  x_ = x;
+  y_ = y;
 }
-void GenericBlock::setCoords() {}
