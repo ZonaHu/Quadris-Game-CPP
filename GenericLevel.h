@@ -8,6 +8,8 @@
 #define PROJECT_2_3_GENERICLEVEL_H
 #include "BoardModel.h"
 
+class BoardModel;
+
 class GenericLevel {
 protected:
   // Pointer to BoardModel object

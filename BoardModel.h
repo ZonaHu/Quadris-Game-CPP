@@ -11,6 +11,8 @@
 #include "GenericLevel.h"
 #include <string>
 
+class GenericLevel;
+
 class BoardModel: public Subject {
   // does not communicate with the user at all
   // notify the observers when appropriate
@@ -32,12 +34,12 @@ private:
   int level_; // keep track of the curent level
 
   // Vector of pointers to GenericLevel object, each level at corresponding index
-  std::vector <GenericLevel> levelArray_;
+  std::vector <GenericLevel*> levelArray_;
 
 public:
   BoardModel();
   ~BoardModel();
-  bool checkIfValidMove(int. int, int); // check if any of the 4 coordinates overlaps with a filled cell on the grid.
+  bool checkIfValidMove(int, int, int); // check if any of the 4 coordinates overlaps with a filled cell on the grid.
   void checkCompletedRows();
   void calcScore();
   void left(int);

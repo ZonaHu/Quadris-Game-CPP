@@ -10,7 +10,7 @@ void Subject::subscribe(Observer *newObserver){
 }
 
 void Subject::unsubscribe(Observer* oldObserver){
-  observers.erase(oldObserver);
+  observers_.erase(oldObserver);
 }
 
 void Subject::notify(){

@@ -4,7 +4,7 @@
 
 CXX = g++    #compiler
 CXXFLAGS = -std=c++14 -g -Wall -MMD    #compiler flags, compile using c++14
-OBJECTS = GenericLevel.o subject.o observer.o GenericBlock.o  BoardModel.o TextDisplay.o GraphicalDisplay.o Controller.o GameManager.o IBlock.o #object files  // TODO: to be updated
+OBJECTS = GenericLevel.o Subject.o Observer.o GenericBlock.o BoardModel.o TextDisplay.o GraphicalDisplay.o Controller.o GameManager.o IBlock.o main.o#object files  // TODO: to be updated
 DEPENDS = ${OBJECTS:.o=.d}    #substitutes ".o" with ".d"
 EXEC = quadris    #executable name
 
