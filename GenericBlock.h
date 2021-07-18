@@ -11,14 +11,14 @@
 
 // Represents the block that the user is currently controlling
 enum BlockType{
-  I, // denotes Blocks with Type I
-  J, // denotes Blocks with Type J
-  L, // denotes Blocks with Type L
-  O, // denotes Blocks with Type O
-  S, // denotes Blocks with Type S
-  Z, // denotes Blocks with Type Z
-  T,  // denotes Blocks with Type T
-  Star // denotes the star block in level 4
+  I_BLOCK, // denotes Blocks with Type I
+  J_BLOCK, // denotes Blocks with Type J
+  L_BLOCK, // denotes Blocks with Type L
+  O_BLOCK, // denotes Blocks with Type O
+  S_BLOCK, // denotes Blocks with Type S
+  Z_BLOCK, // denotes Blocks with Type Z
+  T_BLOCK,  // denotes Blocks with Type T
+  STAR_BLOCK // denotes the star block in level 4
 };
 
 class GenericBlock {
