@@ -7,6 +7,7 @@
 #define PROJECT_2_3_GENERICBLOCK_H
 #include <iostream>
 #include <vector>
+#include <tuple>
 
 // Represents the block that the user is currently controlling
 enum BlockType{

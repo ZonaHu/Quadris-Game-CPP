@@ -4,7 +4,7 @@
 // on 2021-07-16.
 
 
-#include "GraphicalDIsplay.h"
+#include "GraphicalDisplay.h"
 
 // TODO:
 GraphicalDisplay::GraphicalDisplay() {}
