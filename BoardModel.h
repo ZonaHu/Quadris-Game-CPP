@@ -17,6 +17,9 @@ class BoardModel: public Subject {
   // does not communicate with the user at all
   // notify the observers when appropriate
 private:
+  int gridX_ = 11;
+  int gridY_ = 18;
+
   // Counts number of times you placed a block without clearing at least one row
   int nonClearStreak_;
 
@@ -65,6 +68,7 @@ public:
 
   // getters
   std::vector <std::vector <char>> getGrid() const;
+  char getCell(int, int) const;
   GenericBlock* getCurBlock() const;
   GenericBlock* getNextBlock() const;
   int getScore() const;
