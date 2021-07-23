@@ -8,8 +8,7 @@
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
 ZBlock::ZBlock() {
   type_ = Z_BLOCK;
-  std::vector<std::tuple<std::pair<int, int>, std::pair<int, int>,
-                        std::pair<int, int>, std::pair<int, int>>> 
+  std::vector<std::vector<std::pair<int, int>>> 
                         cells{{{0, 1}, {1, 0}, {1, 1}, {2, 0}}, 
                               {{0, 0}, {0, 1}, {1, 1}, {1, 2}}, 
                               {{0, 1}, {1, 0}, {1, 1}, {2, 0}}, 

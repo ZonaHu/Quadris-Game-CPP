@@ -8,8 +8,7 @@
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
 SBlock::SBlock() {
   type_ = S_BLOCK;
-  std::vector<std::tuple<std::pair<int, int>, std::pair<int, int>,
-                        std::pair<int, int>, std::pair<int, int>>> 
+  std::vector<std::vector<std::pair<int, int>>> 
                         cells{{{0, 0}, {1, 0}, {1, 1}, {2, 1}}, 
                               {{0, 1}, {0, 2}, {1, 0}, {1, 1}}, 
                               {{0, 0}, {1, 0}, {1, 1}, {2, 1}}, 

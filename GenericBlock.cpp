@@ -17,8 +17,7 @@ GenericBlock::~GenericBlock() {
 BlockType GenericBlock::getType() const { return L_BLOCK; }
 void GenericBlock::setType(BlockType type) { type_ = type; }
 
-std::vector<std::tuple<std::pair<int, int>, std::pair<int, int>,
-                       std::pair<int, int>, std::pair<int, int>>>
+std::vector<std::vector<std::pair<int, int>>>
 GenericBlock::getCells() { return cells_; }
 
 int GenericBlock::getRotation() const { return rotation_; }

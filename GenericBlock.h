@@ -25,8 +25,7 @@ class GenericBlock {
 protected:
   BlockType type_; // Takes on an enum type representing the block type
 
-  std::vector <std::tuple<std::pair<int, int> , std::pair<int, int>, std::pair<int, int> ,std::pair<int, int>>>
-      cells_; // A 4-long vector of 4-tuples each containing the relative coordinates
+  std::vector<std::vector<std::pair<int, int>>> cells_; // A 4-long vector of 4-tuples each containing the relative coordinates
              // (relative to bottom left) of the cells of the block for each rotation
 
   int rotation_; // Represents the index in cells for each rotation.
@@ -47,8 +46,7 @@ public:
   void setType(BlockType);
 
   // getter for current cells
-  std::vector <std::tuple<std::pair<int, int> , std::pair<int, int>, std::pair<int, int> ,std::pair<int, int>>>
-    getCells();
+  std::vector<std::vector<std::pair<int, int>>> getCells();
 
   // getter for current rotation
   int getRotation() const;

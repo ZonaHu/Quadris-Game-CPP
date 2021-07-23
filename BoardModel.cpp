@@ -20,12 +20,11 @@ char BoardModel::getCell(int x, int y) const {
 
 bool BoardModel::checkIfValidMove(int x, int y, int r) {
     // Get cells of curBlock_ that correspond to rotation r
-    std::tuple<std::pair<int, int>, std::pair<int, int>,
-        std::pair<int, int>, std::pair<int, int>> cells = curBlock_->getCells().at(r);
+    std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(r);
 
     for(std::size_t i = 0; i < cells.size(); ++i) {
-        int cellX = x+std::get<i>(cells).first;
-        int cellY = y+std::get<i>(cells).second;
+        int cellX = x+cells[i].first;
+        int cellY = y+cells[i].second;
         // Out of bounds check
         if (cellX < 0 || cellX > gridX_ - 1 || cellY < 0 || cellY > gridY_ - 1) {
             return false;
