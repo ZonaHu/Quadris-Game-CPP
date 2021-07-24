@@ -42,8 +42,8 @@ void Controller::rename(std::vector <std::string> args) {
 	// Where the original name is args[0], and the new name is args[1]
 	std::vector <std::string>::iterator it;
 	std::vector <std::string>::iterator it2;
-	it = find(commandList_.begin(), commandList_.end(), args[0]);
-	it2 = find(commandList_.begin(), commandList_.end(), args[1]);
+	it = std::find(commandList_.begin(), commandList_.end(), args[0]);
+	it2 = std::find(commandList_.begin(), commandList_.end(), args[1]);
 	if (it != commandList_.end() && it2 == commandList_.end()) {
 		*it = args[1];
 	} else {
@@ -198,7 +198,7 @@ void Controller::extractMultiplier(std::string input) {
 		}
 	}
 	if (!multWord.empty()) {
-		multiplier = atoi(multWord);
+		multiplier = std::atoi(multWord);
 	}
 	command = input.substr(cmdStart);
 	execCommand(command, multiplier);
