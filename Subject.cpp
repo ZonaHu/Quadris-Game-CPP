@@ -17,7 +17,7 @@ void Subject::unsubscribe(Observer* oldObserver){
 
 void Subject::notify(){
   Observers::iterator it;
-  for (it = observers_begin(); it != observers_end(); it++){
+  for (it = observers_.begin(); it != observers_.end(); it++){
 	(*it)->update();
   }
 }
