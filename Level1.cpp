@@ -6,11 +6,13 @@
 
 Level1::Level1() {}
 Level1::~Level1() {}
-void Level1::generateNextBlock() {
+
+GenericBlock Level1::generateNextBlock() {
 
   GenericLevel::generateNextBlock();
 
 }
+
 void Level1::postMoveOperation() {
   GenericLevel::postMoveOperation();
 }

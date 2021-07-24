@@ -6,10 +6,12 @@
 #include "GameManager.h"
 GameManager::GameManager() {
   // TODO: initialize all private members
+    BoardModel_ = std::make_shared<BoardModel>();
 }
 
 GameManager::~GameManager() {
   // TODO: clean up memory
+
 }
 
 //  Starts an infinite game while loop that constantly reads input to the Controller.

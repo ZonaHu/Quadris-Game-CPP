@@ -6,6 +6,10 @@
 
 Level3::Level3() {}
 Level3::~Level3() {}
-void Level3::generateNextBlock() { GenericLevel::generateNextBlock(); }
+
+GenericBlock Level3::generateNextBlock() {
+  GenericLevel::generateNextBlock();
+}
+
 void Level3::postMoveOperation() { GenericLevel::postMoveOperation(); }
 void Level3::postDropOperation() { GenericLevel::postDropOperation(); }
