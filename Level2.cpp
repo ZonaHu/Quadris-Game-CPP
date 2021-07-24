@@ -12,7 +12,7 @@ Level2::Level2(const std::shared_ptr<BoardModel>& p) {
 }
 
 GenericBlock Level2::generateNextBlock() {
-  // generate the next block in level 1
+  // generate the next block in level 2
   GenericBlock res;
   BlockType curType;
   int num = rand() % 7;
