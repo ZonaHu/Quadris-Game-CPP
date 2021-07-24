@@ -11,3 +11,4 @@ GenericLevel::GenericLevel(const std::shared_ptr<BoardModel>& p) {
   // constructor
    boardModel_ = p;
 }
+

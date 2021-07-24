@@ -17,8 +17,9 @@ protected:
   std::shared_ptr <BoardModel> boardModel_;
 
 public:
-  GenericLevel(const std::shared_ptr<BoardModel>&); // constructor
-  virtual ~GenericLevel(){}; // destructor
+  GenericLevel(){}; // default constructor
+  GenericLevel(const std::shared_ptr<BoardModel>& p); // constructor
+  virtual ~GenericLevel(){}; // default destructor
 
   // Determines next block based on probability or sequence file, depending on the level
   virtual GenericBlock generateNextBlock() = 0;
@@ -31,9 +32,10 @@ public:
 };
 
 class Level0: public GenericLevel{
+
 public:
-  Level0(const std::shared_ptr<BoardModel> &unnamed);
-  ~Level0();
+  Level0(const std::shared_ptr<BoardModel> & p); // constructor
+  ~Level0(){};  // default destructor
   GenericBlock generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;
@@ -41,8 +43,8 @@ public:
 
 class Level1: public GenericLevel{
 public:
-  Level1();
-  ~Level1();
+  Level1(const std::shared_ptr<BoardModel> & p); // constructor
+  ~Level1(){};  // default destructor
   GenericBlock generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;
@@ -50,8 +52,8 @@ public:
 
 class Level2: public GenericLevel{
 public:
-  Level2();
-  ~Level2();
+  Level2(const std::shared_ptr<BoardModel> & p); // constructor
+  ~Level2(){};  // default destructor
   GenericBlock generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;
@@ -59,8 +61,8 @@ public:
 
 class Level3: public GenericLevel{
 public:
-  Level3();
-  ~Level3();
+  Level3(const std::shared_ptr<BoardModel> & p); // constructor
+  ~Level3(){};  // default destructor
   GenericBlock generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;
@@ -68,8 +70,8 @@ public:
 
 class Level4: public GenericLevel{
 public:
-  Level4();
-  ~Level4();
+  Level4(const std::shared_ptr<BoardModel> & p); // constructor
+  ~Level4(){};  // default destructor
   GenericBlock generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;

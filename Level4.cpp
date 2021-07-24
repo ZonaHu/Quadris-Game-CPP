@@ -4,12 +4,21 @@
 // on 2021-07-16.
 #include "GenericLevel.h"
 
-Level4::Level4() {}
-Level4::~Level4() {}
+// initialize all data members
+// gets called in the board model class, the parameter will be passes in
+Level4::Level4(const std::shared_ptr<BoardModel>& p) {
+  // constructor
+  boardModel_ = p;
+}
 
 GenericBlock Level4::generateNextBlock() {
   GenericLevel::generateNextBlock();
 }
 
-void Level4::postMoveOperation() { GenericLevel::postMoveOperation(); }
-void Level4::postDropOperation() { GenericLevel::postDropOperation(); }
+void Level4::postMoveOperation() {
+  boardModel_->down(1);
+}
+
+void Level4::postDropOperation() {
+
+}
