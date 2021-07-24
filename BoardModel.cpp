@@ -26,7 +26,7 @@ BoardModel::~BoardModel() {}
 // Transform Cartesian coords to indices in grid_ vector
 // i.e. (0,0) is bottom left corner of grid
 char BoardModel::getCell(int x, int y) const {
-    return grid_.at(gridY_-1-y).at(x).first;
+    return grid_.at(gridY_-1-y).at(x);
 }
 
 void BoardModel::setCell(int x, int y, std::pair<BlockType, int> data) {
@@ -45,7 +45,7 @@ bool BoardModel::checkIfValidMove(int x, int y, int r) {
             return false;
         } 
         // Non-empty cell check
-        if (getCell(cellX, cellY) != ' ') {
+        if (getCell(cellX, cellY).first != EMPTY) {
             return false;
         }
     }
@@ -122,4 +122,31 @@ void BoardModel::levelup(int m = 1) {
 
 void BoardModel::leveldown(int m = 1) {
     level_ = level_ - m < 0 ? 0 : level_ - m;
+}
+
+void BoardModel::checkCompletedRows() {
+    int score = 0;
+    for(std::size_t y = 0; y < gridY_; ++y) {
+        bool isRowComplete = true;
+        for(std::size_t x = 0; x < gridX_; ++x) {
+            if (getCell(x, y).first = EMPTY) {
+                isRowComplete = false;
+                break;
+            }
+        }
+        if (isRowComplete) {
+            for(std::size_t x = 0; x < gridX_; ++x) {
+                auto it = liveBlocks.find(getCell(x,y).second);
+                if (it != liveBlocks.end()) {
+                    if (it->second->first <= 1) {
+                        score += (it->second->second + 1) ** 2;
+                        liveBlocks.erase(getCell(x,y).second);
+                    } else {
+                        it->second->first = it->second->first - 1;
+                    }
+                }
+            // Loop upwards, shifting blocks down by 1            
+            }
+        }
+    }
 }

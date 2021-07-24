@@ -10,7 +10,7 @@
 #include "GenericBlock.h"
 #include "GenericLevel.h"
 #include <string>
-#include <map>
+#include <unordered_map>
 
 class GenericLevel;
 
@@ -22,7 +22,7 @@ private:
   int gridY_ = 18;
 
   int timestamp_ = 0;
-  std::map<int, std::pair<int, int>> liveBlocks;
+  std::unordered_map<int, std::pair<int, int>> liveBlocks;
 
   // Counts number of times you placed a block without clearing at least one row
   int nonClearStreak_;
