@@ -8,6 +8,7 @@
 #define PROJECT_2_3_GENERICLEVEL_H
 #include "BoardModel.h"
 #include <memory>
+#include "GenericBlock.h"
 
 class BoardModel;
 
@@ -32,9 +33,11 @@ public:
 };
 
 class Level0: public GenericLevel{
-
+private:
+  std::vector<char> blockSeq_;
+  int counter_;
 public:
-  Level0(const std::shared_ptr<BoardModel> & p); // constructor
+  Level0(const std::shared_ptr<BoardModel> & p, std::vector<char> blockType); // constructor
   ~Level0(){};  // default destructor
   GenericBlock generateNextBlock() override;
   void postMoveOperation() override;
