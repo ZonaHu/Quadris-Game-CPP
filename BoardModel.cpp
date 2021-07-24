@@ -29,6 +29,10 @@ char BoardModel::getCell(int x, int y) const {
     return grid_.at(gridY_-1-y).at(x).first;
 }
 
+void BoardModel::setCell(int x, int y, std::pair<BlockType, int> data) {
+    grid_.at(gridY_-1-y).at(x) = data;
+}
+
 bool BoardModel::checkIfValidMove(int x, int y, int r) {
     // Get cells of curBlock_ that correspond to rotation r
     std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(r);
@@ -100,5 +104,14 @@ void BoardModel::counterclockwise(int m) {
 }
 
 void BoardModel::drop(int m) {
-
+    std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
+    int x = curBlock_->getCoords().first;
+    int y = curBlock_->getCoords().second;
+    for(std::size_t i = 0; i < cells.size(); ++i) {
+        setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
+    }
+    curBlock_ = nextBlock_;
+    nextBlock_ = levelArray_[level_]->generateNextBlock();
+    levelArray_[level_]->postDropOperation();
+    checkCompletedRows();
 }

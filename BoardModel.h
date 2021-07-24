@@ -28,7 +28,7 @@ private:
   int nonClearStreak_;
 
   // 11x18 vector of chars representing cells. The char represents the Block type.
-  std::vector<std::vector <std::pair<BlockType, int>>> grid_;
+  std::vector<std::vector<std::pair<BlockType, int>>> grid_;
 
   // Pointer to the Block that the player currently has control over
   GenericBlock* curBlock_;
@@ -72,8 +72,9 @@ public:
   void hint();
 
   // getters
-  std::vector <std::vector <char>> getGrid() const;
+  std::vector <std::vector <std::pair<BlockType, int>>> getGrid() const;
   char getCell(int, int) const;
+  void setCell(int, int, std::pair<BlockType, int>);
   GenericBlock* getCurBlock() const;
   GenericBlock* getNextBlock() const;
   int getScore() const;
