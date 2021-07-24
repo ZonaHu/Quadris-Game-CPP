@@ -4,14 +4,15 @@
 // on 2021-07-16.
 
 #include "BoardModel.h"
+#include <utility>
 
 BoardModel::BoardModel() {
-    std::vector<std::vector <BlockType>> grid(gridY_, std::vector <BlockType> (gridX_, EMPTY));
+    std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(EMPTY, 0)));
     grid_ = grid;
 }
 
 BoardModel::BoardModel(int seed = 0, std::string scriptFile = "", int startLevel = 0) {
-    std::vector<std::vector <BlockType>> grid(gridY_, std::vector <BlockType> (gridX_, EMPTY));
+    std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(EMPTY, 0)));
     // TODO: Instantiate level objects in levelArray_
 
     grid_ = grid;
@@ -25,7 +26,7 @@ BoardModel::~BoardModel() {}
 // Transform Cartesian coords to indices in grid_ vector
 // i.e. (0,0) is bottom left corner of grid
 char BoardModel::getCell(int x, int y) const {
-    return grid_.at(gridY_-1-y).at(x);
+    return grid_.at(gridY_-1-y).at(x).first;
 }
 
 bool BoardModel::checkIfValidMove(int x, int y, int r) {

@@ -10,6 +10,7 @@
 #include "GenericBlock.h"
 #include "GenericLevel.h"
 #include <string>
+#include <map>
 
 class GenericLevel;
 
@@ -20,11 +21,14 @@ private:
   int gridX_ = 11;
   int gridY_ = 18;
 
+  int timestamp_ = 0;
+  std::map<int, std::pair<int, int>> liveBlocks;
+
   // Counts number of times you placed a block without clearing at least one row
   int nonClearStreak_;
 
   // 11x18 vector of chars representing cells. The char represents the Block type.
-  std::vector<std::vector <BlockType>> grid_;
+  std::vector<std::vector <std::pair<BlockType, int>>> grid_;
 
   // Pointer to the Block that the player currently has control over
   GenericBlock* curBlock_;
