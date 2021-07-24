@@ -12,14 +12,41 @@ Level2::Level2(const std::shared_ptr<BoardModel>& p) {
 }
 
 GenericBlock Level2::generateNextBlock() {
-  // TODO: All blocks are selected with equal probability.
-  GenericLevel::generateNextBlock();
+  // generate the next block in level 1
+  GenericBlock res;
+  BlockType curType;
+  int num = rand() % 7;
+  // All blocks are selected with equal probability.
+  // and no star block in this level
+  if (num == 0){
+    curType = S_BLOCK;
+  }
+  else if (num == 1){
+    curType = Z_BLOCK;
+  }
+  else if (num == 2){
+    curType = T_BLOCK;
+  }
+  else if (num == 3){
+    curType = O_BLOCK;
+  }
+  else if (num == 4){
+    curType = L_BLOCK;
+  }
+  else if (num == 5){
+    curType = J_BLOCK;
+  }
+  else if (num == 6){
+    curType = I_BLOCK;
+  }
+  res.setType(curType); // set the current type in the generic block
+  return res;
 }
 
 void Level2::postMoveOperation() {
   // do nothing in level 2
-   }
+}
 
 void Level2::postDropOperation() {
-  GenericLevel::postDropOperation();
+  // do nothing in level 2
 }

@@ -12,13 +12,15 @@ Level3::Level3(const std::shared_ptr<BoardModel>& p) {
 }
 
 GenericBlock Level3::generateNextBlock() {
-  GenericLevel::generateNextBlock();
+
+
 }
 
 void Level3::postMoveOperation() {
-  boardModel_->down(1);
+  // blocks generated in level 3 are "heavy"
+  boardModel_->down(1); //downward move of one row if possible
 }
 
 void Level3::postDropOperation() {
-
+  // do nothing in level 3
 }
