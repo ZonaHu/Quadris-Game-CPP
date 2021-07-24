@@ -48,10 +48,52 @@ bool BoardModel::checkIfValidMove(int x, int y, int r) {
 }
 
 void BoardModel::left(int m) {
-    while (checkIfValidMove(curBlock_->getCoords().first + 1, 
+    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first + 1, 
                             curBlock_->getCoords().second, 
                             curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first + 1, curBlock_->getCoords().second);
         m--;
     }
+    levelArray_.at(level_)->postMoveOperation();
+}
+
+void BoardModel::right(int m) {
+    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first - 1, 
+                            curBlock_->getCoords().second, 
+                            curBlock_->getRotation())) {
+        curBlock_->setCoords(curBlock_->getCoords().first - 1, curBlock_->getCoords().second);
+        m--;
+    }
+    levelArray_.at(level_)->postMoveOperation();
+}
+
+void BoardModel::down(int m) {
+    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
+                            curBlock_->getCoords().second - 1, 
+                            curBlock_->getRotation())) {
+        curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second - 1);
+        m--;
+    }
+    levelArray_.at(level_)->postMoveOperation();
+}
+
+void BoardModel::clockwise(int m) {
+    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
+                            curBlock_->getCoords().second - 1, 
+                            (curBlock_->getRotation() + 1) % 4)) {
+        curBlock_->setRotation((curBlock_->getRotation() + 1) % 4);
+        m--;
+    }
+    levelArray_.at(level_)->postMoveOperation();
+}
+
+void BoardModel::counterclockwise(int m) {
+    // Incrementing by 3 (mod 4) is equivalent to subtracting 1 (mod 4)
+    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
+                            curBlock_->getCoords().second - 1, 
+                            (curBlock_->getRotation() + 3) % 4)) {
+        curBlock_->setRotation((curBlock_->getRotation() + 3) % 4);
+        m--;
+    }
+    levelArray_.at(level_)->postMoveOperation();
 }
