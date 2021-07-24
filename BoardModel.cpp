@@ -97,3 +97,7 @@ void BoardModel::counterclockwise(int m) {
     }
     levelArray_.at(level_)->postMoveOperation();
 }
+
+void BoardModel::drop(int m) {
+    
+}

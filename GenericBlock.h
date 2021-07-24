@@ -9,8 +9,7 @@
 #include <vector>
 #include <tuple>
 
-// Represents the block that the user is currently controlling
-enum BlockType{
+enum BlockType {
   I_BLOCK, // denotes Blocks with Type I
   J_BLOCK, // denotes Blocks with Type J
   L_BLOCK, // denotes Blocks with Type L
@@ -18,13 +17,13 @@ enum BlockType{
   S_BLOCK, // denotes Blocks with Type S
   Z_BLOCK, // denotes Blocks with Type Z
   T_BLOCK,  // denotes Blocks with Type T
-  STAR_BLOCK // denotes the star block in level 4
+  STAR_BLOCK, // denotes the star block in level 4
+  EMPTY
 };
 
 class GenericBlock {
 protected:
   BlockType type_; // Takes on an enum type representing the block type
-  char symbol_;
 
   std::vector<std::vector<std::pair<int, int>>> cells_; // A 4-long vector of 4-tuples each containing the relative coordinates
              // (relative to bottom left) of the cells of the block for each rotation
@@ -45,8 +44,6 @@ public:
   BlockType getType() const;
   // setter for a block's type
   void setType(BlockType);
-
-  char getSymbol() const;
 
   // getter for current cells
   std::vector<std::vector<std::pair<int, int>>> getCells();

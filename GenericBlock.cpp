@@ -17,8 +17,6 @@ GenericBlock::~GenericBlock() {
 BlockType GenericBlock::getType() const { return L_BLOCK; }
 void GenericBlock::setType(BlockType type) { type_ = type; }
 
-char GenericBlock::getSymbol() const {return symbol_; }
-
 std::vector<std::vector<std::pair<int, int>>>
 GenericBlock::getCells() { return cells_; }
 
