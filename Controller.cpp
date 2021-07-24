@@ -67,7 +67,7 @@ void Controller::macro(std::vector <std::string> args) {
 		if (macroInputFlag_) {
 			macroMap_.insert(std::pair<std::string, std::vector<std::tuple<int, int, std::string>>>(tempMacroName_, tempMacroStore_));
 			tempMacroName_.clear();
-			tempMacroStore_clear();
+			tempMacroStore_.clear();
 			macroInputFlag_ = false;
 		} else {
 			std::cout << "You can only save a macro if you were inputting commands for one in the first place!" << std::endl;
