@@ -148,13 +148,13 @@ void BoardModel::checkCompletedRows() {
             x = 0;
             while (x < gridX_) {
                 // Look-up the current cell's data in liveBlocks_ using its timestamp
-                auto it = liveBlocks.find(getCell(x,y).second);
-                if (it != liveBlocks.end()) {
+                auto it = liveBlocks_.find(getCell(x,y).second);
+                if (it != liveBlocks_.end()) {
                     if (it->second.first <= 1) {
                         // All of block's cells have been cleared
                         // Add BONUS POINTS
                         score += pow((it->second.second + 1), 2);
-                        liveBlocks.erase(getCell(x,y).second);
+                        liveBlocks_.erase(getCell(x,y).second);
                     } else {
                         // Block has only been partially cleared
                         it->second.first = it->second.first - 1;

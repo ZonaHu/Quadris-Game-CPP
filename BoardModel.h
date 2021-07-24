@@ -22,7 +22,7 @@ private:
   int gridY_ = 18;
 
   int timestamp_ = 0;
-  std::unordered_map<int, std::pair<int, int>> liveBlocks;
+  std::unordered_map<int, std::pair<int, int>> liveBlocks_;
 
   // Counts number of times you placed a block without clearing at least one row
   int nonClearStreak_;
