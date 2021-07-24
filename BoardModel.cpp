@@ -52,7 +52,7 @@ bool BoardModel::checkIfValidMove(int x, int y, int r) {
     return true;
 }
 
-void BoardModel::left(int m) {
+void BoardModel::left(int m = 1) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first + 1, 
                             curBlock_->getCoords().second, 
                             curBlock_->getRotation())) {
@@ -62,7 +62,7 @@ void BoardModel::left(int m) {
     levelArray_.at(level_)->postMoveOperation();
 }
 
-void BoardModel::right(int m) {
+void BoardModel::right(int m = 1) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first - 1, 
                             curBlock_->getCoords().second, 
                             curBlock_->getRotation())) {
@@ -72,7 +72,7 @@ void BoardModel::right(int m) {
     levelArray_.at(level_)->postMoveOperation();
 }
 
-void BoardModel::down(int m) {
+void BoardModel::down(int m = 1) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                             curBlock_->getCoords().second - 1, 
                             curBlock_->getRotation())) {
@@ -82,7 +82,7 @@ void BoardModel::down(int m) {
     levelArray_.at(level_)->postMoveOperation();
 }
 
-void BoardModel::clockwise(int m) {
+void BoardModel::clockwise(int m = 1) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                             curBlock_->getCoords().second - 1, 
                             (curBlock_->getRotation() + 1) % 4)) {
@@ -92,7 +92,7 @@ void BoardModel::clockwise(int m) {
     levelArray_.at(level_)->postMoveOperation();
 }
 
-void BoardModel::counterclockwise(int m) {
+void BoardModel::counterclockwise(int m = 1) {
     // Incrementing by 3 (mod 4) is equivalent to subtracting 1 (mod 4)
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                             curBlock_->getCoords().second - 1, 
@@ -103,7 +103,7 @@ void BoardModel::counterclockwise(int m) {
     levelArray_.at(level_)->postMoveOperation();
 }
 
-void BoardModel::drop(int m) {
+void BoardModel::drop(int m = 1) {
     std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
     int x = curBlock_->getCoords().first;
     int y = curBlock_->getCoords().second;
