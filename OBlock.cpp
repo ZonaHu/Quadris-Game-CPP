@@ -8,6 +8,7 @@
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
 OBlock::OBlock() {
   type_ = O_BLOCK;
+  symbol_ = 'O';
   std::vector<std::vector<std::pair<int, int>>> 
                         cells{{{0, 0}, {0, 1}, {1, 0}, {1, 1}}, 
                               {{0, 0}, {0, 1}, {1, 0}, {1, 1}}, 

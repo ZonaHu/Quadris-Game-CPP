@@ -8,6 +8,7 @@
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
 StarBlock::StarBlock() {
   type_ = STAR_BLOCK;
+  symbol_ = '*';
   std::vector<std::vector<std::pair<int, int>>> 
                         cells{{{0, 0}, {0, 0}, {0, 0}, {0, 0}}, 
                               {{0, 0}, {0, 0}, {0, 0}, {0, 0}}, 

@@ -24,6 +24,7 @@ enum BlockType{
 class GenericBlock {
 protected:
   BlockType type_; // Takes on an enum type representing the block type
+  char symbol_;
 
   std::vector<std::vector<std::pair<int, int>>> cells_; // A 4-long vector of 4-tuples each containing the relative coordinates
              // (relative to bottom left) of the cells of the block for each rotation
