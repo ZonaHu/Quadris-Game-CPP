@@ -46,6 +46,8 @@ public:
   // setter for a block's type
   void setType(BlockType);
 
+  char getSymbol() const;
+
   // getter for current cells
   std::vector<std::vector<std::pair<int, int>>> getCells();
 
