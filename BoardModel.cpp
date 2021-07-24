@@ -10,6 +10,16 @@ BoardModel::BoardModel() {
     grid_ = grid;
 }
 
+BoardModel::BoardModel(int seed = 0, std::string scriptFile = "", int startLevel = 0) {
+    std::vector<std::vector <char>> grid(gridY_, std::vector <char> (gridX_, ' '));
+    // TODO: Instantiate level objects in levelArray_
+
+    grid_ = grid;
+    level_ = startLevel;
+    curBlock_ = levelArray_.at(level_)->generateNextBlock();
+    nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+}
+
 BoardModel::~BoardModel() {}
 
 // Transform Cartesian coords to indices in grid_ vector

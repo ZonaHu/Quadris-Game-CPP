@@ -41,6 +41,7 @@ private:
 
 public:
   BoardModel();
+  BoardModel(int, std::string, int);
   ~BoardModel();
   bool checkIfValidMove(int, int, int); // check if any of the 4 coordinates overlaps with a filled cell on the grid.
   void checkCompletedRows();
