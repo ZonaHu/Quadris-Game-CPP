@@ -13,10 +13,12 @@ Level0::Level0(const std::shared_ptr<BoardModel>& p, std::vector<char> blockType
   counter_ = 0;
 }
 
-GenericBlock Level0::generateNextBlock() {
+GenericBlock Level0::generateNextBlock() { // level 0 follows the sequence file
   GenericBlock res;
+  // read the block type from the vector at the correct index
   char typeBlock = blockSeq_.at(counter_);
   BlockType curType;
+  // identify the type
   if (typeBlock == 'I'){
     curType = I_BLOCK;
   }
@@ -38,7 +40,7 @@ GenericBlock Level0::generateNextBlock() {
   else if (typeBlock == 'T'){
     curType = T_BLOCK;
   }
-  counter_++;
+  counter_++; // increment the counter
   res.setType(curType); // set the current type in the generic block
   return res;
 }
