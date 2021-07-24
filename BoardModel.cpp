@@ -115,3 +115,11 @@ void BoardModel::drop(int m) {
     levelArray_[level_]->postDropOperation();
     checkCompletedRows();
 }
+
+void BoardModel::levelup(int m = 1) {
+    level_ = level_ + m >= (int)levelArray_.size() ? (int)levelArray_.size() - 1 : level_ + m;
+}
+
+void BoardModel::leveldown(int m = 1) {
+    level_ = level_ - m < 0 ? 0 : level_ - m;
+}
