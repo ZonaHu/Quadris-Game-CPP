@@ -73,7 +73,7 @@ public:
 
   // getters
   std::vector <std::vector <std::pair<BlockType, int>>> getGrid() const;
-  char getCell(int, int) const;
+  std::pair<BlockType, int> getCell(int, int) const;
   void setCell(int, int, std::pair<BlockType, int>);
   GenericBlock* getCurBlock() const;
   GenericBlock* getNextBlock() const;

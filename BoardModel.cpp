@@ -5,6 +5,7 @@
 
 #include "BoardModel.h"
 #include <utility>
+#include <math.h> 
 
 BoardModel::BoardModel() {
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(EMPTY, 0)));
@@ -25,7 +26,7 @@ BoardModel::~BoardModel() {}
 
 // Transform Cartesian coords to indices in grid_ vector
 // i.e. (0,0) is bottom left corner of grid
-char BoardModel::getCell(int x, int y) const {
+std::pair<BlockType, int> BoardModel::getCell(int x, int y) const {
     return grid_.at(gridY_-1-y).at(x);
 }
 
@@ -126,27 +127,58 @@ void BoardModel::leveldown(int m = 1) {
 
 void BoardModel::checkCompletedRows() {
     int score = 0;
-    for(std::size_t y = 0; y < gridY_; ++y) {
+    int y = 0;
+    int x = 0;
+    int rowsCleared = 0;
+
+    // Iterate from bottom left to top right of grid_
+    while (y < gridY_) {
+        // First, check if a row is completely full
         bool isRowComplete = true;
-        for(std::size_t x = 0; x < gridX_; ++x) {
-            if (getCell(x, y).first = EMPTY) {
+        while (x < gridX_) {
+            if (getCell(x, y).first == EMPTY) {
                 isRowComplete = false;
                 break;
             }
+            x++;
         }
+
         if (isRowComplete) {
-            for(std::size_t x = 0; x < gridX_; ++x) {
+            // Iterate through row for a second time to process scores, delete cells, and shift down cells
+            x = 0;
+            while (x < gridX_) {
+                // Look-up the current cell's data in liveBlocks_ using its timestamp
                 auto it = liveBlocks.find(getCell(x,y).second);
                 if (it != liveBlocks.end()) {
-                    if (it->second->first <= 1) {
-                        score += (it->second->second + 1) ** 2;
+                    if (it->second.first <= 1) {
+                        // All of block's cells have been cleared
+                        // Add BONUS POINTS
+                        score += pow((it->second.second + 1), 2);
                         liveBlocks.erase(getCell(x,y).second);
                     } else {
-                        it->second->first = it->second->first - 1;
+                        // Block has only been partially cleared
+                        it->second.first = it->second.first - 1;
                     }
                 }
-            // Loop upwards, shifting blocks down by 1            
+                // Walk upwards in y direction from current cell,
+                // shifting cells above down by 1
+                int i = y;
+                while (i < gridY_ - 1) {
+                    std::pair<BlockType, int> above = getCell(x, i+1);
+                    setCell(x, i, above);
+                    i++;
+                }
+                // Cell in topmost row will be EMPTY
+                setCell(x, gridY_-1, std::make_pair(EMPTY, 0));
+                x++;
             }
+            rowsCleared++;
+            // Note, we do not increment y because all rows above have shifted down by 1
+        } else {
+            x = 0;
+            y++;
         }
+        // Add REGULAR POINTS
+        score += pow((level_ + rowsCleared), 2);
     }
 }
