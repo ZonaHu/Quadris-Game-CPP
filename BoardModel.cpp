@@ -6,12 +6,12 @@
 #include "BoardModel.h"
 
 BoardModel::BoardModel() {
-    std::vector<std::vector <char>> grid(gridY_, std::vector <char> (gridX_, ' '));
+    std::vector<std::vector <BlockType>> grid(gridY_, std::vector <BlockType> (gridX_, EMPTY));
     grid_ = grid;
 }
 
 BoardModel::BoardModel(int seed = 0, std::string scriptFile = "", int startLevel = 0) {
-    std::vector<std::vector <char>> grid(gridY_, std::vector <char> (gridX_, ' '));
+    std::vector<std::vector <BlockType>> grid(gridY_, std::vector <BlockType> (gridX_, EMPTY));
     // TODO: Instantiate level objects in levelArray_
 
     grid_ = grid;
@@ -99,5 +99,5 @@ void BoardModel::counterclockwise(int m) {
 }
 
 void BoardModel::drop(int m) {
-    
+
 }

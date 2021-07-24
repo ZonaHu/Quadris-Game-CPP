@@ -24,7 +24,7 @@ private:
   int nonClearStreak_;
 
   // 11x18 vector of chars representing cells. The char represents the Block type.
-  std::vector<std::vector <char>> grid_;
+  std::vector<std::vector <BlockType>> grid_;
 
   // Pointer to the Block that the player currently has control over
   GenericBlock* curBlock_;
