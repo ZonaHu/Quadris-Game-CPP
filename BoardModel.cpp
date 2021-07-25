@@ -118,10 +118,12 @@ void BoardModel::drop(int m = 1) {
     for(std::size_t i = 0; i < cells.size(); ++i) {
         setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
     }
-    curBlock_ = nextBlock_;
-    nextBlock_ = levelArray_[level_]->generateNextBlock();
     levelArray_[level_]->postDropOperation();
     checkCompletedRows();
+    curBlock_ = nextBlock_;
+    nextBlock_ = levelArray_[level_]->generateNextBlock();
+    // TODO: Disable moves and only allow RESTART
+    isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
     notify();
 }
 

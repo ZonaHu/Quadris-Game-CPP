@@ -40,6 +40,7 @@ private:
   int score_; // keep track of the score
   int hi_score_; // keep track of the highest score
   int level_; // keep track of the curent level
+  bool isGameOver_ = false;
 
   // Vector of pointers to GenericLevel object, each level at corresponding index
   std::vector <std::unique_ptr<GenericLevel>> levelArray_;
