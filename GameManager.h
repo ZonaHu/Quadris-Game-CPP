@@ -22,8 +22,8 @@ private:
   Controller* controller_; // pointer to Controller object
 
 public:
-  GameManager(); // default constructor
-  ~GameManager(); // destructor
+  GameManager(bool isTextOnly, int seed, std::string scriptFile, int startLevel); //  constructor
+  ~GameManager(){}; // destructor
   void start(); // Initializes the game, game ends on reading EOF
 };
 
