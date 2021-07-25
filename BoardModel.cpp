@@ -26,10 +26,30 @@ BoardModel::BoardModel(int seed = 0, std::string scriptFile = "", int startLevel
 
 BoardModel::~BoardModel() {}
 
+std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() {
+    return grid_;
+}
+
 // Transform Cartesian coords to indices in grid_ vector
 // i.e. (0,0) is bottom left corner of grid
 std::pair<BlockType, int> BoardModel::getCell(int x, int y) const {
     return grid_.at(gridY_-1-y).at(x);
+}
+
+std::shared_ptr<GenericBlock> BoardModel::getCurBlock() { return curBlock_; }
+
+std::shared_ptr<GenericBlock> BoardModel::getNextBlock() { return nextBlock_; }
+
+int BoardModel::getScore() { return score_; }
+
+int BoardModel::getHiScore() { return hi_score_; }
+
+int BoardModel::getLevel() { return level_; }
+
+int BoardModel::getNonClearStreak() { return nonClearStreak_; }
+
+void BoardModel::setNonClearStreak(int n) {
+    nonClearStreak_ = n;
 }
 
 void BoardModel::setCell(int x, int y, std::pair<BlockType, int> data) {

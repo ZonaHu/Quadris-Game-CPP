@@ -77,7 +77,7 @@ public:
   std::vector <std::vector <std::pair<BlockType, int>>> getGrid() const;
   std::pair<BlockType, int> getCell(int, int) const;
   void setCell(int, int, std::pair<BlockType, int>);
-  GenericBlock* getCurBlock() const;
+  std::shared_ptr<GenericBlock> getCurBlock() const;
   GenericBlock* getNextBlock() const;
   int getScore() const;
   int getHiScore() const;
