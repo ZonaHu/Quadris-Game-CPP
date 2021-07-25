@@ -61,6 +61,7 @@ void BoardModel::left(int m = 1) {
         m--;
     }
     levelArray_.at(level_)->postMoveOperation();
+    notify();
 }
 
 void BoardModel::right(int m = 1) {
@@ -71,6 +72,7 @@ void BoardModel::right(int m = 1) {
         m--;
     }
     levelArray_.at(level_)->postMoveOperation();
+    notify();
 }
 
 void BoardModel::down(int m = 1) {
@@ -81,6 +83,7 @@ void BoardModel::down(int m = 1) {
         m--;
     }
     levelArray_.at(level_)->postMoveOperation();
+    notify();
 }
 
 void BoardModel::clockwise(int m = 1) {
@@ -91,6 +94,7 @@ void BoardModel::clockwise(int m = 1) {
         m--;
     }
     levelArray_.at(level_)->postMoveOperation();
+    notify();
 }
 
 void BoardModel::counterclockwise(int m = 1) {
@@ -102,6 +106,7 @@ void BoardModel::counterclockwise(int m = 1) {
         m--;
     }
     levelArray_.at(level_)->postMoveOperation();
+    notify();
 }
 
 void BoardModel::drop(int m = 1) {
@@ -115,14 +120,17 @@ void BoardModel::drop(int m = 1) {
     nextBlock_ = levelArray_[level_]->generateNextBlock();
     levelArray_[level_]->postDropOperation();
     checkCompletedRows();
+    notify();
 }
 
 void BoardModel::levelup(int m = 1) {
     level_ = level_ + m >= (int)levelArray_.size() ? (int)levelArray_.size() - 1 : level_ + m;
+    notify();
 }
 
 void BoardModel::leveldown(int m = 1) {
     level_ = level_ - m < 0 ? 0 : level_ - m;
+    notify();
 }
 
 void BoardModel::checkCompletedRows() {
