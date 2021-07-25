@@ -52,20 +52,20 @@ void Level4::postDropOperation() {
   // without clearing at least one row
 
   int count = boardModel_->getNonClearStreak(); // get a counter for non clear streak
-  if (count%5 == 0){
-    // initialize the coordinates
-    int x_coord = 0;
-    int y_coord = 0;
-    // create a 1*1 star block in the centre column
-    std::pair<BlockType, int> TypePair (STAR_BLOCK,0);
+  if (count % 5 == 0){
     // get a copy of the current grid
     std::vector<std::vector<std::pair<BlockType, int>>> curGrid = boardModel_->getGrid();
     // start from bottom middle and walk upwards until it finds an empty cell to put a 1x1 block
-    for (int i = 0; )
-
-
-
-
-    boardModel_.setCell(x_coord,y_coord,TypePair);
+    // initialize the coordinates
+    int x_coord = curGrid.size()/2;
+    int y_coord = curGrid.at(0).size()/2;
+    // create a 1*1 star block in the centre column
+    std::pair<BlockType, int> TypePair (STAR_BLOCK,0);
+    // finds an empty cell
+    while (curGrid.at(x_coord).at(y_coord).second != 0 ||
+        curGrid.at(x_coord).at(y_coord).first == EMPTY ){ // find an empty pair (make sure they're empty blocks)
+      y_coord ++;
+    }
+    boardModel_.setCell(x_coord,y_coord,TypePair); // reset the grids
   }
 }
