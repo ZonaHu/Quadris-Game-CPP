@@ -115,7 +115,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 			if (cmdNum == -1) {
 				multiplier = 0;
 			}
-			std::tuple<int, int, std::string> line = (multiplier, cmdNum, args);
+			std::tuple<int, int, std::string> line = (std::make_tuple(multiplier, cmdNum, args));
 			tempMacroStore_.push_back(line);
 		} else {
 			std::string cmdStart = "";
