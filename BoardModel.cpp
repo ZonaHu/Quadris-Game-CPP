@@ -182,3 +182,45 @@ void BoardModel::checkCompletedRows() {
         score += pow((level_ + rowsCleared), 2);
     }
 }
+
+void BoardModel::I() {
+    std::shared_ptr<GenericBlock> newBlock(new IBlock());
+    curBlock_ = newBlock;
+    notify();
+}
+
+void BoardModel::J() {
+    std::shared_ptr<GenericBlock> newBlock(new JBlock());
+    curBlock_ = newBlock;
+    notify();
+}
+
+void BoardModel::L() {
+    std::shared_ptr<GenericBlock> newBlock(new LBlock());
+    curBlock_ = newBlock;
+    notify();
+}
+
+void BoardModel::S() {
+    std::shared_ptr<GenericBlock> newBlock(new SBlock());
+    curBlock_ = newBlock;
+    notify();
+}
+
+void BoardModel::Z() {
+    std::shared_ptr<GenericBlock> newBlock(new ZBlock());
+    curBlock_ = newBlock;
+    notify();
+}
+
+void BoardModel::O() {
+    std::shared_ptr<GenericBlock> newBlock(new OBlock());
+    curBlock_ = newBlock;
+    notify();
+}
+
+void BoardModel::T() {
+    std::shared_ptr<GenericBlock> newBlock(new TBlock());
+    curBlock_ = newBlock;
+    notify();
+}
