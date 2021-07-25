@@ -53,11 +53,19 @@ void Level4::postDropOperation() {
 
   int count = boardModel_->getNonClearStreak(); // get a counter for non clear streak
   if (count%5 == 0){
+    // initialize the coordinates
+    int x_coord = 0;
+    int y_coord = 0;
     // create a 1*1 star block in the centre column
+    std::pair<BlockType, int> TypePair (STAR_BLOCK,0);
+    // get a copy of the current grid
+    std::vector<std::vector<std::pair<BlockType, int>>> curGrid = boardModel_->getGrid();
     // start from bottom middle and walk upwards until it finds an empty cell to put a 1x1 block
-    std::vector <std::vector <char>> curGrid = boardModel_->getGrid();
-    // TODO: finish the rest
+    for (int i = 0; )
 
 
+
+
+    boardModel_.setCell(x_coord,y_coord,TypePair);
   }
 }
