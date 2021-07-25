@@ -17,6 +17,8 @@ BoardModel::BoardModel(int seed = 0, std::string scriptFile = "", int startLevel
     // TODO: Instantiate level objects in levelArray_
 
     grid_ = grid;
+    score_ = 0;
+    hi_score_ = 0;
     level_ = startLevel;
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
@@ -231,4 +233,13 @@ void BoardModel::T() {
     std::shared_ptr<GenericBlock> newBlock(new TBlock());
     curBlock_ = newBlock;
     notify();
+}
+
+void BoardModel::restart() {
+    std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(EMPTY, 0)));
+    grid_ = grid;
+    score_ = 0;
+    level_ = startLevel;
+    curBlock_ = levelArray_.at(level_)->generateNextBlock();
+    nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
