@@ -10,20 +10,26 @@
 #include <cstdlib>
 #include <map>
 #include <algorithm>
+#include <iostream>
 
 class Controller {
 private:
-  BoardModel* boardModel_; // Pointer to BoardModel.
+  std::shared_ptr <BoardModel> boardModel_; // Pointer to BoardModel.
   std::vector <std::string> commandList_;  // vector of strings representing each command name
   std::map <std::string, std::vector<std::tuple<int, int, std::string>>> macroMap_;
+  std::vector<std::tuple<int, int, std::string>> tempMacroStore_;
+  std::string tempMacroName_;
+  bool macroInputFlag_;
+  bool parse(std::string, std::string);
+  void rename(std::vector <std::string> args);
+  void macro(std::vector <std::string> args);
   void extractMultiplier(std::string);
   void execCommand(std::string, int);
 
 public:
-  Controller();
+  Controller(std::shared_ptr <BoardModel>);
   ~Controller();
   friend std::istream &operator>>(std::istream &, Controller &); //  Pass cin input to extractMultiplier().
-  bool parse(std::string, std::string);
 };
 
 #endif // PROJECT_2_3_CONTROLLER_H
