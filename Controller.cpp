@@ -190,7 +190,7 @@ void Controller::extractMultiplier(std::string input) {
 	std::string multWord = "";
 	int cmdStart = 0;
 	for (int i = 0; i < (int) input.length(); i++) {
-		if (std::isDigit(input[i])) {
+		if (std::isdigit(input[i])) {
 			multWord.append(input[i]);
 		} else {
 			cmdStart = i;
