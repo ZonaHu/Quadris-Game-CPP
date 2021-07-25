@@ -26,7 +26,7 @@ private:
   std::unordered_map<int, std::pair<int, int>> liveBlocks_;
 
   // Counts number of times you placed a block without clearing at least one row
-  int nonClearStreak_;
+  int nonClearStreak_ = 0;
 
   // 11x18 vector of chars representing cells. The char represents the Block type.
   std::vector<std::vector<std::pair<BlockType, int>>> grid_;

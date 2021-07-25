@@ -176,6 +176,7 @@ void BoardModel::checkCompletedRows() {
         }
 
         if (isRowComplete) {
+            nonClearStreak_ = 0;
             // Iterate through row for a second time to process scores, delete cells, and shift down cells
             x = 0;
             while (x < gridX_) {
@@ -207,6 +208,7 @@ void BoardModel::checkCompletedRows() {
             rowsCleared++;
             // Note, we do not increment y because all rows above have shifted down by 1
         } else {
+            nonClearStreak_++;
             x = 0;
             y++;
         }
