@@ -15,7 +15,7 @@
 Controller::Controller(std::shared_ptr <BoardModel> board) {
 	boardModel_ = board;
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
-			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"}
+			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"};
 	tempMacroName_ = "";
 	macroInputFlag_ = false;
 }
@@ -29,7 +29,7 @@ Controller::~Controller() {
 
 bool Controller::parse(std::string input, std::string command) {
 	bool flag = true;
-	for (int i = 0; i < (int) input.length; i++) {
+	for (int i = 0; i < (int) input.length(); i++) {
 		if (input[i] != command[i]){
 			flag = false;
 			break;

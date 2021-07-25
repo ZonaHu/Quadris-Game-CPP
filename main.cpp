@@ -5,8 +5,9 @@
 
 #include <iostream>
 
-int main(){
+int main(int args, char *argv[]){
   // Creates an instance of GameManager, passing in the CLI args.
+
 
 
 }
