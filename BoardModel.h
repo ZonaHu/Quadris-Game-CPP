@@ -11,6 +11,7 @@
 #include "GenericLevel.h"
 #include <string>
 #include <unordered_map>
+#include <memory>
 
 class GenericLevel;
 
@@ -31,17 +32,17 @@ private:
   std::vector<std::vector<std::pair<BlockType, int>>> grid_;
 
   // Pointer to the Block that the player currently has control over
-  GenericBlock* curBlock_;
+  std::shared_ptr<GenericBlock> curBlock_;
 
   // Pointer to the Block that comes next
-  GenericBlock* nextBlock_;
+  std::shared_ptr<GenericBlock> nextBlock_;
 
   int score_; // keep track of the score
   int hi_score_; // keep track of the highest score
   int level_; // keep track of the curent level
 
   // Vector of pointers to GenericLevel object, each level at corresponding index
-  std::vector <GenericLevel*> levelArray_;
+  std::vector <std::unique_ptr<GenericLevel>> levelArray_;
 
 public:
   BoardModel();
