@@ -12,3 +12,6 @@ GenericLevel::GenericLevel(const std::shared_ptr<BoardModel>& p) {
    boardModel_ = p;
 }
 
+void GenericLevel::setBlockGenSequence(std::vector<BlockType> seq) {
+  blockSeq_ = seq;
+}
