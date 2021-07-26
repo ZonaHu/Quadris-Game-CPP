@@ -4,6 +4,14 @@
 // on 2021-07-16.
 
 #include "GameManager.h"
+#include "Controller.h"
+#include "BoardModel.h"
+#include "GenericLevel.h"
+#include "Level0.h"
+#include "Level1.h"
+#include "Level2.h"
+#include "Level3.h"
+#include "Level4.h"
 #include <memory>
 
 /* Create instance of BoardModel passing the following to the constructor (seed, scriptFile, startLevel).
