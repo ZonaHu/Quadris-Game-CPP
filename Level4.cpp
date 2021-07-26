@@ -2,7 +2,7 @@
 // Derived from GenericLevel
 // Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
 // on 2021-07-16.
-#include "GenericLevel.h"
+#include "Level4.h"
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
