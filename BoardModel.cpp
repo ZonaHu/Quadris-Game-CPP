@@ -278,3 +278,7 @@ void BoardModel::restart() {
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
+
+void BoardModel::random() {}
+
+void BoardModel::hint() {}
