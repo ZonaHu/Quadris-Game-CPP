@@ -125,7 +125,7 @@ std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
 				line.erase(0, pos + 1);
 			}
 			for (int i = 0; i < (int) block.size(); i++){
-				if (block[i] == token){
+				if (block[i] == line){
 					index = i;
 					break;
 				}
