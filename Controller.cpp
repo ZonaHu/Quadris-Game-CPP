@@ -131,7 +131,7 @@ std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
 					break;
 				}
 			}
-			blockList.push_back(static_cast<BlockType>(line));
+			blockList.push_back(static_cast<BlockType>(index));
 		}
 		file.close();
 	} else {
