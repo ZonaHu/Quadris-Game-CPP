@@ -17,38 +17,29 @@ std::shared_ptr <GenericBlock> Level0::generateNextBlock() {  // level 0 follows
   std::shared_ptr<GenericBlock> res;
   // read the block type from the vector at the correct index
   BlockType typeBlock = blockSeq_.at(counter_);
-  BlockType curType;
   // identify the type
   if (typeBlock == BlockType::I_BLOCK){
-    curType = BlockType::I_BLOCK;
     res = std::make_shared<IBlock>();
   }
   else if (typeBlock == BlockType::J_BLOCK){
-    curType = BlockType::J_BLOCK;
     res = std::make_shared<JBlock>();
   }
   else if (typeBlock == BlockType::L_BLOCK){
-    curType = BlockType::L_BLOCK;
     res = std::make_shared<LBlock>();
   }
   else if (typeBlock == BlockType::O_BLOCK){
-    curType = BlockType::O_BLOCK;
     res = std::make_shared<OBlock>();
   }
   else if (typeBlock == BlockType::S_BLOCK){
-    curType = BlockType::S_BLOCK;
     res = std::make_shared<SBlock>();
   }
   else if (typeBlock == BlockType::Z_BLOCK){
-    curType = BlockType::Z_BLOCK;
     res = std::make_shared<ZBlock>();
   }
   else if (typeBlock == BlockType::T_BLOCK){
-    curType = BlockType::T_BLOCK;
     res = std::make_shared<TBlock>();
   }
   counter_++; // increment the counter
-  res->setType(curType); // set the current type in the generic block
   return res;
 }
 

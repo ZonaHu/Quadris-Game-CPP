@@ -17,38 +17,29 @@ Level4::Level4(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom) {
 std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
   // generate the next block in level 4
   std::shared_ptr<GenericBlock> res;
-  BlockType curType;
   if (nonRandom_){ // if in non-random mode
     // read the block type from the vector at the correct index
     BlockType typeBlock = blockSeq_.at(counter_);
-    BlockType curType;
     // identify the type
     if (typeBlock == BlockType::I_BLOCK){
-      curType = BlockType::I_BLOCK;
       res = std::make_shared<IBlock>();
     }
     else if (typeBlock == BlockType::J_BLOCK){
-      curType = BlockType::J_BLOCK;
       res = std::make_shared<JBlock>();
     }
     else if (typeBlock == BlockType::L_BLOCK){
-      curType = BlockType::L_BLOCK;
       res = std::make_shared<LBlock>();
     }
     else if (typeBlock == BlockType::O_BLOCK){
-      curType = BlockType::O_BLOCK;
       res = std::make_shared<OBlock>();
     }
     else if (typeBlock == BlockType::S_BLOCK){
-      curType = BlockType::S_BLOCK;
       res = std::make_shared<SBlock>();
     }
     else if (typeBlock == BlockType::Z_BLOCK){
-      curType = BlockType::Z_BLOCK;
       res = std::make_shared<ZBlock>();
     }
     else if (typeBlock == BlockType::T_BLOCK){
-      curType = BlockType::T_BLOCK;
       res = std::make_shared<TBlock>();
     }
     counter_++; // increment the counter
@@ -58,36 +49,28 @@ std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
     int num = (int) rng() % 9;
     // S and Z are selected with a probability of 2/9 each
     if (num == 0 || num == 1){
-      curType = BlockType::S_BLOCK;
       res = std::make_shared<SBlock>();
     }
     else if (num == 2 || num == 3){
-      curType = BlockType::Z_BLOCK;
       res = std::make_shared<ZBlock>();
     }
       // other blocks are selected with a probability of 1/9 each (and no star block in this level)
     else if (num == 4){
-      curType = BlockType::T_BLOCK;
       res = std::make_shared<TBlock>();
     }
     else if (num == 5){
-      curType = BlockType::O_BLOCK;
       res = std::make_shared<OBlock>();
     }
     else if (num == 6){
-      curType = BlockType::L_BLOCK;
       res = std::make_shared<LBlock>();
     }
     else if (num == 7){
-      curType = BlockType::J_BLOCK;
       res = std::make_shared<JBlock>();
     }
     else if (num == 8){
-      curType = BlockType::I_BLOCK;
       res = std::make_shared<IBlock>();
     }
   }
-  res->setType(curType); // set the current type in the generic block
   return res;
 }
 
