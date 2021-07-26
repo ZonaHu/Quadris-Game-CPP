@@ -10,7 +10,7 @@
 #include <tuple>
 
 // Represents the block that the user is currently controlling
-enum BlockType{
+enum class BlockType{
   I, // denotes Blocks with Type I
   J, // denotes Blocks with Type J
   L, // denotes Blocks with Type L
