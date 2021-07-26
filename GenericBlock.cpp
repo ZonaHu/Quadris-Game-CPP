@@ -14,7 +14,7 @@ GenericBlock::~GenericBlock() {
 }
 
 // TODO: implement the rest
-BlockType GenericBlock::getType() const { return L_BLOCK; }
+BlockType GenericBlock::getType() const { return BlockType::L_BLOCK; }
 
 void GenericBlock::setType() {}
 
