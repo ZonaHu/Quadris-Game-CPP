@@ -17,7 +17,7 @@ std::shared_ptr <GenericBlock> Level2::generateNextBlock() {
   std::shared_ptr<GenericBlock> res;
   BlockType curType;
   static std::mt19937 rng(seed_);
-  int num = rng() % 7;
+  int num = (int) rng() % 7;
   // All blocks are selected with equal probability.
   // and no star block in this level
   if (num == 0){
