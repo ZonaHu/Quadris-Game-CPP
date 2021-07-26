@@ -109,29 +109,29 @@ std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
 	std::ifstream file (fileName);
 	std::string line = "";
 	std::vector <BlockType> blockList;
-	std::string block[] = {"I", "J", "L", "O", "S", "Z", "T", "*"};
+	std::string block[8] = {"I", "J", "L", "O", "S", "Z", "T", "*"};
 	if (file.is_open()) {
 		while (std::getline(file, line)) {
 			size_t pos = 0;
 			int index = 0;
 			while ((pos = line.find(" ")) != std::string::npos) {
 				std::string token = line.substr(0, pos);
-				for (int i = 0; i < (int) block.size(); i++){
+				for (int i = 0; i < 8; i++){
 					if (block[i] == token){
 						index = i;
 						break;
 					}
 				}
-				blockList.push_back(index);
+				blockList.push_back(static_cast<BlockList>(index));
 				line.erase(0, pos + 1);
 			}
-			for (int i = 0; i < (int) block.size(); i++){
+			for (int i = 0; i < 8; i++){
 				if (block[i] == line){
 					index = i;
 					break;
 				}
 			}
-			blockList.push_back(line);
+			blockList.push_back(static_cast<BlockList>(line));
 		}
 		file.close();
 	} else {
