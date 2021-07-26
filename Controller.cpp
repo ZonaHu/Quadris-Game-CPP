@@ -122,7 +122,7 @@ std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
 						break;
 					}
 				}
-				blockList.push_back(static_cast<BlockList>(index));
+				blockList.push_back(static_cast<BlockType>(index));
 				line.erase(0, pos + 1);
 			}
 			for (int i = 0; i < 8; i++){
@@ -131,7 +131,7 @@ std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
 					break;
 				}
 			}
-			blockList.push_back(static_cast<BlockList>(line));
+			blockList.push_back(static_cast<BlockType>(line));
 		}
 		file.close();
 	} else {
