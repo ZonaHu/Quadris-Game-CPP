@@ -6,6 +6,7 @@
 # include <iostream>
 # include <cstdlib>
 # include <string>
+# include <string.h>
 # include <sstream>
 # include "GameManager.h"
 # include <memory>
