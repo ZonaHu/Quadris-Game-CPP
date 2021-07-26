@@ -13,6 +13,10 @@ Begin an infinite while loop that reads user input from cin into the Controller 
 
 GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
                          int startLevel, bool enableBonus) {
+  // int seed  sets the random number generator's seed to this number
+  // std::string scriptFile source of blocks for level 0
+  // int startLevel starts the game in this level
+  // bool enableBonus activates bonus features if true
   // initialize all private members
   BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
   isTextOnly_ = isTextOnly; // if set to true, the program is in text-only mode
