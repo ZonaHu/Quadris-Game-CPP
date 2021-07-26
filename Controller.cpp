@@ -203,7 +203,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else if (parse(cmdStart, commandList_[7])) {
 				boardModel_->leveldown(multiplier);
 			} else if (parse(cmdStart, commandList_[8]) && (int) cmdArgs.size() == 1) {
-				blockSequenceSource(cmdArgs[0]);
+				boardModel_->setBlockGenSequence(blockSequenceSource(cmdArgs[0]));
 			} else if (parse(cmdStart, commandList_[9])) {
 				boardModel_->random();
 			} else if (parse(cmdStart, commandList_[10]) && (int) cmdArgs.size() == 1) {
@@ -244,14 +244,14 @@ void Controller::extractMultiplier(std::string input) {
 	int cmdStart = 0;
 	for (int i = 0; i < (int) input.length(); i++) {
 		if (std::isdigit(input[i])) {
-			multWord.append(input[i]);
+			multWord.append(input[i] + "");
 		} else {
 			cmdStart = i;
 			break;
 		}
 	}
 	if (!multWord.empty()) {
-		multiplier = std::atoi(multWord);
+		multiplier = std::atoi(multWord.c_str());
 	}
 	command = input.substr(cmdStart);
 	execCommand(command, multiplier);
@@ -260,6 +260,6 @@ void Controller::extractMultiplier(std::string input) {
 std::istream &operator>>(std::istream &in, Controller &control) {
 	std::string input;
 	in >> input;
-	control->extractMultiplier(input);
+	control.extractMultiplier(input);
 	return in;
 }
