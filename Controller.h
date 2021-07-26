@@ -35,7 +35,7 @@ public:
   Controller(std::shared_ptr <BoardModel>, bool);
   ~Controller();
   std::vector <BlockType> blockSequenceSource(std::string);
-  friend std::istream &operator>>(std::istream &, Controller &); //  Pass cin input to extractMultiplier().
+  friend std::istream &operator>>(std::istream &, std::unique_ptr<Controller>); //  Pass cin input to extractMultiplier().
 
 };
 
