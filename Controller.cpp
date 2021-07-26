@@ -15,7 +15,6 @@
 #include <fstream>
 
 Controller::Controller(bool enableBonus) {
-	boardModel_ = board;
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
 			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"};
 	tempMacroName_ = "";
@@ -213,19 +212,19 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else if (parse(cmdStart, commandList_[10]) && (int) cmdArgs.size() == 1) {
 				sequence(cmdArgs[0]);
 			} else if (parse(cmdStart, commandList_[11])) {
-				boardModel_->I(multiplier);
+				boardModel_->I();
 			} else if (parse(cmdStart, commandList_[12])) {
-				boardModel_->J(multiplier);
+				boardModel_->J();
 			} else if (parse(cmdStart, commandList_[13])) {
-				boardModel_->L(multiplier);
+				boardModel_->L();
 			} else if (parse(cmdStart, commandList_[14])) {
-				boardModel_->S(multiplier);
+				boardModel_->S();
 			} else if (parse(cmdStart, commandList_[15])) {
-				boardModel_->Z(multiplier);
+				boardModel_->Z();
 			} else if (parse(cmdStart, commandList_[16])) {
-				boardModel_->O(multiplier);
+				boardModel_->O();
 			} else if (parse(cmdStart, commandList_[17])) {
-				boardModel_->T(multiplier);
+				boardModel_->T();
 			} else if (parse(cmdStart, commandList_[18])) {
 				boardModel_->restart();
 			} else if (parse(cmdStart, commandList_[19])) {
