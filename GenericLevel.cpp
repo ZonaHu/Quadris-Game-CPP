@@ -6,15 +6,9 @@
 #include "GenericLevel.h"
 
 // initialize all data members
-GenericLevel::GenericLevel() {
-  // TODO: default constructor
+// gets called in the board model class, the parameter will be passes in
+GenericLevel::GenericLevel(const std::shared_ptr<BoardModel>& p) {
+  // constructor
+   boardModel_ = p;
 }
-GenericLevel::~GenericLevel() {
-  // TODO: destructor
-}
-
-// TODO: implement the rest
-void GenericLevel::generateNextBlock() {}
-void GenericLevel::postMoveOperation() {}
-void GenericLevel::postDropOperation() {}
 

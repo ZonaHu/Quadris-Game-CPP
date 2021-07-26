@@ -4,16 +4,44 @@
 // on 2021-07-16.
 
 #include "GameManager.h"
-GameManager::GameManager() {
-  // TODO: initialize all private members
-}
+#include <memory>
 
-GameManager::~GameManager() {
-  // TODO: clean up memory
+/* Create instance of BoardModel passing the following to the constructor (seed, scriptFile, startLevel).
+Create instance of  appropriate Observer derived classes based on value of isTextOnly; subscribe them to the BoardModel.
+Create an instance of Controller passing BoardModel to the constructor.
+Begin an infinite while loop that reads user input from cin into the Controller input overload.*/
+
+GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
+                         int startLevel, bool enableBonus) {
+  // int seed  sets the random number generator's seed to this number
+  // std::string scriptFile source of blocks for level 0
+  // int startLevel starts the game in this level
+  // bool enableBonus activates bonus features if true
+  // initialize all private members
+  BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
+  isTextOnly_ = isTextOnly; // if set to true, the program is in text-only mode
+  controller_ = std::make_shared<Controller> (BoardModel_, enableBonus);
 }
 
 //  Starts an infinite game while loop that constantly reads input to the Controller.
 //  (game ends on reading EOF)
 void GameManager::start() {
-  // TODO: Initializes the game.
+  // Initializes the game.
+  // Create instance of appropriate Observer derived classes
+  // based on value of isTextOnly; subscribe them to the BoardModel.
+  if (isTextOnly_){
+    std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
+    BoardModel_->subscribe(t); // subscribe the text display only
+  }
+  else{
+    // subscribe to both displays
+    std::shared_ptr<Observer> t = std::make_shared<TextDisplay>(BoardModel_);
+    BoardModel_->subscribe(t);
+    std::shared_ptr<Observer> g = std::make_shared<GraphicalDisplay>();
+    BoardModel_->subscribe(g);
+  }
+  while(!std::cin.eof()||!std::cin.fail()){
+    //Begin an infinite while loop that reads user input from cin into the Controller input overload.
+    std::cin >> *controller_;
+  }
 }

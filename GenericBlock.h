@@ -9,7 +9,8 @@
 #include <vector>
 #include <tuple>
 
-enum BlockType {
+// Represents the block that the user is currently controlling
+enum class BlockType{
   I_BLOCK, // denotes Blocks with Type I
   J_BLOCK, // denotes Blocks with Type J
   L_BLOCK, // denotes Blocks with Type L

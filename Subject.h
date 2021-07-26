@@ -10,9 +10,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <memory>
 #include "Observer.h"
 
-typedef std::set<Observer*> Observers;
+typedef std::set<std::shared_ptr <Observer>> Observers;
 
 class Subject {
 private:
@@ -24,8 +25,8 @@ protected:
 public:
   Subject()= default; // default constructor
   ~Subject()= default; // default destructor
-  void subscribe(Observer*);    //Add referenced observer to set of observers
-  void unsubscribe(Observer*);   //Remove referenced observer to set of observers
+  void subscribe(std::shared_ptr <Observer>);    //Add referenced observer to set of observers
+  void unsubscribe(std::shared_ptr <Observer>);   //Remove referenced observer to set of observers
 };
 
 #endif // PROJECT_2_3_SUBJECT_H

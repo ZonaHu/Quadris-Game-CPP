@@ -5,12 +5,9 @@
 
 
 #include "TextDisplay.h"
-TextDisplay::TextDisplay() {
 
-}
-
-TextDisplay::~TextDisplay() {
-
+TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel) {
+  boardModel_ = boardModel;
 }
 
 void TextDisplay::update(Subject *) {

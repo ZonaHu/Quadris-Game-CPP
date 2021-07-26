@@ -9,20 +9,20 @@
 #include <iostream>
 #include "BoardModel.h"
 #include "Controller.h"
+#include "TextDisplay.h"
+#include "GraphicalDisplay.h"
+#include <memory>
 
 class GameManager {
 private:
   // support the options as command line args
   bool isTextOnly_; // if set to true, the program is in text-only mode
-  int seed_; // sets the random number generator's seed to this number
-  std::string scriptFile_; // source of blocks for level 0
-  int startLevel_; // starts the game in this level
-  BoardModel* BoardModel_; // Pointer to BoardModel.
-  Controller* controller_; // pointer to Controller object
+  std::shared_ptr<BoardModel> BoardModel_; // Pointer to BoardModel.
+  std::shared_ptr<Controller> controller_; // pointer to Controller object
 
 public:
-  GameManager(); // default constructor
-  ~GameManager(); // destructor
+  GameManager(bool isTextOnly, int seed, std::string scriptFile, int startLevel, bool enableBonus); //  constructor
+  ~GameManager()= default; // destructor
   void start(); // Initializes the game, game ends on reading EOF
 };
 
