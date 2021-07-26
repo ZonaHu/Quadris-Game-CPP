@@ -20,7 +20,7 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
   // initialize all private members
   BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
   isTextOnly_ = isTextOnly; // if set to true, the program is in text-only mode
-  controller_ = std::make_unique<Controller> (BoardModel_, enableBonus);
+  controller_ = std::make_shared<Controller> (BoardModel_, enableBonus);
 }
 
 //  Starts an infinite game while loop that constantly reads input to the Controller.
@@ -42,6 +42,6 @@ void GameManager::start() {
   }
   while(!std::cin.eof()||!std::cin.fail()){
     //Begin an infinite while loop that reads user input from cin into the Controller input overload.
-    std::cin >> controller_;
+    std::cin >> *controller_;
   }
 }

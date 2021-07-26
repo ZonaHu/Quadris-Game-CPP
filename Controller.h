@@ -26,7 +26,6 @@ private:
   bool parse(std::string, std::string);
   void rename(std::vector <std::string>);
   void macro(std::vector <std::string>);
-  void extractMultiplier(std::string);
   void execCommand(std::string, int);
   std::vector <BlockType> norandom(std::string);
   void sequence(std::string);
@@ -34,8 +33,9 @@ private:
 public:
   Controller(std::shared_ptr <BoardModel>, bool);
   ~Controller();
+  void extractMultiplier(std::string);
   std::vector <BlockType> blockSequenceSource(std::string);
-  friend std::istream &operator>>(std::istream &, std::unique_ptr<Controller>); //  Pass cin input to extractMultiplier().
+  friend std::istream &operator>>(std::istream &, Controller &control); //  Pass cin input to extractMultiplier().
 
 };
 
