@@ -14,12 +14,11 @@ BoardModel::BoardModel() {
 
 BoardModel::BoardModel(int seed = 0, std::string scriptFile = "", int startLevel = 0) {
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(EMPTY, 0)));
-    // TODO: Instantiate level objects in levelArray_
-
     grid_ = grid;
     score_ = 0;
     hi_score_ = 0;
     level_ = startLevel;
+    // Default blocks for until the levels are instantiated in setBlockGenSequence()
     curBlock_ = std::make_shared<IBlock>();
     nextBlock_ = std::make_shared<IBlock>();
 }
@@ -41,9 +40,7 @@ void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
 
-std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() {
-    return grid_;
-}
+std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() { return grid_; }
 
 // Transform Cartesian coords to indices in grid_ vector
 // i.e. (0,0) is bottom left corner of grid
@@ -72,10 +69,11 @@ void BoardModel::setCell(int x, int y, std::pair<BlockType, int> data) {
 }
 
 bool BoardModel::checkIfValidMove(int x, int y, int r) {
-    // Get cells of curBlock_ that correspond to rotation r
+    // Get the cells of curBlock_ that correspond to rotation r
     std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(r);
 
     for(std::size_t i = 0; i < cells.size(); ++i) {
+        // Get absolute coordinates on grid_
         int cellX = x+cells[i].first;
         int cellY = y+cells[i].second;
         // Out of bounds check
@@ -92,8 +90,8 @@ bool BoardModel::checkIfValidMove(int x, int y, int r) {
 
 void BoardModel::left(int m = 1) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first + 1, 
-                            curBlock_->getCoords().second, 
-                            curBlock_->getRotation())) {
+                                     curBlock_->getCoords().second, 
+                                     curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first + 1, curBlock_->getCoords().second);
         m--;
     }
@@ -103,8 +101,8 @@ void BoardModel::left(int m = 1) {
 
 void BoardModel::right(int m = 1) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first - 1, 
-                            curBlock_->getCoords().second, 
-                            curBlock_->getRotation())) {
+                                     curBlock_->getCoords().second, 
+                                     curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first - 1, curBlock_->getCoords().second);
         m--;
     }
@@ -114,8 +112,8 @@ void BoardModel::right(int m = 1) {
 
 void BoardModel::down(int m = 1) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
-                            curBlock_->getCoords().second - 1, 
-                            curBlock_->getRotation())) {
+                                     curBlock_->getCoords().second - 1, 
+                                     curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second - 1);
         m--;
     }
@@ -125,8 +123,8 @@ void BoardModel::down(int m = 1) {
 
 void BoardModel::clockwise(int m = 1) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
-                            curBlock_->getCoords().second - 1, 
-                            (curBlock_->getRotation() + 1) % 4)) {
+                                     curBlock_->getCoords().second, 
+                                    (curBlock_->getRotation() + 1) % 4)) {
         curBlock_->setRotation((curBlock_->getRotation() + 1) % 4);
         m--;
     }
@@ -137,8 +135,8 @@ void BoardModel::clockwise(int m = 1) {
 void BoardModel::counterclockwise(int m = 1) {
     // Incrementing by 3 (mod 4) is equivalent to subtracting 1 (mod 4)
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
-                            curBlock_->getCoords().second - 1, 
-                            (curBlock_->getRotation() + 3) % 4)) {
+                                     curBlock_->getCoords().second, 
+                                    (curBlock_->getRotation() + 3) % 4)) {
         curBlock_->setRotation((curBlock_->getRotation() + 3) % 4);
         m--;
     }
