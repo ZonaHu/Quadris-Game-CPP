@@ -5,12 +5,14 @@
 
 #include "Controller.h"
 #include "BoardModel.h"
+#include "GenericBlock.h"
 #include <string>
 #include <cstdlib>
 #include <map>
 #include <algorithm>
 #include <ctype.h>
 #include <iostream>
+#include <fstream>
 
 Controller::Controller(std::shared_ptr <BoardModel> board) {
 	boardModel_ = board;
@@ -89,6 +91,54 @@ void Controller::macro(std::vector <std::string> args) {
 	}
 }
 
+void Controller::sequence(std::string fileName) {
+	std::ifstream file (fileName);
+	std::string line = "";
+	if (file.is_open()) {
+		while (std::getline(file, line)) {
+			extractMultiplier(line);
+		}
+		file.close();
+	} else {
+		std::cout << "Unable to open file (for sequence command)." << std::endl;
+	}
+}
+
+std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
+	std::ifstream file (fileName);
+	std::string line = "";
+	std::vector <BlockType> blockList;
+	std::string block[] = {"I", "J", "L", "O", "S", "Z", "T", "*"};
+	if (file.is_open()) {
+		while (std::getline(file, line)) {
+			size_t pos = 0;
+			int index = 0;
+			while ((pos = line.find(" ")) != std::string::npos) {
+				std::string token = line.substr(0, pos);
+				for (int i = 0; i < (int) block.size(); i++){
+					if (block[i] == token){
+						index = i;
+						break;
+					}
+				}
+				blockList.push_back(index);
+				line.erase(0, pos + 1);
+			}
+			for (int i = 0; i < (int) block.size(); i++){
+				if (block[i] == token){
+					index = i;
+					break;
+				}
+			}
+			blockList.push_back(line);
+		}
+		file.close();
+	} else {
+		std::cout << "Unable to open file (for norandom command/initializing level 0)." << std::endl;
+	}
+	return blockList;
+}
+
 void Controller::execCommand(std::string input, int multiplier) {
 	if (multiplier == 0) {
 		return;
@@ -132,6 +182,8 @@ void Controller::execCommand(std::string input, int multiplier) {
 			}
 			if (cmdStart.empty()){
 				cmdStart = input;
+			} else {
+				cmdArgs.push_back(input);
 			}
 			if (parse(cmdStart, commandList_[0])) {
 				boardModel_->left(multiplier);
@@ -150,11 +202,11 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else if (parse(cmdStart, commandList_[7])) {
 				boardModel_->leveldown(multiplier);
 			} else if (parse(cmdStart, commandList_[8]) && (int) cmdArgs.size() == 1) {
-				boardModel_->norandom(cmdArgs[0]);
+				blockSequenceSource(cmdArgs[0]);
 			} else if (parse(cmdStart, commandList_[9])) {
 				boardModel_->random();
 			} else if (parse(cmdStart, commandList_[10]) && (int) cmdArgs.size() == 1) {
-				boardModel_->sequence(cmdArgs[0]);
+				sequence(cmdArgs[0]);
 			} else if (parse(cmdStart, commandList_[11])) {
 				boardModel_->I(multiplier);
 			} else if (parse(cmdStart, commandList_[12])) {
