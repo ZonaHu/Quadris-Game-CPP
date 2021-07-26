@@ -78,12 +78,12 @@ public:
   std::pair<BlockType, int> getCell(int, int) const;
   void setCell(int, int, std::pair<BlockType, int>);
   std::shared_ptr<GenericBlock> getCurBlock() const;
-  GenericBlock* getNextBlock() const;
+  std::shared_ptr<GenericBlock> getNextBlock() const;
   int getScore() const;
   int getHiScore() const;
   int getLevel() const;
   int getNonClearStreak() const;
-  void setNonClearStreak();
+  void setNonClearStreak(int);
   void setBlockGenSequence(std::vector<BlockType>);
 };
 

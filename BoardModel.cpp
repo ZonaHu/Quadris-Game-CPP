@@ -44,7 +44,7 @@ void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
 
-std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() { return grid_; }
+std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() const { return grid_; }
 
 // Transform Cartesian coords to indices in grid_ vector
 // i.e. (0,0) is bottom left corner of grid
@@ -52,17 +52,17 @@ std::pair<BlockType, int> BoardModel::getCell(int x, int y) const {
     return grid_.at(gridY_-1-y).at(x);
 }
 
-std::shared_ptr<GenericBlock> BoardModel::getCurBlock() { return curBlock_; }
+std::shared_ptr<GenericBlock> BoardModel::getCurBlock() const { return curBlock_; }
 
-std::shared_ptr<GenericBlock> BoardModel::getNextBlock() { return nextBlock_; }
+std::shared_ptr<GenericBlock> BoardModel::getNextBlock() const { return nextBlock_; }
 
-int BoardModel::getScore() { return score_; }
+int BoardModel::getScore() const { return score_; }
 
-int BoardModel::getHiScore() { return hi_score_; }
+int BoardModel::getHiScore() const { return hi_score_; }
 
-int BoardModel::getLevel() { return level_; }
+int BoardModel::getLevel() const { return level_; }
 
-int BoardModel::getNonClearStreak() { return nonClearStreak_; }
+int BoardModel::getNonClearStreak() const { return nonClearStreak_; }
 
 void BoardModel::setNonClearStreak(int n) {
     nonClearStreak_ = n;
@@ -280,7 +280,7 @@ void BoardModel::restart() {
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(EMPTY, 0)));
     grid_ = grid;
     score_ = 0;
-    level_ = startLevel;
+    level_ = 0;
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
