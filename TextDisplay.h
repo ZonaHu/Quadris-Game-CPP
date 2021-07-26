@@ -6,6 +6,7 @@
 #ifndef PROJECT_2_3_TEXTDISPLAY_H
 #define PROJECT_2_3_TEXTDISPLAY_H
 #include <iostream>
+#include <memory>
 #include "Observer.h"
 
 class BoardModel;
@@ -13,11 +14,11 @@ class BoardModel;
 // used as the view presented to the user
 class TextDisplay: public Observer{
 private:
-  BoardModel* boardModel_; // the boardmodel pointer is the subject this is observing
+  std::shared_ptr<BoardModel> boardModel_; // the boardmodel pointer is the subject this is observing
 
 public:
-  TextDisplay(); // constructor for initialization
-  ~TextDisplay(); // destructor that cleans up the memory
+  TextDisplay(std::shared_ptr<BoardModel> boardModel); // constructor for initialization
+  ~TextDisplay(){}; // destructor that cleans up the memory
 
   void update (Subject*) override; //function for updating in observer
 };
