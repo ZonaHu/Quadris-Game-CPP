@@ -42,6 +42,5 @@ void GameManager::start() {
   while(!std::cin.eof()&&!std::cin){
     //Begin an infinite while loop that reads user input from cin into the Controller input overload.
     std::cin >> controller_;
-    // TODO: how to pass the private members?
   }
 }

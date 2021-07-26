@@ -42,7 +42,6 @@ int main(int argc, char *argv[]){
     else if (strcmp(argv[i],"-enablebonus") == 0){
       enableBonus = true;
     }
-    // TODO: other command line args?
   }
   // Creates an instance of GameManager, passing in the CLI args.
   std::unique_ptr <GameManager> theManager = std::make_unique<GameManager> (isTextOnly,seed,scriptFile,
