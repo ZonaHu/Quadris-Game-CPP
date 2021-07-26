@@ -24,7 +24,7 @@ public:
   virtual ~GenericLevel(){}; // default destructor
 
   // Determines next block based on probability or sequence file, depending on the level
-  virtual GenericBlock generateNextBlock() = 0;
+  virtual  std::shared_ptr <GenericBlock> generateNextBlock() = 0;
 
   // Gets called after every move in BoardModel
   virtual void postMoveOperation() = 0;
