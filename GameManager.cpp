@@ -16,10 +16,6 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
   // initialize all private members
   BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
   isTextOnly_ = isTextOnly; // if set to true, the program is in text-only mode
-  seed_ = seed; // sets the random number generator's seed to this number
-  std::string scriptFile_ = scriptFile; // source of blocks for level 0
-  int startLevel_ = startLevel; // starts the game in this level
-  enableBonus_ = enableBonus;
   controller_ = std::make_unique<Controller> (BoardModel_, enableBonus);
 }
 
@@ -30,13 +26,13 @@ void GameManager::start() {
   // Create instance of appropriate Observer derived classes
   // based on value of isTextOnly; subscribe them to the BoardModel.
   if (isTextOnly_){
-    std::unique_ptr <TextDisplay> t = std::make_unique<TextDisplay>();
+    std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
     BoardModel_->subscribe(t); // TODO: Is this correct? currently, it says "No viable conversion from 'std::unique_ptr<TextDisplay>' to 'Observer *"
   }
   else{
-    std::unique_ptr <TextDisplay> t = std::make_unique<TextDisplay>();
+    std::shared_ptr<Observer> t = std::make_shared<TextDisplay>();
     BoardModel_->subscribe(t);
-    std::unique_ptr <GraphicalDisplay> g = std::make_unique<GraphicalDisplay>();
+    std::shared_ptr<Observer> g = std::make_shared<GraphicalDisplay>();
     BoardModel_->subscribe(g);
   }
   while(!std::cin.eof()&&!std::cin){

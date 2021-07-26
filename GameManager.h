@@ -17,10 +17,10 @@ class GameManager {
 private:
   // support the options as command line args
   bool isTextOnly_; // if set to true, the program is in text-only mode
-  int seed_; // sets the random number generator's seed to this number
+ /* int seed_; // sets the random number generator's seed to this number
   std::string scriptFile_; // source of blocks for level 0
   int startLevel_; // starts the game in this level
-  bool enableBonus_; // activates bonus features if true
+  bool enableBonus_; // activates bonus features if true*/
   std::shared_ptr<BoardModel> BoardModel_; // Pointer to BoardModel.
   std::unique_ptr<Controller> controller_; // pointer to Controller object
 
