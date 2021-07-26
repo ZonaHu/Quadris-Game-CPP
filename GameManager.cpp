@@ -27,10 +27,11 @@ void GameManager::start() {
   // based on value of isTextOnly; subscribe them to the BoardModel.
   if (isTextOnly_){
     std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
-    BoardModel_->subscribe(t); // TODO: Is this correct? currently, it says "No viable conversion from 'std::unique_ptr<TextDisplay>' to 'Observer *"
+    BoardModel_->subscribe(t); // subscribe the text display only
   }
   else{
-    std::shared_ptr<Observer> t = std::make_shared<TextDisplay>();
+    // subscribe to both displays
+    std::shared_ptr<Observer> t = std::make_shared<TextDisplay>(BoardModel_);
     BoardModel_->subscribe(t);
     std::shared_ptr<Observer> g = std::make_shared<GraphicalDisplay>();
     BoardModel_->subscribe(g);
@@ -38,5 +39,7 @@ void GameManager::start() {
   while(!std::cin.eof()&&!std::cin){
     //Begin an infinite while loop that reads user input from cin into the Controller input overload.
     std::cin >> controller_;
+
+
   }
 }
