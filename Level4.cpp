@@ -17,7 +17,7 @@ std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
   std::shared_ptr<GenericBlock> res;
   BlockType curType;
   static std::mt19937 rng(seed_);
-  int num = rng() % 9;
+  int num = (int) rng() % 9;
   // S and Z are selected with a probability of 2/9 each
   if (num == 0 || num == 1){
     curType = S_BLOCK;
