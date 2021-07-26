@@ -73,7 +73,7 @@ public:
   void restart();
   void hint();
 
-  // getters
+  // Accessors and mutators
   std::vector <std::vector <std::pair<BlockType, int>>> getGrid() const;
   std::pair<BlockType, int> getCell(int, int) const;
   void setCell(int, int, std::pair<BlockType, int>);
@@ -82,10 +82,9 @@ public:
   int getScore() const;
   int getHiScore() const;
   int getLevel() const;
-  // getter for nonClearStreak_
   int getNonClearStreak() const;
-  // setter for nonClearStreak_
   void setNonClearStreak();
+  void setBlockGenSequence(std::vector<BlockType>);
 };
 
 #endif // PROJECT_2_3_BOARDMODEL_H
