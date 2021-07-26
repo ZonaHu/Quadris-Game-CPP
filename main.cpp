@@ -27,16 +27,16 @@ int main(int argc, char *argv[]){
       // command line arg is "-seed xxx"
     else if (strcmp(argv[i],"-seed") == 0){
       // we want to convert the seed to a number from command line argument
-      seed = std::stoi(argv[i+1]);
+      seed = std::stoi(argv[i+1]); // if argv[i+1] is not a number, std::stoi will throw an exception with no conversion
     }
       // command line arg is "-scriptfile xxx"
     else if (strcmp(argv[i],"-scriptfile") == 0){
-      scriptFile = argv[i+1];
+      scriptFile = argv[i+1]; // save the file name
     }
       // command line arg is "-startlevel n"
     else if (strcmp(argv[i],"-startlevel") == 0){
       // we want to convert n to a number from command line argument
-      startLevel = std::stoi(argv[i+1]);
+      startLevel = std::stoi(argv[i+1]); // if argv[i+1] is not a number, std::stoi will throw an exception with no conversion
     }
       // bonus features
     else if (strcmp(argv[i],"-enablebonus") == 0){
@@ -49,3 +49,4 @@ int main(int argc, char *argv[]){
   theManager->start();
   return 0;
 }
+

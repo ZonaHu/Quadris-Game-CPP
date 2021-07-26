@@ -70,8 +70,11 @@ public:
 class Level3: public GenericLevel{
 private:
   int seed_;
+  bool nonRandom_;
+  std::vector<char> blockSeq_;
+  int counter_;
 public:
-  Level3(const std::shared_ptr<BoardModel> & p, int seed); // constructor
+  Level3(const std::shared_ptr<BoardModel> & p, int seed, bool nonrandom, std::vector<char> blockType); // constructor
   ~Level3(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
@@ -81,8 +84,11 @@ public:
 class Level4: public GenericLevel{
 private:
   int seed_;
+  bool nonRandom_;
+  std::vector<char> blockSeq_;
+  int counter_;
 public:
-  Level4(const std::shared_ptr<BoardModel> & p, int seed); // constructor
+  Level4(const std::shared_ptr<BoardModel> & p, int seed, bool nonrandom, std::vector<char> blockType); // constructor
   ~Level4(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
