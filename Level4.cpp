@@ -6,7 +6,7 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level4::Level4(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom, std::vector<char> blockType) {
+Level4::Level4(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom) {
   // constructor
   boardModel_ = p;
   seed_ = seed;
