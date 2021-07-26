@@ -6,16 +6,18 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level3::Level3(const std::shared_ptr<BoardModel>& p) {
+Level3::Level3(const std::shared_ptr<BoardModel>& p, int seed) {
   // constructor
   boardModel_ = p;
+  seed_ = seed;
 }
 
 std::shared_ptr <GenericBlock> Level3::generateNextBlock() {
   // generate the next block in level 3
   std::shared_ptr<GenericBlock> res;
   BlockType curType;
-  int num = rand() % 9;
+  static std::mt19937 rng(seed_);
+  int num = rng() % 9;
   // S and Z are selected with a probability of 2/9 each
   if (num == 0 || num == 1){
     curType = S_BLOCK;

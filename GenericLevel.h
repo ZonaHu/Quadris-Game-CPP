@@ -9,6 +9,7 @@
 #include "BoardModel.h"
 #include <memory>
 #include "GenericBlock.h"
+#include <random>
 
 class BoardModel;
 
@@ -45,8 +46,10 @@ public:
 };
 
 class Level1: public GenericLevel{
+private:
+  int seed_;
 public:
-  Level1(const std::shared_ptr<BoardModel> & p); // constructor
+  Level1(const std::shared_ptr<BoardModel> & p, int seed); // constructor
   ~Level1(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
@@ -54,8 +57,10 @@ public:
 };
 
 class Level2: public GenericLevel{
+private:
+  int seed_;
 public:
-  Level2(const std::shared_ptr<BoardModel> & p); // constructor
+  Level2(const std::shared_ptr<BoardModel> & p, int seed); // constructor
   ~Level2(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
@@ -63,8 +68,10 @@ public:
 };
 
 class Level3: public GenericLevel{
+private:
+  int seed_;
 public:
-  Level3(const std::shared_ptr<BoardModel> & p); // constructor
+  Level3(const std::shared_ptr<BoardModel> & p, int seed); // constructor
   ~Level3(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
@@ -72,8 +79,10 @@ public:
 };
 
 class Level4: public GenericLevel{
+private:
+  int seed_;
 public:
-  Level4(const std::shared_ptr<BoardModel> & p); // constructor
+  Level4(const std::shared_ptr<BoardModel> & p, int seed); // constructor
   ~Level4(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;

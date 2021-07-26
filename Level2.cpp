@@ -6,16 +6,18 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level2::Level2(const std::shared_ptr<BoardModel>& p) {
+Level2::Level2(const std::shared_ptr<BoardModel>& p, int seed) {
   // constructor
   boardModel_ = p;
+  seed_ = seed;
 }
 
 std::shared_ptr <GenericBlock> Level2::generateNextBlock() {
   // generate the next block in level 2
   std::shared_ptr<GenericBlock> res;
   BlockType curType;
-  int num = rand() % 7;
+  static std::mt19937 rng(seed_);
+  int num = rng() % 7;
   // All blocks are selected with equal probability.
   // and no star block in this level
   if (num == 0){
