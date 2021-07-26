@@ -83,6 +83,7 @@ public:
   int getNonClearStreak() const;
   void setNonClearStreak(int);
   void setBlockGenSequence(std::vector<BlockType>);
+  void setLevels(std::vector <std::shared_ptr<GenericLevel>>);
 };
 
 #endif // PROJECT_2_3_BOARDMODEL_H

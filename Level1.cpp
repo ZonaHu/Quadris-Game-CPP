@@ -6,7 +6,7 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level1::Level1(const std::shared_ptr<BoardModel>& p, int seed) {
+Level1::Level1(const std::shared_ptr<BoardModel> p, int seed) {
   // constructor
   boardModel_ = p;
   seed_ = seed;

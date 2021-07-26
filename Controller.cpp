@@ -14,7 +14,7 @@
 #include <iostream>
 #include <fstream>
 
-Controller::Controller(std::shared_ptr <BoardModel> board, bool enableBonus) {
+Controller::Controller(bool enableBonus) {
 	boardModel_ = board;
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
 			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"};
@@ -28,6 +28,10 @@ Controller::~Controller() {
 	macroMap_.clear();
 	tempMacroStore_.clear();
 	tempMacroName_.clear();
+}
+
+void Controller::setBoard(std::shared_ptr <BoardModel> board) {
+	boardModel_ = board;
 }
 
 bool Controller::parse(std::string input, std::string command) {

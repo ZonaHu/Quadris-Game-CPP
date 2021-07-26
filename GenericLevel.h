@@ -22,7 +22,7 @@ protected:
 
 public:
   GenericLevel(){}; // default constructor
-  GenericLevel(const std::shared_ptr<BoardModel>& p); // constructor
+  GenericLevel(const std::shared_ptr<BoardModel> p); // constructor
   virtual ~GenericLevel(){}; // default destructor
 
   // Determines next block based on probability or sequence file, depending on the level
@@ -41,7 +41,7 @@ class Level0: public GenericLevel{
 private:
   int counter_;
 public:
-  Level0(const std::shared_ptr<BoardModel> & p); // constructor
+  Level0(const std::shared_ptr<BoardModel> p, std::vector<BlockType> blockSeq); // constructor
   ~Level0(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
@@ -52,7 +52,7 @@ class Level1: public GenericLevel{
 private:
   int seed_;
 public:
-  Level1(const std::shared_ptr<BoardModel> & p, int seed); // constructor
+  Level1(const std::shared_ptr<BoardModel> p, int seed); // constructor
   ~Level1(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
@@ -63,7 +63,7 @@ class Level2: public GenericLevel{
 private:
   int seed_;
 public:
-  Level2(const std::shared_ptr<BoardModel> & p, int seed); // constructor
+  Level2(const std::shared_ptr<BoardModel> p, int seed); // constructor
   ~Level2(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
@@ -76,7 +76,7 @@ private:
   bool nonRandom_;
   int counter_;
 public:
-  Level3(const std::shared_ptr<BoardModel> & p, int seed, bool nonrandom); // constructor
+  Level3(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom); // constructor
   ~Level3(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
@@ -89,7 +89,7 @@ private:
   bool nonRandom_;
   int counter_;
 public:
-  Level4(const std::shared_ptr<BoardModel> & p, int seed, bool nonrandom); // constructor
+  Level4(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom); // constructor
   ~Level4(){};  // default destructor
   std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;

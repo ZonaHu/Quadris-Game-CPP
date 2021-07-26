@@ -19,24 +19,18 @@ BoardModel::BoardModel(int seed = 0, std::string scriptFile = "", int startLevel
     hi_score_ = 0;
     level_ = startLevel;
 
-    // Initialize levels
-    std::shared_ptr<GenericLevel> level0 = std::make_shared<Level0>();
-    std::shared_ptr<GenericLevel> level1 = std::make_shared<Level1>();
-    std::shared_ptr<GenericLevel> level2 = std::make_shared<Level2>();
-    std::shared_ptr<GenericLevel> level3 = std::make_shared<Level3>();
-    std::shared_ptr<GenericLevel> level4 = std::make_shared<Level4>();
-    levelArray_.push_back(level0);
-    levelArray_.push_back(level1);
-    levelArray_.push_back(level2);
-    levelArray_.push_back(level3);
-    levelArray_.push_back(level4);
-
     // Default blocks for until the levels are instantiated in setBlockGenSequence()
     curBlock_ = std::make_shared<IBlock>();
     nextBlock_ = std::make_shared<IBlock>();
 }
 
 BoardModel::~BoardModel() {}
+
+void BoardModel::setLevels(std::vector <std::shared_ptr<GenericLevel>> levelArray) {
+    levelArray_ = levelArray;
+    curBlock_ = levelArray_.at(level_)->generateNextBlock();
+    nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+}
 
 void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
     levelArray_.at(level_)->setBlockGenSequence(seq);

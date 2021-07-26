@@ -18,9 +18,26 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
   // int startLevel starts the game in this level
   // bool enableBonus activates bonus features if true
   // initialize all private members
+  controller_ = std::make_shared<Controller> (enableBonus);
+  std::vector<BlockType> level0BlockSeq = controller_->blockSequenceSource(scriptFile);
+  std::vector <std::shared_ptr<GenericLevel>> levelArray;
   BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
+
+  std::shared_ptr<GenericLevel> level0 = std::make_shared<Level0>(BoardModel_, level0BlockSeq);
+  std::shared_ptr<GenericLevel> level1 = std::make_shared<Level1>(BoardModel_, seed);
+  std::shared_ptr<GenericLevel> level2 = std::make_shared<Level2>(BoardModel_, seed);
+  std::shared_ptr<GenericLevel> level3 = std::make_shared<Level3>(BoardModel_, seed, false);
+  std::shared_ptr<GenericLevel> level4 = std::make_shared<Level4>(BoardModel_, seed, false);
+  levelArray.push_back(level0);
+  levelArray.push_back(level1);
+  levelArray.push_back(level2);
+  levelArray.push_back(level3);
+  levelArray.push_back(level4);
+
+  BoardModel_->setLevels(levelArray);
+  controller_->setBoard(BoardModel_);
+
   isTextOnly_ = isTextOnly; // if set to true, the program is in text-only mode
-  controller_ = std::make_shared<Controller> (BoardModel_, enableBonus);
 }
 
 //  Starts an infinite game while loop that constantly reads input to the Controller.
