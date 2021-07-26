@@ -14,13 +14,13 @@ Begin an infinite while loop that reads user input from cin into the Controller 
 GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
                          int startLevel, bool enableBonus) {
   // initialize all private members
-  BoardModel_ = std::make_shared<BoardModel>(); // initialize a board model instance
+  BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
   isTextOnly_ = isTextOnly; // if set to true, the program is in text-only mode
   seed_ = seed; // sets the random number generator's seed to this number
   std::string scriptFile_ = scriptFile; // source of blocks for level 0
   int startLevel_ = startLevel; // starts the game in this level
   enableBonus_ = enableBonus;
-  controller_ = std::make_unique<Controller>(BoardModel_);
+  controller_ = std::make_unique<Controller> (BoardModel_, enableBonus);
 }
 
 //  Starts an infinite game while loop that constantly reads input to the Controller.

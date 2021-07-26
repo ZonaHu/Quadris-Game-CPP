@@ -13,7 +13,7 @@
 int main(int argc, char *argv[]){
   // initialize the variables to default values
   bool isTextOnly = false; // the default behaviour is to show both text and graphics
-  int seed = 1; // the default seed
+  int seed = 0; // set the default seed to 0
   std::string scriptFile = "sequence.txt"; // default sequence source file for level 0
   int startLevel = 0; // default starting level is level 0
   bool enableBonus = false;  // default bonus features status
