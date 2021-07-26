@@ -36,10 +36,8 @@ void GameManager::start() {
     std::shared_ptr<Observer> g = std::make_shared<GraphicalDisplay>();
     BoardModel_->subscribe(g);
   }
-  while(!std::cin.eof()&&!std::cin){
+  while(!std::cin.eof()||!std::cin.fail()){
     //Begin an infinite while loop that reads user input from cin into the Controller input overload.
     std::cin >> controller_;
-
-
   }
 }
