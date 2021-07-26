@@ -18,6 +18,6 @@ void Subject::unsubscribe(std::shared_ptr <Observer> oldObserver){
 void Subject::notify(){
    Observers::iterator it;
    for (it = observers_.begin(); it != observers_.end(); it++){
-     (*it)->update();
+     (*it)->update(this);
    }
 }
