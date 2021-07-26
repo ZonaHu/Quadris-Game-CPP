@@ -11,7 +11,6 @@ Level4::Level4(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom) {
   boardModel_ = p;
   seed_ = seed;
   nonRandom_ = nonrandom; // determine if in non-random mode or not
-  blockSeq_ = blockType; // sequence of blocks given in a file in non random mode
   counter_ = 0;
 }
 
@@ -21,34 +20,34 @@ std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
   BlockType curType;
   if (nonRandom_){ // if in non-random mode
     // read the block type from the vector at the correct index
-    char typeBlock = blockSeq_.at(counter_);
+    BlockType typeBlock = blockSeq_.at(counter_);
     BlockType curType;
     // identify the type
-    if (typeBlock == 'I'){
+    if (typeBlock == BlockType::I_BLOCK){
       curType = BlockType::I_BLOCK;
       res = std::make_shared<IBlock>();
     }
-    else if (typeBlock == 'J'){
+    else if (typeBlock == BlockType::J_BLOCK){
       curType = BlockType::J_BLOCK;
       res = std::make_shared<JBlock>();
     }
-    else if (typeBlock == 'L'){
+    else if (typeBlock == BlockType::L_BLOCK){
       curType = BlockType::L_BLOCK;
       res = std::make_shared<LBlock>();
     }
-    else if (typeBlock == 'O'){
+    else if (typeBlock == BlockType::O_BLOCK){
       curType = BlockType::O_BLOCK;
       res = std::make_shared<OBlock>();
     }
-    else if (typeBlock == 'S'){
+    else if (typeBlock == BlockType::S_BLOCK){
       curType = BlockType::S_BLOCK;
       res = std::make_shared<SBlock>();
     }
-    else if (typeBlock == 'Z'){
+    else if (typeBlock == BlockType::Z_BLOCK){
       curType = BlockType::Z_BLOCK;
       res = std::make_shared<ZBlock>();
     }
-    else if (typeBlock == 'T'){
+    else if (typeBlock == BlockType::T_BLOCK){
       curType = BlockType::T_BLOCK;
       res = std::make_shared<TBlock>();
     }
@@ -115,6 +114,6 @@ void Level4::postDropOperation() {
         curGrid.at(x_coord).at(y_coord).first == BlockType::EMPTY ){ // find an empty pair (make sure they're empty blocks)
       y_coord ++;
     }
-    boardModel_.setCell(x_coord,y_coord,TypePair); // reset the grids
+    boardModel_->setCell(x_coord,y_coord,TypePair); // reset the grids
   }
 }
