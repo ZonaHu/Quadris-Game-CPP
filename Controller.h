@@ -30,10 +30,11 @@ private:
   void execCommand(std::string, int);
   std::vector <BlockType> norandom(std::string);
   void sequence(std::string);
-
+  
 public:
-  Controller(std::shared_ptr <BoardModel>);
+  Controller(std::shared_ptr <BoardModel>, bool);
   ~Controller();
+  std::vector <BlockType> blockSequenceSource(std::string);
   friend std::istream &operator>>(std::istream &, Controller &); //  Pass cin input to extractMultiplier().
 
 };
