@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <memory>
 #include "Observer.h"
 
 typedef std::set<std::shared_ptr <Observer>> Observers;
