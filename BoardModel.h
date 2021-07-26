@@ -43,7 +43,7 @@ private:
   bool isGameOver_ = false;
 
   // Vector of pointers to GenericLevel object, each level at corresponding index
-  std::vector <std::unique_ptr<GenericLevel>> levelArray_;
+  std::vector <std::shared_ptr<GenericLevel>> levelArray_;
 
 public:
   BoardModel();
