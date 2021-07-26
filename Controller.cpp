@@ -17,7 +17,7 @@
 Controller::Controller(std::shared_ptr <BoardModel> board) {
 	boardModel_ = board;
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
-			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"}
+			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"};
 	tempMacroName_ = "";
 	macroInputFlag_ = false;
 }
@@ -31,7 +31,7 @@ Controller::~Controller() {
 
 bool Controller::parse(std::string input, std::string command) {
 	bool flag = true;
-	for (int i = 0; i < (int) input.length; i++) {
+	for (int i = 0; i < (int) input.length(); i++) {
 		if (input[i] != command[i]){
 			flag = false;
 			break;
@@ -69,7 +69,7 @@ void Controller::macro(std::vector <std::string> args) {
 		if (macroInputFlag_) {
 			macroMap_.insert(std::pair<std::string, std::vector<std::tuple<int, int, std::string>>>(tempMacroName_, tempMacroStore_));
 			tempMacroName_.clear();
-			tempMacroStore_clear();
+			tempMacroStore_.clear();
 			macroInputFlag_ = false;
 		} else {
 			std::cout << "You can only save a macro if you were inputting commands for one in the first place!" << std::endl;
@@ -83,7 +83,7 @@ void Controller::macro(std::vector <std::string> args) {
 		}
 		if (!cmdVec.empty()) {
 			for (int i = 0; i < (int) cmdVec.size(); i++) {
-				execCommand(commandList_[cmdVec[i][1]] + " " + cmdVec[i][2], cmdVec[i][0]);
+				execCommand(commandList_[std::get<1>(cmdVec[i])] + " " + std::get<2>(cmdVec[i]), std::get<0>(cmdVec[i]));
 			}
 		}
 	} else {
@@ -165,7 +165,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 			if (cmdNum == -1) {
 				multiplier = 0;
 			}
-			std::tuple<int, int, std::string> line = (multiplier, cmdNum, args);
+			std::tuple<int, int, std::string> line = (std::make_tuple(multiplier, cmdNum, args));
 			tempMacroStore_.push_back(line);
 		} else {
 			std::string cmdStart = "";
@@ -242,7 +242,7 @@ void Controller::extractMultiplier(std::string input) {
 	std::string multWord = "";
 	int cmdStart = 0;
 	for (int i = 0; i < (int) input.length(); i++) {
-		if (std::isDigit(input[i])) {
+		if (std::isdigit(input[i])) {
 			multWord.append(input[i]);
 		} else {
 			cmdStart = i;

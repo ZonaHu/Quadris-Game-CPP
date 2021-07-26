@@ -12,6 +12,7 @@
 #include <map>
 #include <algorithm>
 #include <iostream>
+#include <memory>
 
 class Controller {
 private:

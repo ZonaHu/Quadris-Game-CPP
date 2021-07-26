@@ -5,7 +5,7 @@
 
 #include <set>
 #include "Subject.h"
-#include "observer.h"
+#include "Observer.h"
 
 void Subject::subscribe(Observer *newObserver){
   observers_.insert(newObserver);
@@ -16,8 +16,8 @@ void Subject::unsubscribe(Observer* oldObserver){
 }
 
 void Subject::notify(){
-  Observers::iterator it;
-  for (it = observers_.begin(); it != observers_.end(); it++){
-	(*it)->update();
-  }
+  // Observers::iterator it;
+  // for (it = observers_.begin(); it != observers_.end(); it++){
+	// (*it)->update();
+  // }
 }
