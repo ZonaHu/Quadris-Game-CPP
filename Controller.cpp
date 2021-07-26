@@ -14,12 +14,13 @@
 #include <iostream>
 #include <fstream>
 
-Controller::Controller(std::shared_ptr <BoardModel> board) {
+Controller::Controller(std::shared_ptr <BoardModel> board, bool enableBonus) {
 	boardModel_ = board;
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
 			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"};
 	tempMacroName_ = "";
 	macroInputFlag_ = false;
+	enableBonus_ = enableBonus;
 }
 
 Controller::~Controller() {
@@ -143,7 +144,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 	if (multiplier == 0) {
 		return;
 	} else {
-		if (macroInputFlag_) {
+		if (macroInputFlag_ && enableBonus_) {
 			int cmdNum = -1;
 			std::string cmd = "";
 			std::string args = "";
@@ -225,9 +226,9 @@ void Controller::execCommand(std::string input, int multiplier) {
 				boardModel_->restart();
 			} else if (parse(cmdStart, commandList_[19])) {
 				boardModel_->hint();
-			} else if (parse(cmdStart, commandList_[20])) {
+			} else if (parse(cmdStart, commandList_[20]) && enableBonus_) {
 				rename(cmdArgs);
-			} else if (parse(cmdStart, commandList_[21])) {
+			} else if (parse(cmdStart, commandList_[21]) && enableBonus_) {
 				macro(cmdArgs);
 			} else {
 				std::cout << "Please input a correct command." << std::endl;

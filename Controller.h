@@ -22,6 +22,7 @@ private:
   std::vector <std::tuple<int, int, std::string>> tempMacroStore_;
   std::string tempMacroName_;
   bool macroInputFlag_;
+  bool enableBonus_;
   bool parse(std::string, std::string);
   void rename(std::vector <std::string>);
   void macro(std::vector <std::string>);
