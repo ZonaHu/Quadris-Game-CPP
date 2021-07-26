@@ -39,7 +39,7 @@ private:
 public:
   Level0(const std::shared_ptr<BoardModel> & p, std::vector<char> blockType); // constructor
   ~Level0(){};  // default destructor
-  GenericBlock generateNextBlock() override;
+  std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;
 };
@@ -48,7 +48,7 @@ class Level1: public GenericLevel{
 public:
   Level1(const std::shared_ptr<BoardModel> & p); // constructor
   ~Level1(){};  // default destructor
-  GenericBlock generateNextBlock() override;
+  std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;
 };
@@ -57,7 +57,7 @@ class Level2: public GenericLevel{
 public:
   Level2(const std::shared_ptr<BoardModel> & p); // constructor
   ~Level2(){};  // default destructor
-  GenericBlock generateNextBlock() override;
+  std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;
 };
@@ -66,7 +66,7 @@ class Level3: public GenericLevel{
 public:
   Level3(const std::shared_ptr<BoardModel> & p); // constructor
   ~Level3(){};  // default destructor
-  GenericBlock generateNextBlock() override;
+  std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;
 };
@@ -75,7 +75,7 @@ class Level4: public GenericLevel{
 public:
   Level4(const std::shared_ptr<BoardModel> & p); // constructor
   ~Level4(){};  // default destructor
-  GenericBlock generateNextBlock() override;
+  std::shared_ptr <GenericBlock> generateNextBlock() override;
   void postMoveOperation() override;
   void postDropOperation() override;
 };
