@@ -5,19 +5,22 @@
 
 #include "Controller.h"
 #include "BoardModel.h"
+#include "GenericBlock.h"
 #include <string>
 #include <cstdlib>
 #include <map>
 #include <algorithm>
 #include <ctype.h>
 #include <iostream>
+#include <fstream>
 
-Controller::Controller(std::shared_ptr <BoardModel> board) {
+Controller::Controller(std::shared_ptr <BoardModel> board, bool enableBonus) {
 	boardModel_ = board;
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
 			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"};
 	tempMacroName_ = "";
 	macroInputFlag_ = false;
+	enableBonus_ = enableBonus;
 }
 
 Controller::~Controller() {
@@ -89,11 +92,59 @@ void Controller::macro(std::vector <std::string> args) {
 	}
 }
 
+void Controller::sequence(std::string fileName) {
+	std::ifstream file (fileName);
+	std::string line = "";
+	if (file.is_open()) {
+		while (std::getline(file, line)) {
+			extractMultiplier(line);
+		}
+		file.close();
+	} else {
+		std::cout << "Unable to open file (for sequence command)." << std::endl;
+	}
+}
+
+std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
+	std::ifstream file (fileName);
+	std::string line = "";
+	std::vector <BlockType> blockList;
+	std::string block[8] = {"I", "J", "L", "O", "S", "Z", "T", "*"};
+	if (file.is_open()) {
+		while (std::getline(file, line)) {
+			size_t pos = 0;
+			int index = 0;
+			while ((pos = line.find(" ")) != std::string::npos) {
+				std::string token = line.substr(0, pos);
+				for (int i = 0; i < 8; i++){
+					if (block[i] == token){
+						index = i;
+						break;
+					}
+				}
+				blockList.push_back(static_cast<BlockType>(index));
+				line.erase(0, pos + 1);
+			}
+			for (int i = 0; i < 8; i++){
+				if (block[i] == line){
+					index = i;
+					break;
+				}
+			}
+			blockList.push_back(static_cast<BlockType>(index));
+		}
+		file.close();
+	} else {
+		std::cout << "Unable to open file (for norandom command/initializing level 0)." << std::endl;
+	}
+	return blockList;
+}
+
 void Controller::execCommand(std::string input, int multiplier) {
 	if (multiplier == 0) {
 		return;
 	} else {
-		if (macroInputFlag_) {
+		if (macroInputFlag_ && enableBonus_) {
 			int cmdNum = -1;
 			std::string cmd = "";
 			std::string args = "";
@@ -132,6 +183,8 @@ void Controller::execCommand(std::string input, int multiplier) {
 			}
 			if (cmdStart.empty()){
 				cmdStart = input;
+			} else {
+				cmdArgs.push_back(input);
 			}
 			if (parse(cmdStart, commandList_[0])) {
 				boardModel_->left(multiplier);
@@ -150,11 +203,11 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else if (parse(cmdStart, commandList_[7])) {
 				boardModel_->leveldown(multiplier);
 			} else if (parse(cmdStart, commandList_[8]) && (int) cmdArgs.size() == 1) {
-				boardModel_->norandom(cmdArgs[0]);
+				boardModel_->setBlockGenSequence(blockSequenceSource(cmdArgs[0]));
 			} else if (parse(cmdStart, commandList_[9])) {
 				boardModel_->random();
 			} else if (parse(cmdStart, commandList_[10]) && (int) cmdArgs.size() == 1) {
-				boardModel_->sequence(cmdArgs[0]);
+				sequence(cmdArgs[0]);
 			} else if (parse(cmdStart, commandList_[11])) {
 				boardModel_->I(multiplier);
 			} else if (parse(cmdStart, commandList_[12])) {
@@ -173,9 +226,9 @@ void Controller::execCommand(std::string input, int multiplier) {
 				boardModel_->restart();
 			} else if (parse(cmdStart, commandList_[19])) {
 				boardModel_->hint();
-			} else if (parse(cmdStart, commandList_[20])) {
+			} else if (parse(cmdStart, commandList_[20]) && enableBonus_) {
 				rename(cmdArgs);
-			} else if (parse(cmdStart, commandList_[21])) {
+			} else if (parse(cmdStart, commandList_[21]) && enableBonus_) {
 				macro(cmdArgs);
 			} else {
 				std::cout << "Please input a correct command." << std::endl;
@@ -191,14 +244,14 @@ void Controller::extractMultiplier(std::string input) {
 	int cmdStart = 0;
 	for (int i = 0; i < (int) input.length(); i++) {
 		if (std::isdigit(input[i])) {
-			multWord.append(input[i]);
+			multWord.append(input[i] + "");
 		} else {
 			cmdStart = i;
 			break;
 		}
 	}
 	if (!multWord.empty()) {
-		multiplier = std::atoi(multWord);
+		multiplier = std::atoi(multWord.c_str());
 	}
 	command = input.substr(cmdStart);
 	execCommand(command, multiplier);
@@ -207,6 +260,6 @@ void Controller::extractMultiplier(std::string input) {
 std::istream &operator>>(std::istream &in, Controller &control) {
 	std::string input;
 	in >> input;
-	control->extractMultiplier(input);
+	control.extractMultiplier(input);
 	return in;
 }

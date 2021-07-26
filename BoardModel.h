@@ -50,9 +50,7 @@ public:
   void drop(int);
   void levelup(int);
   void leveldown(int);
-  void norandom(std::string);
   void random();
-  void sequence(std::string);
   void I();
   void J();
   void L();
