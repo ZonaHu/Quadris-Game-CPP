@@ -20,31 +20,31 @@ std::shared_ptr <GenericBlock> Level0::generateNextBlock() {  // level 0 follows
   BlockType curType;
   // identify the type
   if (typeBlock == 'I'){
-    curType = I_BLOCK;
+    curType = BlockType::I_BLOCK;
     res = std::make_shared<IBlock>();
   }
   else if (typeBlock == 'J'){
-    curType = J_BLOCK;
+    curType = BlockType::J_BLOCK;
     res = std::make_shared<JBlock>();
   }
   else if (typeBlock == 'L'){
-    curType = L_BLOCK;
+    curType = BlockType::L_BLOCK;
     res = std::make_shared<LBlock>();
   }
   else if (typeBlock == 'O'){
-    curType = O_BLOCK;
+    curType = BlockType::O_BLOCK;
     res = std::make_shared<OBlock>();
   }
   else if (typeBlock == 'S'){
-    curType = S_BLOCK;
+    curType = BlockType::S_BLOCK;
     res = std::make_shared<SBlock>();
   }
   else if (typeBlock == 'Z'){
-    curType = Z_BLOCK;
+    curType = BlockType::Z_BLOCK;
     res = std::make_shared<ZBlock>();
   }
   else if (typeBlock == 'T'){
-    curType = T_BLOCK;
+    curType = BlockType::T_BLOCK;
     res = std::make_shared<TBlock>();
   }
   counter_++; // increment the counter

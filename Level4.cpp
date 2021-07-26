@@ -25,31 +25,31 @@ std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
     BlockType curType;
     // identify the type
     if (typeBlock == 'I'){
-      curType = I_BLOCK;
+      curType = BlockType::I_BLOCK;
       res = std::make_shared<IBlock>();
     }
     else if (typeBlock == 'J'){
-      curType = J_BLOCK;
+      curType = BlockType::J_BLOCK;
       res = std::make_shared<JBlock>();
     }
     else if (typeBlock == 'L'){
-      curType = L_BLOCK;
+      curType = BlockType::L_BLOCK;
       res = std::make_shared<LBlock>();
     }
     else if (typeBlock == 'O'){
-      curType = O_BLOCK;
+      curType = BlockType::O_BLOCK;
       res = std::make_shared<OBlock>();
     }
     else if (typeBlock == 'S'){
-      curType = S_BLOCK;
+      curType = BlockType::S_BLOCK;
       res = std::make_shared<SBlock>();
     }
     else if (typeBlock == 'Z'){
-      curType = Z_BLOCK;
+      curType = BlockType::Z_BLOCK;
       res = std::make_shared<ZBlock>();
     }
     else if (typeBlock == 'T'){
-      curType = T_BLOCK;
+      curType = BlockType::T_BLOCK;
       res = std::make_shared<TBlock>();
     }
     counter_++; // increment the counter
@@ -59,32 +59,32 @@ std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
     int num = (int) rng() % 9;
     // S and Z are selected with a probability of 2/9 each
     if (num == 0 || num == 1){
-      curType = S_BLOCK;
+      curType = BlockType::S_BLOCK;
       res = std::make_shared<SBlock>();
     }
     else if (num == 2 || num == 3){
-      curType = Z_BLOCK;
+      curType = BlockType::Z_BLOCK;
       res = std::make_shared<ZBlock>();
     }
       // other blocks are selected with a probability of 1/9 each (and no star block in this level)
     else if (num == 4){
-      curType = T_BLOCK;
+      curType = BlockType::T_BLOCK;
       res = std::make_shared<TBlock>();
     }
     else if (num == 5){
-      curType = O_BLOCK;
+      curType = BlockType::O_BLOCK;
       res = std::make_shared<OBlock>();
     }
     else if (num == 6){
-      curType = L_BLOCK;
+      curType = BlockType::L_BLOCK;
       res = std::make_shared<LBlock>();
     }
     else if (num == 7){
-      curType = J_BLOCK;
+      curType = BlockType::J_BLOCK;
       res = std::make_shared<JBlock>();
     }
     else if (num == 8){
-      curType = I_BLOCK;
+      curType = BlockType::I_BLOCK;
       res = std::make_shared<IBlock>();
     }
   }
@@ -109,10 +109,10 @@ void Level4::postDropOperation() {
     int x_coord = curGrid.size()/2;
     int y_coord = curGrid.at(0).size()/2;
     // create a 1*1 star block in the centre column
-    std::pair<BlockType, int> TypePair (STAR_BLOCK,0);
+    std::pair<BlockType, int> TypePair (BlockType::STAR_BLOCK,0);
     // finds an empty cell
     while (curGrid.at(x_coord).at(y_coord).second != 0 ||
-        curGrid.at(x_coord).at(y_coord).first == EMPTY ){ // find an empty pair (make sure they're empty blocks)
+        curGrid.at(x_coord).at(y_coord).first == BlockType::EMPTY ){ // find an empty pair (make sure they're empty blocks)
       y_coord ++;
     }
     boardModel_.setCell(x_coord,y_coord,TypePair); // reset the grids

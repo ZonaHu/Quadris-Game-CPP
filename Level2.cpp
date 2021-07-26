@@ -21,31 +21,31 @@ std::shared_ptr <GenericBlock> Level2::generateNextBlock() {
   // All blocks are selected with equal probability.
   // and no star block in this level
   if (num == 0){
-    curType = S_BLOCK;
+    curType = BlockType::S_BLOCK;
     res = std::make_shared<SBlock>();
   }
   else if (num == 1){
-    curType = Z_BLOCK;
+    curType = BlockType::Z_BLOCK;
     res = std::make_shared<ZBlock>();
   }
   else if (num == 2){
-    curType = T_BLOCK;
+    curType = BlockType::T_BLOCK;
     res = std::make_shared<TBlock>();
   }
   else if (num == 3){
-    curType = O_BLOCK;
+    curType = BlockType::O_BLOCK;
     res = std::make_shared<OBlock>();
   }
   else if (num == 4){
-    curType = L_BLOCK;
+    curType = BlockType::L_BLOCK;
     res = std::make_shared<LBlock>();
   }
   else if (num == 5){
-    curType = J_BLOCK;
+    curType = BlockType::J_BLOCK;
     res = std::make_shared<JBlock>();
   }
   else if (num == 6){
-    curType = I_BLOCK;
+    curType = BlockType::I_BLOCK;
     res = std::make_shared<IBlock>();
   }
   res->setType(curType); // set the current type in the generic block
