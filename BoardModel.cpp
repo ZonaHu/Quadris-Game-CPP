@@ -8,12 +8,12 @@
 #include <math.h> 
 
 BoardModel::BoardModel() {
-    std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(EMPTY, 0)));
+    std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
 }
 
 BoardModel::BoardModel(int seed = 0, std::string scriptFile = "", int startLevel = 0) {
-    std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(EMPTY, 0)));
+    std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
     score_ = 0;
     hi_score_ = 0;
@@ -85,7 +85,7 @@ bool BoardModel::checkIfValidMove(int x, int y, int r) {
             return false;
         } 
         // Non-empty cell check
-        if (getCell(cellX, cellY).first != EMPTY) {
+        if (getCell(cellX, cellY).first != BlockType::EMPTY) {
             return false;
         }
     }
@@ -185,7 +185,7 @@ void BoardModel::checkCompletedRows() {
         // First, check if a row is completely full
         bool isRowComplete = true;
         while (x < gridX_) {
-            if (getCell(x, y).first == EMPTY) {
+            if (getCell(x, y).first == BlockType::EMPTY) {
                 isRowComplete = false;
                 break;
             }
@@ -219,7 +219,7 @@ void BoardModel::checkCompletedRows() {
                     i++;
                 }
                 // Cell in topmost row will be EMPTY
-                setCell(x, gridY_-1, std::make_pair(EMPTY, 0));
+                setCell(x, gridY_-1, std::make_pair(BlockType::EMPTY, 0));
                 x++;
             }
             rowsCleared++;
@@ -277,7 +277,7 @@ void BoardModel::T() {
 }
 
 void BoardModel::restart() {
-    std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(EMPTY, 0)));
+    std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
     score_ = 0;
     level_ = 0;
