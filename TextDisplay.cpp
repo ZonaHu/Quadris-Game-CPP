@@ -6,10 +6,18 @@
 
 #include "TextDisplay.h"
 
-TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel) {
-  boardModel_ = boardModel;
+TextDisplay::TextDisplay(std::ostream &o, std::shared_ptr<BoardModel> boardModel):ost_{o}, boardModel_{boardModel} {}
+
+TextDisplay::~TextDisplay() {
+  //call unsubscribe in the destructor
+  boardModel_->unsubscribe(this);
 }
 
-void TextDisplay::update(Subject *) {
+void TextDisplay::update(std::shared_ptr <Subject>) {
 
 }
+
+
+/*std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
+  return <#initializer #>;
+}*/
