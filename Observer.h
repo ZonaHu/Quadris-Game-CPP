@@ -11,7 +11,7 @@ class Subject;
 class Observer {
 public:
   virtual ~Observer(){}; // destructor
-  virtual void update(std::shared_ptr <Subject>) = 0;
+  virtual void update() = 0;
 };
 
 #endif // PROJECT_2_3_OBSERVER_H

@@ -20,7 +20,7 @@ public:
   TextDisplay(std::shared_ptr<BoardModel> boardModel); // constructor for initialization
   ~TextDisplay() override; // destructor that cleans up the memory
 
-  void update (std::shared_ptr <Subject>) override; //function for updating in observer
+  void update () override; //function for updating in observer
 };
 
 #endif // PROJECT_2_3_TEXTDISPLAY_H

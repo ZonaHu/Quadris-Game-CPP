@@ -15,7 +15,7 @@ TextDisplay::~TextDisplay() {
   boardModel_->unsubscribe(this);
 }
 
-void TextDisplay::update(std::shared_ptr <Subject>) {
+void TextDisplay::update() {
 
 
 }
