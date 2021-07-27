@@ -194,7 +194,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else if (parse(cmdStart, commandList_[1])) {
 				boardModel_->right(multiplier);
 			} else if (parse(cmdStart, commandList_[2])) {
-				boardModel_->down(multiplier);
+				boardModel_->down(multiplier, true);
 			} else if (parse(cmdStart, commandList_[3])) {
 				boardModel_->clockwise(multiplier);
 			} else if (parse(cmdStart, commandList_[4])) {

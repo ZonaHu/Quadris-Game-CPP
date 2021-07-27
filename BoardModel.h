@@ -54,7 +54,7 @@ public:
   void calcScore();
   void left(int);
   void right(int);
-  void down(int);
+  void down(int, bool);
   void clockwise(int);
   void counterclockwise(int);
   void drop(int);

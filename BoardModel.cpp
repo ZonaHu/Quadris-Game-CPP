@@ -113,7 +113,7 @@ void BoardModel::right(int m = 1) {
     std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }
 
-void BoardModel::down(int m = 1) {
+void BoardModel::down(int m = 1, bool doesPostMove = true) {
     std::cout << "DOWN" << std::endl;
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second - 1, 
@@ -121,7 +121,9 @@ void BoardModel::down(int m = 1) {
         curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second - 1);
         m--;
     }
-    levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) {
+        levelArray_.at(level_)->postMoveOperation();
+    }
     notify();
     std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }

@@ -76,7 +76,7 @@ std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
 }
 
 void Level4::postMoveOperation() {
-  boardModel_->down(1);
+  boardModel_->down(1, false);
 }
 
 void Level4::postDropOperation() {
