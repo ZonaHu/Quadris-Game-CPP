@@ -6,7 +6,9 @@
 
 #include "TextDisplay.h"
 
-TextDisplay::TextDisplay(std::ostream &o, std::shared_ptr<BoardModel> boardModel):ost_{o}, boardModel_{boardModel} {}
+#include <utility>
+
+TextDisplay::TextDisplay(std::ostream &o, std::shared_ptr<BoardModel> boardModel):ost_{o}, boardModel_{std::move(boardModel)} {}
 
 TextDisplay::~TextDisplay() {
   //call unsubscribe in the destructor
@@ -14,6 +16,8 @@ TextDisplay::~TextDisplay() {
 }
 
 void TextDisplay::update(std::shared_ptr <Subject>) {
+
+
 
 }
 

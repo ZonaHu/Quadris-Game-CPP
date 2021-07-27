@@ -10,7 +10,6 @@ class Subject;
 
 class Observer {
 public:
-  Observer(){}; // constructor
   virtual ~Observer(){}; // destructor
   virtual void update(std::shared_ptr <Subject>) = 0;
 };
