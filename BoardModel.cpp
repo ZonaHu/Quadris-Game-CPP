@@ -197,7 +197,6 @@ void BoardModel::checkCompletedRows() {
             }
             x++;
         }
-
         if (isRowComplete) {
             nonClearStreak_ = 0;
             // Iterate through row for a second time to process scores, delete cells, and shift down cells
@@ -209,7 +208,7 @@ void BoardModel::checkCompletedRows() {
                     if (it->second.first <= 1) {
                         // All of block's cells have been cleared
                         // Add BONUS POINTS
-                        score += pow((it->second.second + 1), 2);
+                        score_ += pow((it->second.second + 1), 2);
                         liveBlocks_.erase(getCell(x,y).second);
                     } else {
                         // Block has only been partially cleared
@@ -229,15 +228,17 @@ void BoardModel::checkCompletedRows() {
                 x++;
             }
             rowsCleared++;
+            x = 0;
+            notify();
             // Note, we do not increment y because all rows above have shifted down by 1
         } else {
             nonClearStreak_++;
             x = 0;
             y++;
         }
-        // Add REGULAR POINTS
-        score += pow((level_ + rowsCleared), 2);
     }
+    // Add REGULAR POINT
+    score_ += pow((level_ + rowsCleared), 2);;
 }
 
 void BoardModel::I() {
