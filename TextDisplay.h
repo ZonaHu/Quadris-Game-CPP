@@ -19,7 +19,7 @@ private:
 
 public:
   TextDisplay(std::ostream &o, std::shared_ptr<BoardModel> boardModel); // constructor for initialization
-  ~TextDisplay(); // destructor that cleans up the memory
+  ~TextDisplay() override; // destructor that cleans up the memory
 
   void update (std::shared_ptr <Subject>) override; //function for updating in observer
   // friend std::ostream& operator<<(std::ostream &out, const TextDisplay &td); // overloaded output operator
