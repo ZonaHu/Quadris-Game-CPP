@@ -5,12 +5,24 @@
 
 
 #include "TextDisplay.h"
+#include <unordered_map>
 
 TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel) {
   boardModel_ = boardModel;
 }
 
 void TextDisplay::update() {
+
+  std::unordered_map<BlockType, char> blockMap({{BlockType::I_BLOCK, 'I'},
+                                              {BlockType::J_BLOCK, 'J'},
+                                              {BlockType::L_BLOCK, 'L'},
+                                              {BlockType::O_BLOCK, 'O'},
+                                              {BlockType::S_BLOCK, 'S'},
+                                              {BlockType::Z_BLOCK, 'Z'},
+                                              {BlockType::T_BLOCK, 'T'},
+                                              {BlockType::STAR_BLOCK, '*'},
+                                              {BlockType::EMPTY, '-'}});
+
   std::cout << "TEXT DISPLAY" << std::endl;
   std::cout << boardModel_->getScore() << std::endl;
 
@@ -30,7 +42,7 @@ void TextDisplay::update() {
               ((int)j == base.first+d.first && 18-1-(int)i == base.second+d.second)) {
                   std::cout << "X";
           } else {
-              std::cout << (int)boardModel_->getCell(j, i).first;
+              std::cout << blockMap.at(boardModel_->getCell(j, i).first);
           }
       }
       std::cout << std::endl;
