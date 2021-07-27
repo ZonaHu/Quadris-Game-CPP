@@ -108,14 +108,16 @@ void BoardModel::right(int m = 1) {
     notify();
 }
 
-void BoardModel::down(int m = 1) {
+void BoardModel::down(int m = 1, bool doPostMove = true) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second - 1, 
                                      curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second - 1);
         m--;
     }
-    levelArray_.at(level_)->postMoveOperation();
+    if (doPostMove) {
+        levelArray_.at(level_)->postMoveOperation();
+    }
     notify();
 }
 
