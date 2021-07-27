@@ -3,6 +3,7 @@
 // Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
 // on 2021-07-16.
 #include "Level1.h"
+#include <stdlib.h> 
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
@@ -16,7 +17,7 @@ std::shared_ptr <GenericBlock> Level1::generateNextBlock() {
   // generate the next block in level 1
   std::shared_ptr<GenericBlock> res;
   static std::mt19937 rng(seed_);
-  int num = (int) rng() % 12;
+  int num = abs((int) rng()) % 12;
   // S and Z are selected with a probability of 1/12 each
   if (num == 0){
     res = std::make_shared<SBlock>();
