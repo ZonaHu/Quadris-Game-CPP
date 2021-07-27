@@ -42,7 +42,7 @@ void TextDisplay::update() {
               ((int)j == base.first+d.first && 18-1-(int)i == base.second+d.second)) {
                   std::cout << "X";
           } else {
-              std::cout << blockMap.at(boardModel_->getCell(j, i).first);
+              std::cout << blockMap.at(boardModel_->getCell(j, 18-1-i).first);
           }
       }
       std::cout << std::endl;
