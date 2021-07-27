@@ -170,7 +170,6 @@ void BoardModel::leveldown(int m = 1) {
 }
 
 void BoardModel::checkCompletedRows() {
-    int score = 0;
     int y = 0;
     int x = 0;
     int rowsCleared = 0;
@@ -198,7 +197,7 @@ void BoardModel::checkCompletedRows() {
                     if (it->second.first <= 1) {
                         // All of block's cells have been cleared
                         // Add BONUS POINTS
-                        score += pow((it->second.second + 1), 2);
+                        score_ += pow((it->second.second + 1), 2);
                         liveBlocks_.erase(getCell(x,y).second);
                     } else {
                         // Block has only been partially cleared
@@ -217,6 +216,7 @@ void BoardModel::checkCompletedRows() {
                 setCell(x, gridY_-1, std::make_pair(BlockType::EMPTY, 0));
                 x++;
             }
+            x = 0;
             rowsCleared++;
             // Note, we do not increment y because all rows above have shifted down by 1
         } else {
@@ -224,9 +224,9 @@ void BoardModel::checkCompletedRows() {
             x = 0;
             y++;
         }
-        // Add REGULAR POINTS
-        score += pow((level_ + rowsCleared), 2);
     }
+    // Add REGULAR POINTS
+    score_ += pow((level_ + rowsCleared), 2);
 }
 
 void BoardModel::I() {
