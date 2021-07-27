@@ -88,10 +88,10 @@ bool BoardModel::checkIfValidMove(int x, int y, int r) {
 
 void BoardModel::left(int m = 1) {
     std::cout << "LEFT" << std::endl;
-    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first + 1, 
+    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first - 1, 
                                      curBlock_->getCoords().second, 
                                      curBlock_->getRotation())) {
-        curBlock_->setCoords(curBlock_->getCoords().first + 1, curBlock_->getCoords().second);
+        curBlock_->setCoords(curBlock_->getCoords().first - 1, curBlock_->getCoords().second);
         m--;
     }
     levelArray_.at(level_)->postMoveOperation();
@@ -102,10 +102,10 @@ void BoardModel::left(int m = 1) {
 
 void BoardModel::right(int m = 1) {
     std::cout << "RIGHT" << std::endl;
-    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first - 1, 
+    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first + 1, 
                                      curBlock_->getCoords().second, 
                                      curBlock_->getRotation())) {
-        curBlock_->setCoords(curBlock_->getCoords().first - 1, curBlock_->getCoords().second);
+        curBlock_->setCoords(curBlock_->getCoords().first + 1, curBlock_->getCoords().second);
         m--;
     }
     levelArray_.at(level_)->postMoveOperation();
