@@ -151,6 +151,8 @@ void BoardModel::drop(int m = 1) {
         setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
     }
     levelArray_[level_]->postDropOperation();
+    liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
+    timestamp_++;
     checkCompletedRows();
     curBlock_ = nextBlock_;
     nextBlock_ = levelArray_[level_]->generateNextBlock();
