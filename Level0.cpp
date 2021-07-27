@@ -3,6 +3,7 @@
 // Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
 // on 2021-07-16.
 #include "Level0.h"
+#include <iostream>
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
@@ -39,7 +40,11 @@ std::shared_ptr <GenericBlock> Level0::generateNextBlock() {  // level 0 follows
   else if (typeBlock == BlockType::T_BLOCK){
     res = std::make_shared<TBlock>();
   }
-  counter_++; // increment the counter
+  if (counter_ == (int)blockSeq_.size() - 1) {
+    counter_ = 0;
+  } else {
+    counter_++; // increment the counter
+  }
   return res;
 }
 

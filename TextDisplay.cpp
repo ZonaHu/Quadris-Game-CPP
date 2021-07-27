@@ -24,7 +24,8 @@ void TextDisplay::update() {
                                               {BlockType::EMPTY, '-'}});
 
   std::cout << "TEXT DISPLAY" << std::endl;
-  std::cout << boardModel_->getScore() << std::endl;
+  std::cout << "SCORE: " << boardModel_->getScore() << std::endl;
+  std::cout << "LEVEL: " << boardModel_->getLevel() << std::endl;
 
   std::vector <std::vector <std::pair<BlockType, int>>> grid = boardModel_->getGrid();
   std::shared_ptr<GenericBlock> curBlock = boardModel_->getCurBlock();
