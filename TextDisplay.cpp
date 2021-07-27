@@ -4,7 +4,6 @@
 // on 2021-07-16.
 
 #include "TextDisplay.h"
-
 #include <utility>
 
 TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel){
@@ -19,7 +18,6 @@ TextDisplay::~TextDisplay() {
 void TextDisplay::update(std::shared_ptr <Subject>) {
 
 
-
 }
 
-void TextDisplay::print() {}
+

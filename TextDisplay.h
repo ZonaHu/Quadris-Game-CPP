@@ -21,7 +21,6 @@ public:
   ~TextDisplay() override; // destructor that cleans up the memory
 
   void update (std::shared_ptr <Subject>) override; //function for updating in observer
-  void print(); // function for printing
 };
 
 #endif // PROJECT_2_3_TEXTDISPLAY_H
