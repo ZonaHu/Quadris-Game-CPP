@@ -14,7 +14,7 @@ GenericBlock::~GenericBlock() {
 }
 
 // TODO: implement the rest
-BlockType GenericBlock::getType() const { return BlockType::L_BLOCK; }
+BlockType GenericBlock::getType() const { return type_; }
 void GenericBlock::setType(BlockType type) { type_ = type; }
 
 std::vector<std::vector<std::pair<int, int>>>

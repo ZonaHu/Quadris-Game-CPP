@@ -183,7 +183,6 @@ void BoardModel::leveldown(int m = 1) {
 }
 
 void BoardModel::checkCompletedRows() {
-    int score = 0;
     int y = 0;
     int x = 0;
     int rowsCleared = 0;
