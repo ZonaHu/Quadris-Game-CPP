@@ -162,6 +162,8 @@ void BoardModel::drop(int m = 1) {
         setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
     }
     levelArray_[level_]->postDropOperation();
+    liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
+    timestamp_++;
     checkCompletedRows();
     curBlock_ = nextBlock_;
     nextBlock_ = levelArray_[level_]->generateNextBlock();
@@ -203,8 +205,11 @@ void BoardModel::checkCompletedRows() {
             x = 0;
             while (x < gridX_) {
                 // Look-up the current cell's data in liveBlocks_ using its timestamp
+                std::cout << "Searching: " << getCell(x,y).second << std::endl;
                 auto it = liveBlocks_.find(getCell(x,y).second);
                 if (it != liveBlocks_.end()) {
+                    std::cout << "    Counter: " << it->second.first << std::endl;
+                    std::cout << "    Level: " << it->second.second << std::endl;
                     if (it->second.first <= 1) {
                         // All of block's cells have been cleared
                         // Add BONUS POINTS
