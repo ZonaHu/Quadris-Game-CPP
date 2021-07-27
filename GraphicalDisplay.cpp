@@ -13,7 +13,7 @@
 // TODO:
 GraphicalDisplay::GraphicalDisplay() {}
 GraphicalDisplay::~GraphicalDisplay() {}
-void GraphicalDisplay::update(Subject *b) {
+void GraphicalDisplay::update() {
     // std::cout << "UPDATE" << std::endl;
     // std::vector <std::vector <std::pair<BlockType, int>>> grid = b->getGrid();
     // std::shared_ptr<GenericBlock> curBlock = b->getCurBlock();

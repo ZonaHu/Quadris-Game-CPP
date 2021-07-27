@@ -19,7 +19,7 @@ private:
 public:
   GraphicalDisplay();
   ~GraphicalDisplay();
-  void update (Subject*) override; //function for updating in observer
+  void update () override; //function for updating in observer
 
 };
 

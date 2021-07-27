@@ -8,9 +8,9 @@
 #include <iostream>
 #include <memory>
 #include "Observer.h"
+#include "BoardModel.h"
 
 class BoardModel;
-
 // used as the view presented to the user
 class TextDisplay: public Observer{
 private:
@@ -20,7 +20,7 @@ public:
   TextDisplay(std::shared_ptr<BoardModel> boardModel); // constructor for initialization
   ~TextDisplay(){}; // destructor that cleans up the memory
 
-  void update (Subject*) override; //function for updating in observer
+  void update () override; //function for updating in observer
 };
 
 #endif // PROJECT_2_3_TEXTDISPLAY_H

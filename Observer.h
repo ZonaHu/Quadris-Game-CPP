@@ -13,7 +13,7 @@ class Observer {
 public:
   Observer(){}; // constructor
   virtual ~Observer(){}; // destructor
-  virtual void update(Subject*) = 0;
+  virtual void update() = 0;
 };
 
 #endif // PROJECT_2_3_OBSERVER_H
