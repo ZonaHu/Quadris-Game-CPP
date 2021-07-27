@@ -9,6 +9,7 @@
 
 
 class BoardModel;
+class Subject;
 
 class GraphicalDisplay: public Observer{
   // TODO: To be implemented

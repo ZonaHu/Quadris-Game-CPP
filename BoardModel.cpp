@@ -87,6 +87,7 @@ bool BoardModel::checkIfValidMove(int x, int y, int r) {
 }
 
 void BoardModel::left(int m = 1) {
+    std::cout << "LEFT" << std::endl;
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first + 1, 
                                      curBlock_->getCoords().second, 
                                      curBlock_->getRotation())) {
@@ -95,9 +96,12 @@ void BoardModel::left(int m = 1) {
     }
     levelArray_.at(level_)->postMoveOperation();
     notify();
+    std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
+    std::cout << "CUR: " << (int)curBlock_->getType() << std::endl;
 }
 
 void BoardModel::right(int m = 1) {
+    std::cout << "RIGHT" << std::endl;
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first - 1, 
                                      curBlock_->getCoords().second, 
                                      curBlock_->getRotation())) {
@@ -106,9 +110,11 @@ void BoardModel::right(int m = 1) {
     }
     levelArray_.at(level_)->postMoveOperation();
     notify();
+    std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }
 
 void BoardModel::down(int m = 1) {
+    std::cout << "DOWN" << std::endl;
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second - 1, 
                                      curBlock_->getRotation())) {
@@ -117,9 +123,11 @@ void BoardModel::down(int m = 1) {
     }
     levelArray_.at(level_)->postMoveOperation();
     notify();
+    std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }
 
 void BoardModel::clockwise(int m = 1) {
+    std::cout << "C" << std::endl;
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second, 
                                     (curBlock_->getRotation() + 1) % 4)) {
@@ -128,9 +136,11 @@ void BoardModel::clockwise(int m = 1) {
     }
     levelArray_.at(level_)->postMoveOperation();
     notify();
+    std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }
 
 void BoardModel::counterclockwise(int m = 1) {
+    std::cout << "CC" << std::endl;
     // Incrementing by 3 (mod 4) is equivalent to subtracting 1 (mod 4)
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second, 
@@ -140,6 +150,7 @@ void BoardModel::counterclockwise(int m = 1) {
     }
     levelArray_.at(level_)->postMoveOperation();
     notify();
+    std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }
 
 void BoardModel::drop(int m = 1) {

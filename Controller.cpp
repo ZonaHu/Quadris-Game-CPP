@@ -261,6 +261,7 @@ void Controller::extractMultiplier(std::string input) {
 }
 
 std::istream &operator>>(std::istream &in, Controller &control) {
+	std::cout << "CONTROLLER READ" << std::endl;
 	std::string input;
 	in >> input;
 	control.extractMultiplier(input);
