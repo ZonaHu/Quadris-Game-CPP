@@ -15,14 +15,13 @@ class BoardModel;
 class TextDisplay: public Observer{
 private:
   std::shared_ptr<BoardModel> boardModel_; // the boardmodel pointer is the subject this is observing
-  std::ostream& ost_; //store the ostream and library as private so only this class may view it
 
 public:
-  TextDisplay(std::ostream &o, std::shared_ptr<BoardModel> boardModel); // constructor for initialization
+  TextDisplay(std::shared_ptr<BoardModel> boardModel); // constructor for initialization
   ~TextDisplay() override; // destructor that cleans up the memory
 
   void update (std::shared_ptr <Subject>) override; //function for updating in observer
-  // friend std::ostream& operator<<(std::ostream &out, const TextDisplay &td); // overloaded output operator
+  void print(); // function for printing
 };
 
 #endif // PROJECT_2_3_TEXTDISPLAY_H
