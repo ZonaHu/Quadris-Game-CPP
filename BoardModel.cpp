@@ -143,6 +143,7 @@ void BoardModel::counterclockwise(int m = 1) {
 }
 
 void BoardModel::drop(int m = 1) {
+    down(18);
     std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
     int x = curBlock_->getCoords().first;
     int y = curBlock_->getCoords().second;
