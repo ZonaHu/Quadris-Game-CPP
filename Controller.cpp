@@ -60,9 +60,9 @@ void Controller::rename(std::vector <std::string> args) {
 void Controller::macro(std::vector <std::string> args) {
 	// The first element of args should either be new, save, or exec
 	if (args[0] == "new") {
-		try {
+		if ((int)args.size() >= 2) {
 			tempMacroName_ = args[1];
-		} catch (const std::out_of_range &e) {
+		} else {
 			std::cout << "Please provide a name for the new macro." << std::endl;
 		}
 		if (!tempMacroName_.empty()){
@@ -147,7 +147,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 	if (multiplier == 0) {
 		return;
 	} else {
-		if (macroInputFlag_ && enableBonus_) {
+		if (macroInputFlag_ && input.compare("macro save") && enableBonus_) {
 			int cmdNum = -1;
 			std::string cmd = "";
 			std::string args = "";
