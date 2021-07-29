@@ -3,7 +3,6 @@
 class Level4: public GenericLevel{
 private:
   int seed_;
-  bool nonRandom_;
   int counter_;
 public:
   Level4(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom); // constructor

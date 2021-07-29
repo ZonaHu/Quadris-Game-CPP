@@ -113,6 +113,7 @@ std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
 	std::string line = "";
 	std::vector <BlockType> blockList;
 	std::string block[8] = {"I", "J", "L", "O", "S", "Z", "T", "*"};
+	std::cout << fileName << std::endl;
 	if (file.is_open()) {
 		while (std::getline(file, line)) {
 			size_t pos = 0;

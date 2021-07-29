@@ -19,6 +19,7 @@ protected:
   // a shared Pointer to BoardModel object
   std::shared_ptr <BoardModel> boardModel_;
   std::vector<BlockType> blockSeq_;
+  bool isNonRandom_;
 
 public:
   GenericLevel(){}; // default constructor
@@ -35,6 +36,7 @@ public:
   virtual void postDropOperation() = 0;
 
   void setBlockGenSequence(std::vector<BlockType>);
+  void setIsNonRandom(bool);
 };
 
 #endif // PROJECT_2_3_GENERICLEVEL_H

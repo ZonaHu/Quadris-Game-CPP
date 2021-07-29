@@ -33,7 +33,9 @@ void BoardModel::setLevels(std::vector <std::shared_ptr<GenericLevel>> levelArra
 }
 
 void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
+    std::cout << "Set seq" << std::endl;
     levelArray_.at(level_)->setBlockGenSequence(seq);
+    levelArray_.at(level_)->setIsNonRandom(true);
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
@@ -298,6 +300,8 @@ void BoardModel::restart() {
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
 
-void BoardModel::random() {}
+void BoardModel::random() {
+    levelArray_.at(level_)->setIsNonRandom(false);
+}
 
 void BoardModel::hint() {}

@@ -15,3 +15,7 @@ GenericLevel::GenericLevel(const std::shared_ptr<BoardModel> p) {
 void GenericLevel::setBlockGenSequence(std::vector<BlockType> seq) {
   blockSeq_ = seq;
 }
+
+void GenericLevel::setIsNonRandom(bool isNonRandom) {
+  isNonRandom_ = isNonRandom;
+}
