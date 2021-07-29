@@ -11,14 +11,14 @@ Level3::Level3(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom) {
   // constructor
   boardModel_ = p;
   seed_ = seed;
-  nonRandom_ = nonrandom; // determine if in non-random mode or not
+  isNonRandom_ = nonrandom; // determine if in non-random mode or not
   counter_ = 0;
 }
 
 std::shared_ptr <GenericBlock> Level3::generateNextBlock() {
   // generate the next block in level 3
   std::shared_ptr<GenericBlock> res;
-  if (nonRandom_){ // if in non-random mode
+  if (isNonRandom_){ // if in non-random mode
     // read the block type from the vector at the correct index
     BlockType typeBlock = blockSeq_.at(counter_);
     // identify the type
@@ -43,7 +43,11 @@ std::shared_ptr <GenericBlock> Level3::generateNextBlock() {
     else if (typeBlock == BlockType::T_BLOCK){
       res = std::make_shared<TBlock>();
     }
-    counter_++; // increment the counter
+    if (counter_ == (int)blockSeq_.size() - 1) {
+      counter_ = 0;
+    } else {
+      counter_++; // increment the counter
+    }
   }
   else{ // if in random mode
     static std::mt19937 rng(seed_);
