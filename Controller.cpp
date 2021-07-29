@@ -247,7 +247,7 @@ void Controller::extractMultiplier(std::string input) {
 	int cmdStart = 0;
 	for (int i = 0; i < (int) input.length(); i++) {
 		if (std::isdigit(input[i])) {
-			multWord.append(input[i] + "");
+			multWord.append(input.substr(i,i+1));
 		} else {
 			cmdStart = i;
 			break;
