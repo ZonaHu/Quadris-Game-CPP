@@ -44,7 +44,7 @@ void TextDisplay::printGrid() {
   std::pair <int, int> d = curBlock->getCells().at(r).at(3);
   for(std::size_t i = 0; i < curGrid.size(); ++i) {
     for(std::size_t j = 0; j < curGrid.at(i).size(); ++j){
-      int count = i; // count denotes the current line number
+      int count = i+1; // count denotes the current line number
       if (count >= 1 && count <= 9){
         std::cout << " " << count << "   "; // 1 digit numbers will have an extra space at the beginning fot format
       }
