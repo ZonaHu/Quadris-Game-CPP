@@ -22,7 +22,11 @@ private:
   int gridX_ = 11;
   int gridY_ = 18;
 
+  // Increments after each move, used to uniquely ID a dropped block for Bonus calculation
   int timestamp_ = 0;
+  // Maps timestamp value to a pair:
+  // first: counter representing the number of squares belonging to the block left on grid_
+  // second: level at which the block was dropped
   std::unordered_map<int, std::pair<int, int>> liveBlocks_;
 
   // Counts number of times you placed a block without clearing at least one row
