@@ -18,6 +18,7 @@ class GenericLevel {
 protected:
   // a shared Pointer to BoardModel object
   std::shared_ptr <BoardModel> boardModel_;
+  // Sequence of blocks for levels that have a "non-random" mode
   std::vector<BlockType> blockSeq_;
   bool isNonRandom_;
 
