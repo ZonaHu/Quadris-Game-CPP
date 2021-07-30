@@ -79,6 +79,8 @@ public:
   void hint();
 
   // Accessors and mutators
+  int getGridX() const;
+  int getGridY() const;
   std::vector <std::vector <std::pair<BlockType, int>>> getGrid() const;
   std::pair<BlockType, int> getCell(int, int) const;
   void setCell(int, int, std::pair<BlockType, int>);

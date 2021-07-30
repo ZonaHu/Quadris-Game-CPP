@@ -40,6 +40,10 @@ void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
 
+int BoardModel::getGridX() const { return gridX_; }
+
+int BoardModel::getGridY() const { return gridY_; }
+
 std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() const { return grid_; }
 
 // Transforms Cartesian coords to indices in grid_ vector
