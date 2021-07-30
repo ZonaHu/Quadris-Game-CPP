@@ -25,12 +25,18 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
   // std::string scriptFile source of blocks for level 0
   // int startLevel starts the game in this level
   // bool enableBonus activates bonus features if true
-  // initialize all private members
+
+  // Instantiate Controller
   controller_ = std::make_shared<Controller> (enableBonus);
+
+  // Read in the block sequence for Level0
   std::vector<BlockType> level0BlockSeq = controller_->blockSequenceSource(scriptFile);
-  std::vector <std::shared_ptr<GenericLevel>> levelArray;
+  
+  // Instantiate BoardModel
   BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
 
+  // Instantiate all the levels and store them in an array
+  std::vector <std::shared_ptr<GenericLevel>> levelArray;
   std::shared_ptr<GenericLevel> level0 = std::make_shared<Level0>(BoardModel_, level0BlockSeq);
   std::shared_ptr<GenericLevel> level1 = std::make_shared<Level1>(BoardModel_, seed);
   std::shared_ptr<GenericLevel> level2 = std::make_shared<Level2>(BoardModel_, seed);
