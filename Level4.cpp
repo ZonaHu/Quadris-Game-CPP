@@ -80,7 +80,7 @@ std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
 }
 
 void Level4::postMoveOperation() {
-  boardModel_->down(1, false);
+  boardModel_->down(1, false, true);
 }
 
 void Level4::postDropOperation() {

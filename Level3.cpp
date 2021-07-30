@@ -81,7 +81,7 @@ std::shared_ptr <GenericBlock> Level3::generateNextBlock() {
 
 void Level3::postMoveOperation() {
   // blocks generated in level 3 are "heavy"
-  boardModel_->down(1, false); //downward move of one row if possible
+  boardModel_->down(1, false, true); //downward move of one row if possible
 }
 
 void Level3::postDropOperation() {

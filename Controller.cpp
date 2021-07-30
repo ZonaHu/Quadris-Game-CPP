@@ -190,16 +190,17 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else {
 				cmdArgs.push_back(input);
 			}
+			boardModel_->clearHintBlock();
 			if (parse(cmdStart, commandList_[0])) {
-				boardModel_->left(multiplier);
+				boardModel_->left(multiplier, true, true);
 			} else if (parse(cmdStart, commandList_[1])) {
-				boardModel_->right(multiplier);
+				boardModel_->right(multiplier, true, true);
 			} else if (parse(cmdStart, commandList_[2])) {
-				boardModel_->down(multiplier, true);
+				boardModel_->down(multiplier, true, true);
 			} else if (parse(cmdStart, commandList_[3])) {
-				boardModel_->clockwise(multiplier);
+				boardModel_->clockwise(multiplier, true, true);
 			} else if (parse(cmdStart, commandList_[4])) {
-				boardModel_->counterclockwise(multiplier) ;
+				boardModel_->counterclockwise(multiplier, true, true) ;
 			} else if (parse(cmdStart, commandList_[5])) {
 				boardModel_->drop(multiplier);
 			} else if (parse(cmdStart, commandList_[6])) {
