@@ -189,6 +189,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else {
 				cmdArgs.push_back(input);
 			}
+			boardModel_->clearHintBlock();
 			if (parse(cmdStart, commandList_[0])) {
 				boardModel_->left(multiplier, true, true);
 			} else if (parse(cmdStart, commandList_[1])) {
