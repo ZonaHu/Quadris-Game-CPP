@@ -32,6 +32,7 @@ void BoardModel::setLevels(std::vector <std::shared_ptr<GenericLevel>> levelArra
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
 
+// Sets the block sequence for the current level
 void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
     levelArray_.at(level_)->setBlockGenSequence(seq);
     levelArray_.at(level_)->setIsNonRandom(true);
@@ -41,10 +42,14 @@ void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
 
 std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() const { return grid_; }
 
-// Transform Cartesian coords to indices in grid_ vector
+// Transforms Cartesian coords to indices in grid_ vector
 // i.e. (0,0) is bottom left corner of grid
 std::pair<BlockType, int> BoardModel::getCell(int x, int y) const {
     return grid_.at(gridY_-1-y).at(x);
+}
+
+void BoardModel::setCell(int x, int y, std::pair<BlockType, int> data) {
+    grid_.at(gridY_-1-y).at(x) = data;
 }
 
 std::shared_ptr<GenericBlock> BoardModel::getCurBlock() const { return curBlock_; }
@@ -53,9 +58,7 @@ std::shared_ptr<GenericBlock> BoardModel::getNextBlock() const { return nextBloc
 
 std::shared_ptr<GenericBlock> BoardModel::getHintBlock() const { return hintBlock_; }
 
-void BoardModel::clearHintBlock() {
-    hintBlock_ = nullptr;
-}
+void BoardModel::clearHintBlock() { hintBlock_ = nullptr; }
 
 int BoardModel::getScore() const { return score_; }
 
@@ -65,20 +68,15 @@ int BoardModel::getLevel() const { return level_; }
 
 int BoardModel::getNonClearStreak() const { return nonClearStreak_; }
 
-void BoardModel::setNonClearStreak(int n) {
-    nonClearStreak_ = n;
-}
-
-void BoardModel::setCell(int x, int y, std::pair<BlockType, int> data) {
-    grid_.at(gridY_-1-y).at(x) = data;
-}
+void BoardModel::setNonClearStreak(int n) { nonClearStreak_ = n; }
 
 bool BoardModel::checkIfValidMove(int x, int y, int r) {
     // Get the cells of curBlock_ that correspond to rotation r
     std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(r);
 
+    // Iterate through the 4 squares of the block and check that they are in valid cells
     for(std::size_t i = 0; i < cells.size(); ++i) {
-        // Get absolute coordinates on grid_
+        // Calculate absolute coordinates on grid_
         int cellX = x+cells[i].first;
         int cellY = y+cells[i].second;
         // Out of bounds check
@@ -150,19 +148,26 @@ void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
 }
 
 void BoardModel::drop(int m = 1) {
-    down(18, false, false);
+    // Move block down as far as possible
+    down(gridY_, false, false);
+
     std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
     int x = curBlock_->getCoords().first;
     int y = curBlock_->getCoords().second;
+    // Iterate through the 4 squares of the block and insert them into the grid_
     for(std::size_t i = 0; i < cells.size(); ++i) {
         setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
     }
+
     levelArray_[level_]->postDropOperation();
+
     liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
     timestamp_++;
+
     checkCompletedRows();
     curBlock_ = nextBlock_;
     nextBlock_ = levelArray_[level_]->generateNextBlock();
+
     // TODO: Disable moves and only allow RESTART
     isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
     notify();
@@ -183,7 +188,7 @@ void BoardModel::checkCompletedRows() {
     int x = 0;
     int rowsCleared = 0;
 
-    // Iterate from bottom left to top right of grid_
+    // Iterate from bottom-left to top-right of grid_
     while (y < gridY_) {
         // First, check if a row is completely full
         bool isRowComplete = true;
@@ -221,7 +226,8 @@ void BoardModel::checkCompletedRows() {
                     setCell(x, i, above);
                     i++;
                 }
-                // Cell in topmost row will be EMPTY
+                // There is nothing to shift down from above in the top row;
+                // the cell in the topmost row will be EMPTY
                 setCell(x, gridY_-1, std::make_pair(BlockType::EMPTY, 0));
                 x++;
             }
@@ -281,6 +287,7 @@ void BoardModel::T() {
 }
 
 void BoardModel::restart() {
+    // Reset grid
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
     score_ = 0;
