@@ -37,6 +37,9 @@ private:
   // Pointer to the Block that comes next
   std::shared_ptr<GenericBlock> nextBlock_;
 
+  // Pointer to the Hint block
+  std::shared_ptr<GenericBlock> nextBlock_;
+
   int score_; // keep track of the score
   int hi_score_; // keep track of the highest score
   int level_; // keep track of the curent level
@@ -52,11 +55,11 @@ public:
   bool checkIfValidMove(int, int, int); // check if any of the 4 coordinates overlaps with a filled cell on the grid.
   void checkCompletedRows();
   void calcScore();
-  void left(int);
-  void right(int);
-  void down(int, bool);
-  void clockwise(int);
-  void counterclockwise(int);
+  void left(int, bool, bool);
+  void right(int, bool, bool);
+  void down(int, bool, bool);
+  void clockwise(int, bool, bool);
+  void counterclockwise(int, bool, bool);
   void drop(int);
   void levelup(int);
   void leveldown(int);
@@ -77,6 +80,8 @@ public:
   void setCell(int, int, std::pair<BlockType, int>);
   std::shared_ptr<GenericBlock> getCurBlock() const;
   std::shared_ptr<GenericBlock> getNextBlock() const;
+  std::shared_ptr<GenericBlock> getHintBlock() const;
+  void clearHintBlock();
   int getScore() const;
   int getHiScore() const;
   int getLevel() const;

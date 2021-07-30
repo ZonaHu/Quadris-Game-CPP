@@ -51,6 +51,12 @@ std::shared_ptr<GenericBlock> BoardModel::getCurBlock() const { return curBlock_
 
 std::shared_ptr<GenericBlock> BoardModel::getNextBlock() const { return nextBlock_; }
 
+std::shared_ptr<GenericBlock> BoardModel::getHintBlock() const { return hintBlock_; }
+
+void BoardModel::clearHintBlock() {
+    hintBlock_ = nullptr;
+}
+
 int BoardModel::getScore() const { return score_; }
 
 int BoardModel::getHiScore() const { return hi_score_; }
@@ -87,53 +93,51 @@ bool BoardModel::checkIfValidMove(int x, int y, int r) {
     return true;
 }
 
-void BoardModel::left(int m = 1) {
+void BoardModel::left(int m, bool doesPostMove, bool doesNotify) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first - 1, 
                                      curBlock_->getCoords().second, 
                                      curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first - 1, curBlock_->getCoords().second);
         m--;
     }
-    levelArray_.at(level_)->postMoveOperation();
-    notify();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesNotify) notify();
 }
 
-void BoardModel::right(int m = 1) {
+void BoardModel::right(int m, bool doesPostMove, bool doesNotify) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first + 1, 
                                      curBlock_->getCoords().second, 
                                      curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first + 1, curBlock_->getCoords().second);
         m--;
     }
-    levelArray_.at(level_)->postMoveOperation();
-    notify();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesNotify) notify();
 }
 
-void BoardModel::down(int m = 1, bool doPostMove = true) {
+void BoardModel::down(int m, bool doesPostMove, bool doesNotify) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second - 1, 
                                      curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second - 1);
         m--;
     }
-    if (doPostMove) {
-        levelArray_.at(level_)->postMoveOperation();
-    }
-    notify();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesNotify) notify();
 }
 
-void BoardModel::clockwise(int m = 1) {
+void BoardModel::clockwise(int m, bool doesPostMove, bool doesNotify) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second, 
                                     (curBlock_->getRotation() + 1) % 4)) {
         curBlock_->setRotation((curBlock_->getRotation() + 1) % 4);
         m--;
     }
-    levelArray_.at(level_)->postMoveOperation();
-    notify();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesNotify) notify();
 }
 
-void BoardModel::counterclockwise(int m = 1) {
+void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
     // Incrementing by 3 (mod 4) is equivalent to subtracting 1 (mod 4)
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second, 
@@ -141,12 +145,12 @@ void BoardModel::counterclockwise(int m = 1) {
         curBlock_->setRotation((curBlock_->getRotation() + 3) % 4);
         m--;
     }
-    levelArray_.at(level_)->postMoveOperation();
-    notify();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesNotify) notify();
 }
 
 void BoardModel::drop(int m = 1) {
-    down(18);
+    down(18, false, false);
     std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
     int x = curBlock_->getCoords().first;
     int y = curBlock_->getCoords().second;
