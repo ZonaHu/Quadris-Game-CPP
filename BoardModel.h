@@ -38,7 +38,7 @@ private:
   std::shared_ptr<GenericBlock> nextBlock_;
 
   // Pointer to the Hint block
-  std::shared_ptr<GenericBlock> nextBlock_;
+  std::shared_ptr<GenericBlock> hintBlock_;
 
   int score_; // keep track of the score
   int hi_score_; // keep track of the highest score
