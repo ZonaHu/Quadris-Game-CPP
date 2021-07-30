@@ -16,7 +16,7 @@ TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel){
   blockTypeToChar_[BlockType::Z_BLOCK] = 'Z';
   blockTypeToChar_[BlockType::T_BLOCK] = 'T';
   blockTypeToChar_[BlockType::STAR_BLOCK] = '*';
-  blockTypeToChar_[BlockType::EMPTY] = '-';
+  blockTypeToChar_[BlockType::EMPTY] = ' ';
 }
 
 TextDisplay::~TextDisplay() {
