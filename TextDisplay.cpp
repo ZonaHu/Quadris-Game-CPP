@@ -77,8 +77,8 @@ void TextDisplay::printNextBlock() {
   std::pair <int, int> b = nextBlock->getCells().at(0).at(1);
   std::pair <int, int> c = nextBlock->getCells().at(0).at(2);
   std::pair <int, int> d = nextBlock->getCells().at(0).at(3);
-  for (int j = 1; j >= 0; j--){ // the original block has 2 rows and 4 columns
-    for (int i = 0; i <= 4; i++){
+  for (int j = 3; j >= 0; j--){ // the original block has 2 rows and 4 columns
+    for (int i = 0; i < 4; i++){
       // print the current row
       std::cout << "     "; // leading spaces
       if ((a.second == j && a.first == i)
