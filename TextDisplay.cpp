@@ -88,7 +88,7 @@ void TextDisplay::printNextBlock() {
         std::cout << blockTypeToChar_.at(nextBlock->getType()); // print the current type
       }
       else{
-        std::cout << ""; // else it should be empty
+        std::cout << " "; // else it should be empty
       }
       std::cout << std::endl;
     }
