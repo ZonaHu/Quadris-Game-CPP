@@ -293,4 +293,51 @@ void BoardModel::random() {
     levelArray_.at(level_)->setIsNonRandom(true);
 }
 
-void BoardModel::hint() {}
+void BoardModel::hint() {
+    // Create a temp copy of curBlock to restore it after computing the hint
+    std::shared_ptr<GenericBlock> temp = std::make_shared<GenericBlock>(*curBlock_);
+    // Tracks values for the position that gives the lowest y value so far
+    int bestY = 18;
+    int bestRotation = 0;
+    int bestX = 0;
+
+    // Move curBlock_ to the top-left corner and set it as the base position
+    int m = 18;
+    while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
+                                curBlock_->getCoords().second + 1, 
+                                curBlock_->getRotation())) {
+        curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second + 1);
+        m--;
+    }
+    left(11, false, false);
+    std::pair<int, int> baseCoords = curBlock_->getCoords();
+
+    // Iterate through all rotations and x values
+    for (int r = 0; r < 4; r++) {
+        for (int x = 0; x < 11; x++) {
+            // Reset position
+            curBlock_->setCoords(baseCoords.first, baseCoords.second);
+            // Transform and drop
+            clockwise(r, false, false);
+            right(x, false, false);
+            down(18, false, false);
+
+            // Check if this is the lowest position so far
+            if (curBlock_->getCoords().second < bestY) {
+                bestY = curBlock_->getCoords().second;
+                bestRotation = r;
+                bestX = x;
+            }
+        }
+    }
+
+    // Move to the best position and copy to hintBlock_
+    clockwise(bestRotation, false, false);
+    right(bestX, false, false);
+    down(18, false, false);
+    hintBlock_ = std::make_shared<GenericBlock>(*curBlock_);
+
+    // Restore curBlock_
+    curBlock_ = temp;
+    notify();
+}
