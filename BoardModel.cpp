@@ -40,6 +40,10 @@ void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
 
+int BoardModel::getGridX() const { return gridX_; }
+
+int BoardModel::getGridY() const { return gridY_; }
+
 std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() const { return grid_; }
 
 // Transform Cartesian coords to indices in grid_ vector
@@ -102,7 +106,7 @@ void BoardModel::left(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setCoords(curBlock_->getCoords().first - 1, curBlock_->getCoords().second);
         m--;
     }
-    if (doesNotify) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
     if (doesNotify) notify();
     std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
     std::cout << "CUR: " << (int)curBlock_->getType() << std::endl;
@@ -116,7 +120,7 @@ void BoardModel::right(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setCoords(curBlock_->getCoords().first + 1, curBlock_->getCoords().second);
         m--;
     }
-    if (doesNotify) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
     if (doesNotify) notify();
     std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }
@@ -129,7 +133,7 @@ void BoardModel::down(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second - 1);
         m--;
     }
-    if (doesNotify) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
     if (doesNotify) notify();
     std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }
@@ -142,7 +146,7 @@ void BoardModel::clockwise(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setRotation((curBlock_->getRotation() + 1) % 4);
         m--;
     }
-    if (doesNotify) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
     if (doesNotify) notify();
     std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }
@@ -156,7 +160,7 @@ void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setRotation((curBlock_->getRotation() + 3) % 4);
         m--;
     }
-    if (doesNotify) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
     if (doesNotify) notify();
     std::cout << "X: " << curBlock_->getCoords().first << " Y: " << curBlock_->getCoords().second << std::endl;
 }
@@ -169,7 +173,9 @@ void BoardModel::drop(int m = 1) {
     for(std::size_t i = 0; i < cells.size(); ++i) {
         setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
     }
+    
     levelArray_[level_]->postDropOperation();
+    std::cout << "HERE" << std::endl;
     liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
     timestamp_++;
     checkCompletedRows();
@@ -178,6 +184,7 @@ void BoardModel::drop(int m = 1) {
     // TODO: Disable moves and only allow RESTART
     isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
     notify();
+    
 }
 
 void BoardModel::levelup(int m = 1) {
