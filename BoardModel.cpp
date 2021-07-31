@@ -7,6 +7,7 @@
 #include <utility>
 #include <math.h>
 #include <fstream>
+#include <stdlib.h>
 
 BoardModel::BoardModel() {
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
@@ -67,13 +68,21 @@ void BoardModel::clearHintBlock() { hintBlock_ = nullptr; }
 
 int BoardModel::getScore() const { return score_; }
 
+void BoardModel::setScore(int score) { score_ = score; }
+
 int BoardModel::getHiScore() const { return hi_score_; }
 
+void BoardModel::setHiScore(int hi_score) { hi_score_ = hi_score; }
+
 int BoardModel::getLevel() const { return level_; }
+
+void BoardModel::setLevel(int level) { level_ = level; }
 
 int BoardModel::getNonClearStreak() const { return nonClearStreak_; }
 
 void BoardModel::setNonClearStreak(int n) { nonClearStreak_ = n; }
+
+void BoardModel::setTimestamp(int t) { timestamp_ = t; }
 
 bool BoardModel::checkIfValidMove(int x, int y, int r) {
     // Get the cells of curBlock_ that correspond to rotation r
@@ -365,4 +374,49 @@ void BoardModel::saveGame() {
     saveFile << level_ << "\n";
     saveFile.close();
     std::cout << "SAVE COMPLETE!" << std::endl;
+}
+
+void BoardModel::loadGame() {
+    std::cout << "LOADING..." << std::endl;
+    restart();
+    std::ifstream infile("save.quadris");
+    std::string line;
+
+    bool didLoadFail = false;
+
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setTimestamp(std::stoi(line));
+    }
+    
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setNonClearStreak(std::stoi(line));
+    }
+
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setScore(std::stoi(line));
+    }
+
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setHiScore(std::stoi(line));
+    }
+
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setLevel(std::stoi(line));
+    }
+
+    if (didLoadFail) {
+        std::cout << "WARNING: Some data could not be loaded.";
+    }
+
+    std::cout << "LOAD COMPLETE!" << std::endl;
 }

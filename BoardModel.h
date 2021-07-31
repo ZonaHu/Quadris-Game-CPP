@@ -78,6 +78,7 @@ public:
   void restart();
   void hint();
   void saveGame();
+  void loadGame();
 
   // Accessors and mutators
   int getGridX() const;
@@ -90,10 +91,14 @@ public:
   std::shared_ptr<GenericBlock> getHintBlock() const;
   void clearHintBlock();
   int getScore() const;
+  void setScore(int);
   int getHiScore() const;
+  void setHiScore(int);
   int getLevel() const;
+  void setLevel(int);
   int getNonClearStreak() const;
   void setNonClearStreak(int);
+  void setTimestamp(int);
   void setBlockGenSequence(std::vector<BlockType>);
   void setLevels(std::vector <std::shared_ptr<GenericLevel>>);
 };
