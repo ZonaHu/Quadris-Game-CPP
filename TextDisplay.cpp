@@ -27,7 +27,6 @@ TextDisplay::~TextDisplay() {
 void TextDisplay::printHeader() {
   std::cout << "Start Text-based Display" << std::endl;
   std::cout << "Level:        " << boardModel_->getLevel() << std::endl;
-  std::cout << "Level:        " << boardModel_->getLevel() << std::endl;
   std::cout << "Score:        " << boardModel_->getScore() << std::endl;
   std::cout << "Hi-Score:     " << boardModel_->getHiScore() << std::endl;
   std::cout << "-----------------" << std::endl;
