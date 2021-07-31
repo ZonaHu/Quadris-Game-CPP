@@ -24,7 +24,7 @@ private:
   void printNextBlock();
 
 public:
-  TextDisplay(std::shared_ptr<BoardModel> boardModel); // constructor for initialization
+  explicit TextDisplay(std::shared_ptr<BoardModel> boardModel); // constructor for initialization
   ~TextDisplay() override; // destructor that cleans up the memory
 
   void update () override; //function for updating in observer

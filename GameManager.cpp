@@ -61,14 +61,14 @@ void GameManager::start() {
   // Create instance of appropriate Observer derived classes
   // based on value of isTextOnly; subscribe them to the BoardModel.
   if (isTextOnly_){
-    std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
+    Observer* t = new TextDisplay(BoardModel_);
     BoardModel_->subscribe(t); // subscribe the text display only
   }
   else{
     // subscribe to both displays
-    std::shared_ptr<Observer> t = std::make_shared<TextDisplay>(BoardModel_);
+    Observer* t = new TextDisplay(BoardModel_);
     BoardModel_->subscribe(t);
-    std::shared_ptr<Observer> g = std::make_shared<GraphicalDisplay>();
+    Observer* g = new GraphicalDisplay();
     BoardModel_->subscribe(g);
   }
   while(!std::cin.eof()||!std::cin.fail()){

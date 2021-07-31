@@ -7,11 +7,11 @@
 #include "Subject.h"
 #include "Observer.h"
 
-void Subject::subscribe(std::shared_ptr <Observer> newObserver){
+void Subject::subscribe(Observer* newObserver){
   observers_.insert(newObserver);
 }
 
-void Subject::unsubscribe(std::shared_ptr <Observer> oldObserver){
+void Subject::unsubscribe(Observer* oldObserver){
   observers_.erase(oldObserver);
 }
 
