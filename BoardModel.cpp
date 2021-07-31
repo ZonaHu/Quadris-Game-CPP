@@ -5,7 +5,8 @@
 
 #include "BoardModel.h"
 #include <utility>
-#include <math.h> 
+#include <math.h>
+#include <fstream>
 
 BoardModel::BoardModel() {
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
@@ -351,4 +352,17 @@ void BoardModel::hint() {
     // Restore curBlock_
     curBlock_ = temp;
     notify();
+}
+
+void BoardModel::saveGame() {
+    std::cout << "SAVING..." << std::endl;
+    std::ofstream saveFile;
+    saveFile.open ("save.quadris");
+    saveFile << timestamp_ << "\n";
+    saveFile << nonClearStreak_ << "\n";
+    saveFile << score_ << "\n";
+    saveFile << hi_score_ << "\n";
+    saveFile << level_ << "\n";
+    saveFile.close();
+    std::cout << "SAVE COMPLETE!" << std::endl;
 }

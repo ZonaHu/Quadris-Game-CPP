@@ -77,6 +77,7 @@ public:
   void T();
   void restart();
   void hint();
+  void saveGame();
 
   // Accessors and mutators
   int getGridX() const;
