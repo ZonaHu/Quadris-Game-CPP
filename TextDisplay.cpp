@@ -43,14 +43,14 @@ void TextDisplay::printGrid() {
   std::pair <int, int> c = curBlock->getCells().at(r).at(2);
   std::pair <int, int> d = curBlock->getCells().at(r).at(3);
   for(std::size_t i = 0; i < curGrid.size(); ++i) {
+    int count = i+1; // count denotes the current line number
+    if (count >= 1 && count <= 9){
+      std::cout << " " << count << "   "; // 1 digit numbers will have an extra space at the beginning fot format
+    }
+    else{
+      std::cout << count << "   "; // 2 digit numbers
+    }
     for(std::size_t j = 0; j < curGrid.at(i).size(); ++j){
-      int count = i+1; // count denotes the current line number
-      if (count >= 1 && count <= 9){
-        std::cout << " " << count << "   "; // 1 digit numbers will have an extra space at the beginning fot format
-      }
-      else{
-        std::cout << count << "   "; // 2 digit numbers
-      }
       // print the rest of things in the same line corresponding to count
       if (((int)j == base.first+a.first && 18-1-(int)i == base.second+a.second) ||
           ((int)j == base.first+b.first && 18-1-(int)i == base.second+b.second) ||
@@ -78,9 +78,9 @@ void TextDisplay::printNextBlock() {
   std::pair <int, int> c = nextBlock->getCells().at(0).at(2);
   std::pair <int, int> d = nextBlock->getCells().at(0).at(3);
   for (int j = 3; j >= 0; j--){ // the original block has 2 rows and 4 columns
+    // print the current row
+    std::cout << "     "; // leading spaces
     for (int i = 0; i < 4; i++){
-      // print the current row
-      std::cout << "     "; // leading spaces
       if ((a.second == j && a.first == i)
           || (b.second == j && b.first == i)
           || (c.second == j && c.first == i)
