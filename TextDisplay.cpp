@@ -25,11 +25,11 @@ TextDisplay::~TextDisplay() {
 }
 
 void TextDisplay::printHeader() {
-  std::cout << "Start Text-based Display" << std::endl;
-  std::cout << "Level:        " << boardModel_->getLevel() << std::endl;
-  std::cout << "Score:        " << boardModel_->getScore() << std::endl;
-  std::cout << "Hi-Score:     " << boardModel_->getHiScore() << std::endl;
-  std::cout << "-----------------" << std::endl;
+  std::cout << "     Start Text-based Display" << std::endl;
+  std::cout << "     Level:        " << boardModel_->getLevel() << std::endl;
+  std::cout << "     Score:        " << boardModel_->getScore() << std::endl;
+  std::cout << "     Hi-Score:     " << boardModel_->getHiScore() << std::endl;
+  std::cout << "     -----------------" << std::endl;
 }
 
 void TextDisplay::printGrid() {
@@ -68,15 +68,15 @@ void TextDisplay::printGrid() {
 
 void TextDisplay::printNextBlock() {
   // function to print the next block
-  std::cout << "-----------------" << std::endl;
-  std::cout << "Next Block:      " << std::endl;
+  std::cout << "     -----------------" << std::endl;
+  std::cout << "     Next Block:      " << std::endl;
   std::shared_ptr <GenericBlock> nextBlock = boardModel_->getNextBlock(); // get the next block we want
   // get the coordinates for each letter's position
   std::pair <int, int> a = nextBlock->getCells().at(0).at(0);
   std::pair <int, int> b = nextBlock->getCells().at(0).at(1);
   std::pair <int, int> c = nextBlock->getCells().at(0).at(2);
   std::pair <int, int> d = nextBlock->getCells().at(0).at(3);
-  for (int j = 3; j >= 0; j--){ // the original block has 2 rows and 4 columns
+  for (int j = 1; j >= 0; j--){ // the original block has 2 rows and 4 columns
     // print the current row
     std::cout << "     "; // leading spaces
     for (int i = 0; i < 4; i++){
@@ -89,8 +89,8 @@ void TextDisplay::printNextBlock() {
       else{
         std::cout << " "; // else it should be empty
       }
-      std::cout << std::endl;
     }
+    std::cout << std::endl;
   }
 }
 
