@@ -5,10 +5,11 @@
 
 #ifndef PROJECT_2_3_OBSERVER_H
 #define PROJECT_2_3_OBSERVER_H
+#include <memory>
 
 class Subject;
 
-class Observer {
+class Observer : public std::enable_shared_from_this<Observer> {
 public:
   virtual ~Observer(){}; // destructor
   virtual void update() = 0;

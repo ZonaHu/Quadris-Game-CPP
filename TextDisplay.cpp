@@ -21,7 +21,7 @@ TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel){
 
 TextDisplay::~TextDisplay() {
   //call unsubscribe in the destructor
-  boardModel_->unsubscribe(this);
+  boardModel_->unsubscribe(shared_from_this());
 }
 
 void TextDisplay::printHeader() {
