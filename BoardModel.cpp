@@ -305,6 +305,9 @@ void BoardModel::random() {
 }
 
 void BoardModel::hint() {
+    // Tries out all x positions and rotations using the curBlock_ and sets the hintBlock_
+    // to the configuration that gives the lowest y position after a drop
+
     // Create a temp copy of curBlock to restore it after computing the hint
     std::shared_ptr<GenericBlock> temp = std::make_shared<GenericBlock>(*curBlock_);
     // Tracks values for the position that gives the lowest y value so far
@@ -312,27 +315,31 @@ void BoardModel::hint() {
     int bestRotation = 0;
     int bestX = 0;
 
-    // Move curBlock_ to the top-left corner and set it as the base position
-    int m = 18;
+    // Move curBlock_ to its initial spawn position and rotation
+    curBlock_->setRotation(0);
+    int m = gridY_;
+    // Move up as high as possible
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                 curBlock_->getCoords().second + 1, 
                                 curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second + 1);
         m--;
     }
-    left(11, false, false);
+    // Move left as far as possible
+    left(gridX_, false, false);
+    // Bring it down to spawn height
+    down(4, false, false);
     std::pair<int, int> baseCoords = curBlock_->getCoords();
 
     // Iterate through all rotations and x values
     for (int r = 0; r < 4; r++) {
-        for (int x = 0; x < 11; x++) {
+        for (int x = 0; x < gridX_; x++) {
             // Reset position
             curBlock_->setCoords(baseCoords.first, baseCoords.second);
             // Transform and drop
             clockwise(r, false, false);
             right(x, false, false);
-            down(18, false, false);
-
+            down(gridY_, false, false);
             // Check if this is the lowest position so far
             if (curBlock_->getCoords().second < bestY) {
                 bestY = curBlock_->getCoords().second;
@@ -341,6 +348,10 @@ void BoardModel::hint() {
             }
         }
     }
+
+    // Reset to base position and rotation
+    curBlock_->setRotation(0);
+    curBlock_->setCoords(baseCoords.first, baseCoords.second);
 
     // Move to the best position and copy to hintBlock_
     clockwise(bestRotation, false, false);
