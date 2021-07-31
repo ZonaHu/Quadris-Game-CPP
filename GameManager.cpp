@@ -30,7 +30,7 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
   controller_ = std::make_shared<Controller> (enableBonus);
 
   // Read in the block sequence for Level0
-  std::vector<BlockType> level0BlockSeq = controller_.blockSequenceSource(scriptFile);
+  std::vector<BlockType> level0BlockSeq = controller_->blockSequenceSource(scriptFile);
 
   // Instantiate BoardModel
   BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
@@ -49,7 +49,7 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
   levelArray.push_back(level4);
 
   BoardModel_->setLevels(levelArray);
-  controller_.setBoard(BoardModel_);
+  controller_->setBoard(BoardModel_);
 
   isTextOnly_ = isTextOnly; // if set to true, the program is in text-only mode
 }
@@ -73,6 +73,6 @@ void GameManager::start() {
   }
   while(!std::cin.eof()||!std::cin.fail()){
     //Begin an infinite while loop that reads user input from cin into the Controller input overload.
-    std::cin >> controller_;
+    std::cin >> *controller_;
   }
 }

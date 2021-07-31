@@ -18,7 +18,7 @@ private:
   // support the options as command line args
   bool isTextOnly_; // if set to true, the program is in text-only mode
   std::shared_ptr<BoardModel> BoardModel_; // BoardModel on stack.
-  Controller controller_; // Controller on stack
+  std::shared_ptr<Controller> controller_; // Controller on stack
 
 public:
   GameManager(bool isTextOnly, int seed, std::string scriptFile, int startLevel, bool enableBonus); //  constructor

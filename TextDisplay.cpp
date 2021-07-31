@@ -25,15 +25,15 @@ TextDisplay::~TextDisplay() {
 
 void TextDisplay::printHeader() {
   std::cout << "     Start Text-based Display" << std::endl;
-  std::cout << "     Level:        " << boardModel_->getLevel() << std::endl;
-  std::cout << "     Score:        " << boardModel_->getScore() << std::endl;
-  std::cout << "     Hi-Score:     " << boardModel_->getHiScore() << std::endl;
+  std::cout << "     Level:        " << boardModel_.getLevel() << std::endl;
+  std::cout << "     Score:        " << boardModel_.getScore() << std::endl;
+  std::cout << "     Hi-Score:     " << boardModel_.getHiScore() << std::endl;
   std::cout << "     -----------------" << std::endl;
 }
 
 void TextDisplay::printGrid() {
-  std::vector <std::vector <std::pair<BlockType, int>>> curGrid = boardModel_->getGrid(); // the current grid
-  std::shared_ptr<GenericBlock> curBlock = boardModel_->getCurBlock(); // the current block
+  std::vector <std::vector <std::pair<BlockType, int>>> curGrid = boardModel_.getGrid(); // the current grid
+  std::shared_ptr<GenericBlock> curBlock = boardModel_.getCurBlock(); // the current block
   int r = curBlock->getRotation();
   std::pair <int, int> base = curBlock->getCoords();
   std::pair <int, int> a = curBlock->getCells().at(r).at(0);
@@ -58,7 +58,7 @@ void TextDisplay::printGrid() {
         std::cout << blockTypeToChar_.at(curBlock->getType());
       } else {
         // print the other blocks on the grid
-        std::cout << blockTypeToChar_.at(boardModel_ -> getCell(j, 18-1-i).first);
+        std::cout << blockTypeToChar_.at(boardModel_.getCell(j, 18-1-i).first);
       }
     }
     std::cout << std::endl;
@@ -69,7 +69,7 @@ void TextDisplay::printNextBlock() {
   // function to print the next block
   std::cout << "     -----------------" << std::endl;
   std::cout << "     Next Block:      " << std::endl;
-  std::shared_ptr <GenericBlock> nextBlock = boardModel_->getNextBlock(); // get the next block we want
+  std::shared_ptr <GenericBlock> nextBlock = boardModel_.getNextBlock(); // get the next block we want
   // get the coordinates for each letter's position
   std::pair <int, int> a = nextBlock->getCells().at(0).at(0);
   std::pair <int, int> b = nextBlock->getCells().at(0).at(1);
