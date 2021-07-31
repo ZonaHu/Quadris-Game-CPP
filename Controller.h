@@ -31,10 +31,11 @@ private:
   void sequence(std::string);
   
 public:
-  Controller(std::shared_ptr <BoardModel>, bool);
+  Controller(bool);
   ~Controller();
   void extractMultiplier(std::string);
   std::vector <BlockType> blockSequenceSource(std::string);
+  void setBoard(std::shared_ptr <BoardModel>);
   friend std::istream &operator>>(std::istream &, Controller &control); //  Pass cin input to extractMultiplier().
 
 };

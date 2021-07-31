@@ -14,8 +14,7 @@
 #include <iostream>
 #include <fstream>
 
-Controller::Controller(std::shared_ptr <BoardModel> board, bool enableBonus) {
-	boardModel_ = board;
+Controller::Controller(bool enableBonus) {
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
 			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"};
 	tempMacroName_ = "";
@@ -28,6 +27,10 @@ Controller::~Controller() {
 	macroMap_.clear();
 	tempMacroStore_.clear();
 	tempMacroName_.clear();
+}
+
+void Controller::setBoard(std::shared_ptr <BoardModel> board) {
+	boardModel_ = board;
 }
 
 bool Controller::parse(std::string input, std::string command) {
@@ -57,9 +60,9 @@ void Controller::rename(std::vector <std::string> args) {
 void Controller::macro(std::vector <std::string> args) {
 	// The first element of args should either be new, save, or exec
 	if (args[0] == "new") {
-		try {
+		if ((int)args.size() >= 2) {
 			tempMacroName_ = args[1];
-		} catch (const std::out_of_range &e) {
+		} else {
 			std::cout << "Please provide a name for the new macro." << std::endl;
 		}
 		if (!tempMacroName_.empty()){
@@ -144,7 +147,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 	if (multiplier == 0) {
 		return;
 	} else {
-		if (macroInputFlag_ && enableBonus_) {
+		if (macroInputFlag_ && input.compare("macro save") && enableBonus_) {
 			int cmdNum = -1;
 			std::string cmd = "";
 			std::string args = "";
@@ -186,16 +189,17 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else {
 				cmdArgs.push_back(input);
 			}
+			boardModel_->clearHintBlock();
 			if (parse(cmdStart, commandList_[0])) {
-				boardModel_->left(multiplier);
+				boardModel_->left(multiplier, true, true);
 			} else if (parse(cmdStart, commandList_[1])) {
-				boardModel_->right(multiplier);
+				boardModel_->right(multiplier, true, true);
 			} else if (parse(cmdStart, commandList_[2])) {
-				boardModel_->down(multiplier);
+				boardModel_->down(multiplier, true, true);
 			} else if (parse(cmdStart, commandList_[3])) {
-				boardModel_->clockwise(multiplier);
+				boardModel_->clockwise(multiplier, true, true);
 			} else if (parse(cmdStart, commandList_[4])) {
-				boardModel_->counterclockwise(multiplier) ;
+				boardModel_->counterclockwise(multiplier, true, true) ;
 			} else if (parse(cmdStart, commandList_[5])) {
 				boardModel_->drop(multiplier);
 			} else if (parse(cmdStart, commandList_[6])) {
@@ -209,19 +213,19 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else if (parse(cmdStart, commandList_[10]) && (int) cmdArgs.size() == 1) {
 				sequence(cmdArgs[0]);
 			} else if (parse(cmdStart, commandList_[11])) {
-				boardModel_->I(multiplier);
+				boardModel_->I();
 			} else if (parse(cmdStart, commandList_[12])) {
-				boardModel_->J(multiplier);
+				boardModel_->J();
 			} else if (parse(cmdStart, commandList_[13])) {
-				boardModel_->L(multiplier);
+				boardModel_->L();
 			} else if (parse(cmdStart, commandList_[14])) {
-				boardModel_->S(multiplier);
+				boardModel_->S();
 			} else if (parse(cmdStart, commandList_[15])) {
-				boardModel_->Z(multiplier);
+				boardModel_->Z();
 			} else if (parse(cmdStart, commandList_[16])) {
-				boardModel_->O(multiplier);
+				boardModel_->O();
 			} else if (parse(cmdStart, commandList_[17])) {
-				boardModel_->T(multiplier);
+				boardModel_->T();
 			} else if (parse(cmdStart, commandList_[18])) {
 				boardModel_->restart();
 			} else if (parse(cmdStart, commandList_[19])) {
@@ -244,7 +248,7 @@ void Controller::extractMultiplier(std::string input) {
 	int cmdStart = 0;
 	for (int i = 0; i < (int) input.length(); i++) {
 		if (std::isdigit(input[i])) {
-			multWord.append(input[i] + "");
+			multWord.append(input.substr(i,i+1));
 		} else {
 			cmdStart = i;
 			break;
@@ -259,7 +263,7 @@ void Controller::extractMultiplier(std::string input) {
 
 std::istream &operator>>(std::istream &in, Controller &control) {
 	std::string input;
-	in >> input;
+	std::getline(in, input);
 	control.extractMultiplier(input);
 	return in;
 }

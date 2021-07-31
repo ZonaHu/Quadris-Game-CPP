@@ -7,10 +7,18 @@
 
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
 ZBlock::ZBlock() {
-  // TODO: implement this
-
-
+  type_ = BlockType::Z_BLOCK;
+  std::vector<std::vector<std::pair<int, int>>> 
+                        cells{{{0, 1}, {1, 0}, {1, 1}, {2, 0}}, 
+                              {{0, 0}, {0, 1}, {1, 1}, {1, 2}}, 
+                              {{0, 1}, {1, 0}, {1, 1}, {2, 0}}, 
+                              {{0, 0}, {0, 1}, {1, 1}, {1, 2}}};
+  cells_ = cells;
+  rotation_ = 0;
+  x_ = 0;
+  y_ = 13;
 }
+
 ZBlock::~ZBlock() {
   // TODO: implement this
 
