@@ -5,9 +5,8 @@
 
 #include "TextDisplay.h"
 
-TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel){
+TextDisplay::TextDisplay(BoardModel& boardModel):boardModel_{boardModel}{
   // constructor to initialize the private data members
-  boardModel_ = boardModel;
   blockTypeToChar_[BlockType::I_BLOCK] = 'I';
   blockTypeToChar_[BlockType::J_BLOCK] = 'J';
   blockTypeToChar_[BlockType::L_BLOCK] = 'L';
@@ -21,7 +20,7 @@ TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel){
 
 TextDisplay::~TextDisplay() {
   //call unsubscribe in the destructor
-  boardModel_->unsubscribe(this);
+  boardModel_.unsubscribe(this);
 }
 
 void TextDisplay::printHeader() {

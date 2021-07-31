@@ -7,6 +7,6 @@
 #include "GraphicalDisplay.h"
 
 // TODO:
-GraphicalDisplay::GraphicalDisplay() {}
+GraphicalDisplay::GraphicalDisplay(BoardModel&) {}
 GraphicalDisplay::~GraphicalDisplay() {}
 void GraphicalDisplay::update() {}

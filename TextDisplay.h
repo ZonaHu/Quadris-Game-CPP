@@ -17,14 +17,14 @@ class BoardModel;
 // used as the view presented to the user
 class TextDisplay: public Observer{
 private:
-  std::shared_ptr<BoardModel> boardModel_; // the boardmodel pointer is the subject this is observing
+  BoardModel& boardModel_; // the boardmodel is the subject this is observing
   std::unordered_map<BlockType, char> blockTypeToChar_; //mapping from type to char
   void printHeader();
   void printGrid();
   void printNextBlock();
 
 public:
-  explicit TextDisplay(std::shared_ptr<BoardModel> boardModel); // constructor for initialization
+  explicit TextDisplay(BoardModel&); // constructor for initialization
   ~TextDisplay() override; // destructor that cleans up the memory
 
   void update () override; //function for updating in observer

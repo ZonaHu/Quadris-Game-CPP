@@ -16,7 +16,7 @@ private:
   BoardModel* boardModel_;
 
 public:
-  GraphicalDisplay();
+  GraphicalDisplay(BoardModel&);
   ~GraphicalDisplay();
   void update () override; //function for updating in observer
 

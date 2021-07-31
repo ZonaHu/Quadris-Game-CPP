@@ -30,8 +30,8 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
   controller_ = std::make_shared<Controller> (enableBonus);
 
   // Read in the block sequence for Level0
-  std::vector<BlockType> level0BlockSeq = controller_->blockSequenceSource(scriptFile);
-  
+  std::vector<BlockType> level0BlockSeq = controller_.blockSequenceSource(scriptFile);
+
   // Instantiate BoardModel
   BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
 
@@ -49,7 +49,7 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
   levelArray.push_back(level4);
 
   BoardModel_->setLevels(levelArray);
-  controller_->setBoard(BoardModel_);
+  controller_.setBoard(BoardModel_);
 
   isTextOnly_ = isTextOnly; // if set to true, the program is in text-only mode
 }
@@ -61,18 +61,18 @@ void GameManager::start() {
   // Create instance of appropriate Observer derived classes
   // based on value of isTextOnly; subscribe them to the BoardModel.
   if (isTextOnly_){
-    Observer* t = new TextDisplay(BoardModel_);
-    BoardModel_->subscribe(t); // subscribe the text display only
+    std::unique_ptr <Observer> t = std::make_unique<TextDisplay>(*BoardModel_);
+    BoardModel_->subscribe(t.get()); // subscribe the text display only
   }
   else{
     // subscribe to both displays
-    Observer* t = new TextDisplay(BoardModel_);
-    BoardModel_->subscribe(t);
-    Observer* g = new GraphicalDisplay();
-    BoardModel_->subscribe(g);
+    std::unique_ptr <Observer> t = std::make_unique<TextDisplay>(*BoardModel_);
+    BoardModel_->subscribe(t.get());
+    std::unique_ptr <Observer> g = std::make_unique<GraphicalDisplay>(*BoardModel_);
+    BoardModel_->subscribe(g.get());
   }
   while(!std::cin.eof()||!std::cin.fail()){
     //Begin an infinite while loop that reads user input from cin into the Controller input overload.
-    std::cin >> *controller_;
+    std::cin >> controller_;
   }
 }
