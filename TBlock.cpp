@@ -7,10 +7,18 @@
 
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
 TBlock::TBlock() {
-  // TODO: implement this
-
-
+  type_ = BlockType::T_BLOCK;
+  std::vector<std::vector<std::pair<int, int>>> 
+                        cells{{{0, 1}, {1, 0}, {1, 1}, {2, 1}}, 
+                              {{0, 1}, {1, 0}, {1, 1}, {1, 2}}, 
+                              {{0, 0}, {1, 0}, {1, 1}, {2, 0}}, 
+                              {{0, 0}, {0, 1}, {0, 2}, {1, 1}}};
+  cells_ = cells;
+  rotation_ = 0;
+  x_ = 0;
+  y_ = 13;
 }
+
 TBlock::~TBlock() {
   // TODO: implement this
 
