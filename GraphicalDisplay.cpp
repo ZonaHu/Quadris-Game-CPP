@@ -9,4 +9,4 @@
 // TODO:
 GraphicalDisplay::GraphicalDisplay() {}
 GraphicalDisplay::~GraphicalDisplay() {}
-void GraphicalDisplay::update(Subject *) {}
+void GraphicalDisplay::update() {}

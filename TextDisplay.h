@@ -8,6 +8,9 @@
 #include <iostream>
 #include <memory>
 #include "Observer.h"
+#include <utility>
+#include <unordered_map>
+#include "BoardModel.h"
 
 class BoardModel;
 
@@ -15,12 +18,16 @@ class BoardModel;
 class TextDisplay: public Observer{
 private:
   std::shared_ptr<BoardModel> boardModel_; // the boardmodel pointer is the subject this is observing
+  std::unordered_map<BlockType, char> blockTypeToChar_; //mapping from type to char
+  void printHeader();
+  void printGrid();
+  void printNextBlock();
 
 public:
   TextDisplay(std::shared_ptr<BoardModel> boardModel); // constructor for initialization
-  ~TextDisplay(){}; // destructor that cleans up the memory
+  ~TextDisplay() override; // destructor that cleans up the memory
 
-  void update (Subject*) override; //function for updating in observer
+  void update () override; //function for updating in observer
 };
 
 #endif // PROJECT_2_3_TEXTDISPLAY_H
