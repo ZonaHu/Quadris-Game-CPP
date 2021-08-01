@@ -80,6 +80,8 @@ void BoardModel::setLevel(int level) { level_ = level; }
 
 int BoardModel::getNonClearStreak() const { return nonClearStreak_; }
 
+bool BoardModel::getIsGameOver() const { return isGameOver_; }
+
 void BoardModel::setNonClearStreak(int n) { nonClearStreak_ = n; }
 
 void BoardModel::setTimestamp(int t) { timestamp_ = t; }
