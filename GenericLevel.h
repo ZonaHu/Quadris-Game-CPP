@@ -17,14 +17,14 @@ class BoardModel;
 class GenericLevel {
 protected:
   // a shared Pointer to BoardModel object
-  std::shared_ptr <BoardModel> boardModel_;
+  std::weak_ptr <BoardModel> boardModel_;
   // Sequence of blocks for levels that have a "non-random" mode
   std::vector<BlockType> blockSeq_;
   bool isNonRandom_;
 
 public:
   GenericLevel(){}; // default constructor
-  GenericLevel(const std::shared_ptr<BoardModel> p); // constructor
+  GenericLevel(const std::weak_ptr<BoardModel> p); // constructor
   virtual ~GenericLevel(){}; // default destructor
 
   // Determines next block based on probability or sequence file, depending on the level
@@ -36,6 +36,7 @@ public:
   // Gets called after every drop() in BoardModel
   virtual void postDropOperation() = 0;
 
+  std::shared_ptr <BoardModel> getBoardModel() const;
   void setBlockGenSequence(std::vector<BlockType>);
   void setIsNonRandom(bool);
 };

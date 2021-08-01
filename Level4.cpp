@@ -7,7 +7,7 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level4::Level4(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom) {
+Level4::Level4(const std::weak_ptr<BoardModel> p, int seed, bool nonrandom) {
   // constructor
   boardModel_ = p;
   seed_ = seed;
@@ -80,25 +80,25 @@ std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
 }
 
 void Level4::postMoveOperation() {
-  boardModel_->down(1, false, true);
+  getBoardModel()->down(1, false, true);
 }
 
 void Level4::postDropOperation() {
   // star block generated every time  5 (and also 10, 15, etc.) blocks are placed
   // without clearing at least one row
 
-  int count = boardModel_->getNonClearStreak(); // get a counter for non clear streak
+  int count = getBoardModel()->getNonClearStreak(); // get a counter for non clear streak
   if (count != 0 && count % 5 == 0){
     // start from bottom middle and walk upwards until it finds an empty cell to put a 1x1 block
     // initialize the coordinates
-    int x_coord = boardModel_->getGridX()/2;
+    int x_coord = getBoardModel()->getGridX()/2;
     int y_coord = 0;
     // create a 1*1 star block in the centre column
     std::pair<BlockType, int> TypePair (BlockType::STAR_BLOCK,0);
     // finds an empty cell
-    while (boardModel_->getCell(x_coord, y_coord).first != BlockType::EMPTY){ // find an empty pair (make sure they're empty blocks)
+    while (getBoardModel()->getCell(x_coord, y_coord).first != BlockType::EMPTY){ // find an empty pair (make sure they're empty blocks)
       y_coord ++;
     }
-    boardModel_->setCell(x_coord,y_coord,TypePair);
+    getBoardModel()->setCell(x_coord,y_coord,TypePair);
   }
 }

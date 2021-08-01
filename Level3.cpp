@@ -7,7 +7,7 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level3::Level3(const std::shared_ptr<BoardModel> p, int seed, bool nonrandom) {
+Level3::Level3(const std::weak_ptr<BoardModel> p, int seed, bool nonrandom) {
   // constructor
   boardModel_ = p;
   seed_ = seed;
@@ -81,7 +81,7 @@ std::shared_ptr <GenericBlock> Level3::generateNextBlock() {
 
 void Level3::postMoveOperation() {
   // blocks generated in level 3 are "heavy"
-  boardModel_->down(1, false, true); //downward move of one row if possible
+  getBoardModel()->down(1, false, true); //downward move of one row if possible
 }
 
 void Level3::postDropOperation() {

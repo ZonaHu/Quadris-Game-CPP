@@ -6,7 +6,7 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level0::Level0(const std::shared_ptr<BoardModel> p, std::vector<BlockType> blockSeq) {
+Level0::Level0(const std::weak_ptr<BoardModel> p, std::vector<BlockType> blockSeq) {
   // constructor
   boardModel_ = p;
   blockSeq_ = blockSeq;

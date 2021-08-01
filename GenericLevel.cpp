@@ -7,9 +7,13 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-GenericLevel::GenericLevel(const std::shared_ptr<BoardModel> p) {
+GenericLevel::GenericLevel(const std::weak_ptr<BoardModel> p) {
   // constructor
    boardModel_ = p;
+}
+
+std::shared_ptr <BoardModel> GenericLevel::getBoardModel() const {
+  return boardModel_.lock();
 }
 
 void GenericLevel::setBlockGenSequence(std::vector<BlockType> seq) {
