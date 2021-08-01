@@ -68,13 +68,13 @@ public:
   void levelup(int);
   void leveldown(int);
   void random();
-  void I();
-  void J();
-  void L();
-  void S();
-  void Z();
-  void O();
-  void T();
+  void I(int);
+  void J(int);
+  void L(int);
+  void S(int);
+  void Z(int);
+  void O(int);
+  void T(int);
   void restart();
   void hint();
 

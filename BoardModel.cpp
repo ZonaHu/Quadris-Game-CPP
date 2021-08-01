@@ -252,43 +252,43 @@ void BoardModel::checkCompletedRows() {
     }
 }
 
-void BoardModel::I() {
+void BoardModel::I(int m) {
     std::shared_ptr<GenericBlock> newBlock(new IBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::J() {
+void BoardModel::J(int m) {
     std::shared_ptr<GenericBlock> newBlock(new JBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::L() {
+void BoardModel::L(int m) {
     std::shared_ptr<GenericBlock> newBlock(new LBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::S() {
+void BoardModel::S(int m) {
     std::shared_ptr<GenericBlock> newBlock(new SBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::Z() {
+void BoardModel::Z(int m) {
     std::shared_ptr<GenericBlock> newBlock(new ZBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::O() {
+void BoardModel::O(int m) {
     std::shared_ptr<GenericBlock> newBlock(new OBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::T() {
+void BoardModel::T(int m) {
     std::shared_ptr<GenericBlock> newBlock(new TBlock());
     curBlock_ = newBlock;
     notify();
@@ -302,6 +302,7 @@ void BoardModel::restart() {
     level_ = 0;
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    notify();
 }
 
 void BoardModel::random() {
