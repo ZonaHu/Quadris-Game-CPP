@@ -14,7 +14,7 @@ BoardModel::BoardModel() {
     grid_ = grid;
 }
 
-BoardModel::BoardModel(int seed = 0, std::string scriptFile = "", int startLevel = 0, bool enableBonus = false) {
+BoardModel::BoardModel(int seed, std::string scriptFile, int startLevel, bool enableBonus) {
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
     score_ = 0;
