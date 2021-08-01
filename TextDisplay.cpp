@@ -27,10 +27,10 @@ TextDisplay::~TextDisplay() {
 
 void TextDisplay::printHeader() {
   std::cout << "Start Text-Based Display" << std::endl;
-  std::cout << "     Level:        " << boardModel_->getLevel() << std::endl;
-  std::cout << "     Score:        " << boardModel_->getScore() << std::endl;
-  std::cout << "     Hi-Score:     " << boardModel_->getHiScore() << std::endl;
-  std::cout << "     -----------------" << std::endl;
+  std::cout << "     Level:      " << boardModel_->getLevel() << std::endl;
+  std::cout << "     Score:      " << boardModel_->getScore() << std::endl;
+  std::cout << "     Hi-Score:   " << boardModel_->getHiScore() << std::endl;
+  std::cout << "     -------------" << std::endl;
 }
 
 void TextDisplay::printGrid() {
@@ -69,7 +69,7 @@ void TextDisplay::printGrid() {
 
 void TextDisplay::printNextBlock() {
   // function to print the next block
-  std::cout << "     -----------------" << std::endl;
+  std::cout << "     -------------" << std::endl;
   std::cout << "     Next Block:      " << std::endl;
   std::shared_ptr <GenericBlock> nextBlock = boardModel_->getNextBlock(); // get the next block we want
   // get the coordinates for each letter's position
