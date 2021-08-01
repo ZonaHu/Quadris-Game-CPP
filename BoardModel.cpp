@@ -206,6 +206,7 @@ void BoardModel::checkCompletedRows() {
         }
 
         if (isRowComplete) {
+            std::cout << "ROW COMPLETE" << std::endl;
             nonClearStreak_ = 0;
             // Iterate through row for a second time to process scores, delete cells, and shift down cells
             x = 0;
@@ -245,8 +246,11 @@ void BoardModel::checkCompletedRows() {
             y++;
         }
     }
-    // Add REGULAR POINTS
-    score_ += pow((level_ + rowsCleared), 2);
+
+    if (rowsCleared > 0) {
+        // Add REGULAR POINTS
+        score_ += pow((level_ + rowsCleared), 2);
+    }
     
     if (score_ > hi_score_) {
         hi_score_ = score_;
