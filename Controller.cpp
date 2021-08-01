@@ -16,7 +16,7 @@
 
 Controller::Controller(bool enableBonus) {
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
-			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"};
+			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro", "save", "load"};
 	tempMacroName_ = "";
 	macroInputFlag_ = false;
 	enableBonus_ = enableBonus;
@@ -161,7 +161,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 				cmd = input;
 			}
 			for (int i = 0; i < (int) commandList_.size(); i++) {
-				if (commandList_[i] == cmd) {
+				if (parse(cmd, commandList_[i])) {
 					cmdNum = i;
 					break;
 				}
@@ -213,19 +213,19 @@ void Controller::execCommand(std::string input, int multiplier) {
 			} else if (parse(cmdStart, commandList_[10]) && (int) cmdArgs.size() == 1) {
 				sequence(cmdArgs[0]);
 			} else if (parse(cmdStart, commandList_[11])) {
-				boardModel_->I();
+				boardModel_->I(multiplier);
 			} else if (parse(cmdStart, commandList_[12])) {
-				boardModel_->J();
+				boardModel_->J(multiplier);
 			} else if (parse(cmdStart, commandList_[13])) {
-				boardModel_->L();
+				boardModel_->L(multiplier);
 			} else if (parse(cmdStart, commandList_[14])) {
-				boardModel_->S();
+				boardModel_->S(multiplier);
 			} else if (parse(cmdStart, commandList_[15])) {
-				boardModel_->Z();
+				boardModel_->Z(multiplier);
 			} else if (parse(cmdStart, commandList_[16])) {
-				boardModel_->O();
+				boardModel_->O(multiplier);
 			} else if (parse(cmdStart, commandList_[17])) {
-				boardModel_->T();
+				boardModel_->T(multiplier);
 			} else if (parse(cmdStart, commandList_[18])) {
 				boardModel_->restart();
 			} else if (parse(cmdStart, commandList_[19])) {
@@ -234,6 +234,10 @@ void Controller::execCommand(std::string input, int multiplier) {
 				rename(cmdArgs);
 			} else if (parse(cmdStart, commandList_[21]) && enableBonus_) {
 				macro(cmdArgs);
+			} else if (parse(cmdStart, commandList_[22]) && enableBonus_ && (int) cmdArgs.size() == 1) {
+				boardModel_->saveGame(cmdArgs[0]);
+			} else if (parse(cmdStart, commandList_[23]) && enableBonus_ && (int) cmdArgs.size() == 1) {
+				boardModel_->loadGame(cmdArgs[0]);
 			} else {
 				std::cout << "Please input a correct command." << std::endl;
 			}

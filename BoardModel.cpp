@@ -5,7 +5,9 @@
 
 #include "BoardModel.h"
 #include <utility>
-#include <math.h> 
+#include <math.h>
+#include <fstream>
+#include <stdlib.h>
 
 BoardModel::BoardModel() {
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
@@ -66,13 +68,23 @@ void BoardModel::clearHintBlock() { hintBlock_ = nullptr; }
 
 int BoardModel::getScore() const { return score_; }
 
+void BoardModel::setScore(int score) { score_ = score; }
+
 int BoardModel::getHiScore() const { return hi_score_; }
+
+void BoardModel::setHiScore(int hi_score) { hi_score_ = hi_score; }
 
 int BoardModel::getLevel() const { return level_; }
 
+void BoardModel::setLevel(int level) { level_ = level; }
+
 int BoardModel::getNonClearStreak() const { return nonClearStreak_; }
 
+bool BoardModel::getIsGameOver() const { return isGameOver_; }
+
 void BoardModel::setNonClearStreak(int n) { nonClearStreak_ = n; }
+
+void BoardModel::setTimestamp(int t) { timestamp_ = t; }
 
 bool BoardModel::checkIfValidMove(int x, int y, int r) {
     // Get the cells of curBlock_ that correspond to rotation r
@@ -153,27 +165,29 @@ void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
 
 void BoardModel::drop(int m = 1) {
     // Move block down as far as possible
-    down(gridY_, false, false);
+    while (m > 0 && !isGameOver_) {
+        down(gridY_, false, false);
 
-    std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
-    int x = curBlock_->getCoords().first;
-    int y = curBlock_->getCoords().second;
-    // Iterate through the 4 squares of the block and insert them into the grid_
-    for(std::size_t i = 0; i < cells.size(); ++i) {
-        setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
+        std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
+        int x = curBlock_->getCoords().first;
+        int y = curBlock_->getCoords().second;
+        // Iterate through the 4 squares of the block and insert them into the grid_
+        for(std::size_t i = 0; i < cells.size(); ++i) {
+            setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
+        }
+
+        levelArray_[level_]->postDropOperation();
+
+        liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
+        timestamp_++;
+
+        checkCompletedRows();
+        curBlock_ = nextBlock_;
+        nextBlock_ = levelArray_[level_]->generateNextBlock();
+
+        isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
+        m--;
     }
-
-    levelArray_[level_]->postDropOperation();
-
-    liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
-    timestamp_++;
-
-    checkCompletedRows();
-    curBlock_ = nextBlock_;
-    nextBlock_ = levelArray_[level_]->generateNextBlock();
-
-    // TODO: Disable moves and only allow RESTART
-    isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
     notify();
 }
 
@@ -205,6 +219,7 @@ void BoardModel::checkCompletedRows() {
         }
 
         if (isRowComplete) {
+            std::cout << "ROW COMPLETE" << std::endl;
             nonClearStreak_ = 0;
             // Iterate through row for a second time to process scores, delete cells, and shift down cells
             x = 0;
@@ -244,47 +259,54 @@ void BoardModel::checkCompletedRows() {
             y++;
         }
     }
-    // Add REGULAR POINTS
-    score_ += pow((level_ + rowsCleared), 2);
+
+    if (rowsCleared > 0) {
+        // Add REGULAR POINTS
+        score_ += pow((level_ + rowsCleared), 2);
+    }
+    
+    if (score_ > hi_score_) {
+        hi_score_ = score_;
+    }
 }
 
-void BoardModel::I() {
+void BoardModel::I(int m) {
     std::shared_ptr<GenericBlock> newBlock(new IBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::J() {
+void BoardModel::J(int m) {
     std::shared_ptr<GenericBlock> newBlock(new JBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::L() {
+void BoardModel::L(int m) {
     std::shared_ptr<GenericBlock> newBlock(new LBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::S() {
+void BoardModel::S(int m) {
     std::shared_ptr<GenericBlock> newBlock(new SBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::Z() {
+void BoardModel::Z(int m) {
     std::shared_ptr<GenericBlock> newBlock(new ZBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::O() {
+void BoardModel::O(int m) {
     std::shared_ptr<GenericBlock> newBlock(new OBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::T() {
+void BoardModel::T(int m) {
     std::shared_ptr<GenericBlock> newBlock(new TBlock());
     curBlock_ = newBlock;
     notify();
@@ -292,19 +314,24 @@ void BoardModel::T() {
 
 void BoardModel::restart() {
     // Reset grid
+    isGameOver_ = false;
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
     score_ = 0;
     level_ = 0;
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    notify();
 }
 
 void BoardModel::random() {
-    levelArray_.at(level_)->setIsNonRandom(true);
+    levelArray_.at(level_)->setIsNonRandom(false);
 }
 
 void BoardModel::hint() {
+    // Tries out all x positions and rotations using the curBlock_ and sets the hintBlock_
+    // to the configuration that gives the lowest y position after a drop
+
     // Create a temp copy of curBlock to restore it after computing the hint
     std::shared_ptr<GenericBlock> temp = std::make_shared<GenericBlock>(*curBlock_);
     // Tracks values for the position that gives the lowest y value so far
@@ -312,27 +339,31 @@ void BoardModel::hint() {
     int bestRotation = 0;
     int bestX = 0;
 
-    // Move curBlock_ to the top-left corner and set it as the base position
-    int m = 18;
+    // Move curBlock_ to its initial spawn position and rotation
+    curBlock_->setRotation(0);
+    int m = gridY_;
+    // Move up as high as possible
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                 curBlock_->getCoords().second + 1, 
                                 curBlock_->getRotation())) {
         curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second + 1);
         m--;
     }
-    left(11, false, false);
+    // Move left as far as possible
+    left(gridX_, false, false);
+    // Bring it down to spawn height
+    down(4, false, false);
     std::pair<int, int> baseCoords = curBlock_->getCoords();
 
     // Iterate through all rotations and x values
     for (int r = 0; r < 4; r++) {
-        for (int x = 0; x < 11; x++) {
+        for (int x = 0; x < gridX_; x++) {
             // Reset position
             curBlock_->setCoords(baseCoords.first, baseCoords.second);
             // Transform and drop
             clockwise(r, false, false);
             right(x, false, false);
-            down(18, false, false);
-
+            down(gridY_, false, false);
             // Check if this is the lowest position so far
             if (curBlock_->getCoords().second < bestY) {
                 bestY = curBlock_->getCoords().second;
@@ -342,6 +373,10 @@ void BoardModel::hint() {
         }
     }
 
+    // Reset to base position and rotation
+    curBlock_->setRotation(0);
+    curBlock_->setCoords(baseCoords.first, baseCoords.second);
+
     // Move to the best position and copy to hintBlock_
     clockwise(bestRotation, false, false);
     right(bestX, false, false);
@@ -350,5 +385,90 @@ void BoardModel::hint() {
 
     // Restore curBlock_
     curBlock_ = temp;
+    notify();
+}
+
+void BoardModel::saveGame(std::string file) {
+    std::cout << "SAVING TO " << file << "..." << std::endl;
+    std::ofstream saveFile;
+    saveFile.open (file);
+    // Write each major member of BoardModel to a line in the save file
+    saveFile << timestamp_ << "\n";
+    saveFile << nonClearStreak_ << "\n";
+    saveFile << score_ << "\n";
+    saveFile << hi_score_ << "\n";
+    saveFile << level_ << "\n";
+    // Iterate through grid_ and print each element in a cell pair on its own line
+    for (int i = 0; i < gridY_; i++) {
+        for (int j = 0; j < gridX_; j++) {
+            saveFile << (int)grid_.at(i).at(j).first << "\n";
+            saveFile << grid_.at(i).at(j).second << "\n";
+        }
+    }
+    saveFile << "\n";
+    saveFile.close();
+    std::cout << "SAVE COMPLETE!" << std::endl;
+}
+
+void BoardModel::loadGame(std::string file) {
+    std::cout << "LOADING " << file << "..." << std::endl;
+    restart();
+    std::ifstream infile(file);
+    std::string line;
+
+    // Will be set to true if a line read ever fails
+    bool didLoadFail = false;
+
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setTimestamp(std::stoi(line));
+    }
+    
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setNonClearStreak(std::stoi(line));
+    }
+
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setScore(std::stoi(line));
+    }
+
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setHiScore(std::stoi(line));
+    }
+
+    if (!std::getline(infile, line)) {
+        didLoadFail = true;
+    } else {
+        setLevel(std::stoi(line));
+    }
+
+    // Iterate through grid_ to set each cell
+    for (int i = 0; i < gridY_; i++) {
+        for (int j = 0; j < gridX_; j++) {
+            std::string type, id;
+            if (!std::getline(infile, type) || !std::getline(infile, id)) {
+                didLoadFail = true;
+                break;
+            } else {
+                grid_.at(i).at(j) = std::make_pair((BlockType)std::stoi(type), std::stoi(id));
+            }
+        }
+        if (didLoadFail) {
+            break;
+        }
+    }
+
+    if (didLoadFail) {
+        std::cout << "WARNING: Some data could not be successfully loaded.";
+    }
+
+    std::cout << "LOAD COMPLETE!" << std::endl;
     notify();
 }

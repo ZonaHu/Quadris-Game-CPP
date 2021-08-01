@@ -22,6 +22,7 @@ private:
   void printHeader();
   void printGrid();
   void printNextBlock();
+  void printGameOver();
 
 public:
   explicit TextDisplay(BoardModel&); // constructor for initialization

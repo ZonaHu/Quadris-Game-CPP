@@ -68,15 +68,17 @@ public:
   void levelup(int);
   void leveldown(int);
   void random();
-  void I();
-  void J();
-  void L();
-  void S();
-  void Z();
-  void O();
-  void T();
+  void I(int);
+  void J(int);
+  void L(int);
+  void S(int);
+  void Z(int);
+  void O(int);
+  void T(int);
   void restart();
   void hint();
+  void saveGame(std::string);
+  void loadGame(std::string);
 
   // Accessors and mutators
   int getGridX() const;
@@ -89,12 +91,17 @@ public:
   std::shared_ptr<GenericBlock> getHintBlock() const;
   void clearHintBlock();
   int getScore() const;
+  void setScore(int);
   int getHiScore() const;
+  void setHiScore(int);
   int getLevel() const;
+  void setLevel(int);
   int getNonClearStreak() const;
   void setNonClearStreak(int);
+  void setTimestamp(int);
   void setBlockGenSequence(std::vector<BlockType>);
   void setLevels(std::vector <std::shared_ptr<GenericLevel>>);
+  bool getIsGameOver() const;
 };
 
 #endif // PROJECT_2_3_BOARDMODEL_H
