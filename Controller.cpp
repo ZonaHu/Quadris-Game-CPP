@@ -34,6 +34,8 @@ void Controller::setBoard(std::shared_ptr <BoardModel> board) {
 }
 
 bool Controller::parse(std::string input, std::string command) {
+	if (input.size() == 0) return false;
+
 	bool flag = true;
 	for (int i = 0; i < (int) input.length(); i++) {
 		if (input[i] != command[i]){
