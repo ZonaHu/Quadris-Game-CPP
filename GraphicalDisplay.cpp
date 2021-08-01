@@ -7,6 +7,6 @@
 #include "GraphicalDisplay.h"
 
 // TODO:
-GraphicalDisplay::GraphicalDisplay(BoardModel&) {}
+GraphicalDisplay::GraphicalDisplay(std::shared_ptr<BoardModel>) {}
 GraphicalDisplay::~GraphicalDisplay() {}
 void GraphicalDisplay::update() {}

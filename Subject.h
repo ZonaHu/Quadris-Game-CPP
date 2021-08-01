@@ -13,7 +13,7 @@
 #include <memory>
 #include "Observer.h"
 
-typedef std::set<Observer*> Observers;
+typedef std::set<std::shared_ptr<Observer>> Observers;
 
 class Subject {
 private:
@@ -26,7 +26,7 @@ public:
   Subject()= default; // default constructor
   ~Subject()= default; // default destructor
   //Add referenced observer to set of observers
-  void subscribe(Observer*); // used raw pointer since not meant to express ownership
+  void subscribe(std::shared_ptr<Observer>); // used raw pointer since not meant to express ownership
   //Remove referenced observer to set of observers
   void unsubscribe(Observer*);   // used raw pointer since not meant to express ownership
 };

@@ -13,10 +13,10 @@ class BoardModel;
 class GraphicalDisplay: public Observer{
   // TODO: To be implemented
 private:
-  BoardModel* boardModel_;
+  std::shared_ptr<BoardModel> boardModel_;
 
 public:
-  GraphicalDisplay(BoardModel&);
+  GraphicalDisplay(std::shared_ptr<BoardModel>);
   ~GraphicalDisplay();
   void update () override; //function for updating in observer
 
