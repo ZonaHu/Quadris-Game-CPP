@@ -155,27 +155,30 @@ void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
 
 void BoardModel::drop(int m = 1) {
     // Move block down as far as possible
-    down(gridY_, false, false);
+    while (m > 0 && !isGameOver_) {
+        down(gridY_, false, false);
 
-    std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
-    int x = curBlock_->getCoords().first;
-    int y = curBlock_->getCoords().second;
-    // Iterate through the 4 squares of the block and insert them into the grid_
-    for(std::size_t i = 0; i < cells.size(); ++i) {
-        setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
+        std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
+        int x = curBlock_->getCoords().first;
+        int y = curBlock_->getCoords().second;
+        // Iterate through the 4 squares of the block and insert them into the grid_
+        for(std::size_t i = 0; i < cells.size(); ++i) {
+            setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
+        }
+
+        levelArray_[level_]->postDropOperation();
+
+        liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
+        timestamp_++;
+
+        checkCompletedRows();
+        curBlock_ = nextBlock_;
+        nextBlock_ = levelArray_[level_]->generateNextBlock();
+
+        isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
+        notify();
+        m--;
     }
-
-    levelArray_[level_]->postDropOperation();
-
-    liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
-    timestamp_++;
-
-    checkCompletedRows();
-    curBlock_ = nextBlock_;
-    nextBlock_ = levelArray_[level_]->generateNextBlock();
-
-    isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
-    notify();
 }
 
 void BoardModel::levelup(int m = 1) {
