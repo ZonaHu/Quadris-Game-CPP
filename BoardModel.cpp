@@ -176,9 +176,9 @@ void BoardModel::drop(int m = 1) {
         nextBlock_ = levelArray_[level_]->generateNextBlock();
 
         isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
-        notify();
         m--;
     }
+    notify();
 }
 
 void BoardModel::levelup(int m = 1) {
