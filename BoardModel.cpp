@@ -74,6 +74,8 @@ int BoardModel::getNonClearStreak() const { return nonClearStreak_; }
 
 void BoardModel::setNonClearStreak(int n) { nonClearStreak_ = n; }
 
+bool BoardModel::getIsGameOver() const { return isGameOver_; }
+
 bool BoardModel::checkIfValidMove(int x, int y, int r) {
     // Get the cells of curBlock_ that correspond to rotation r
     std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(r);
@@ -172,7 +174,6 @@ void BoardModel::drop(int m = 1) {
     curBlock_ = nextBlock_;
     nextBlock_ = levelArray_[level_]->generateNextBlock();
 
-    // TODO: Disable moves and only allow RESTART
     isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
     notify();
 }
@@ -296,6 +297,7 @@ void BoardModel::T(int m) {
 
 void BoardModel::restart() {
     // Reset grid
+    isGameOver_ = false;
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
     score_ = 0;

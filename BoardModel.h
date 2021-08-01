@@ -95,6 +95,7 @@ public:
   void setNonClearStreak(int);
   void setBlockGenSequence(std::vector<BlockType>);
   void setLevels(std::vector <std::shared_ptr<GenericLevel>>);
+  bool getIsGameOver() const;
 };
 
 #endif // PROJECT_2_3_BOARDMODEL_H

@@ -95,9 +95,23 @@ void TextDisplay::printNextBlock() {
   }
 }
 
+void TextDisplay::printGameOver() {
+  std::cout << " _____ _____ _____ _____    _____ _____ _____ _____  \n"
+               "|   __|  _  |     |   __|  |     |  |  |   __| __  | \n"
+               "|  |  |     | | | |   __|  |  |  |  |  |   __|    -| \n"
+               "|_____|__|__|_|_|_|_____|  |_____|\\___/|_____|__|__|\n" << std::endl;
+  std::cout << "YOUR SCORE: " << boardModel_->getScore() << std::endl;
+  std::cout << "HI SCORE: " << boardModel_->getHiScore() << std::endl;
+  std::cout << "Enter [restart] to play again!" << std::endl;
+}
+
 void TextDisplay::update() {
   // this function prints out all
-  printHeader();
-  printGrid();
-  printNextBlock();
+  if (boardModel_->getIsGameOver()) {
+    printGameOver();
+  } else {
+    printHeader();
+    printGrid();
+    printNextBlock();
+  }
 }
