@@ -308,7 +308,7 @@ void BoardModel::restart() {
 }
 
 void BoardModel::random() {
-    levelArray_.at(level_)->setIsNonRandom(true);
+    levelArray_.at(level_)->setIsNonRandom(false);
 }
 
 void BoardModel::hint() {
