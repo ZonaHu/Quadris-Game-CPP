@@ -163,27 +163,29 @@ void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
 
 void BoardModel::drop(int m = 1) {
     // Move block down as far as possible
-    down(gridY_, false, false);
+    while (m > 0 && !isGameOver_) {
+        down(gridY_, false, false);
 
-    std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
-    int x = curBlock_->getCoords().first;
-    int y = curBlock_->getCoords().second;
-    // Iterate through the 4 squares of the block and insert them into the grid_
-    for(std::size_t i = 0; i < cells.size(); ++i) {
-        setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
+        std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(curBlock_->getRotation());
+        int x = curBlock_->getCoords().first;
+        int y = curBlock_->getCoords().second;
+        // Iterate through the 4 squares of the block and insert them into the grid_
+        for(std::size_t i = 0; i < cells.size(); ++i) {
+            setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
+        }
+
+        levelArray_[level_]->postDropOperation();
+
+        liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
+        timestamp_++;
+
+        checkCompletedRows();
+        curBlock_ = nextBlock_;
+        nextBlock_ = levelArray_[level_]->generateNextBlock();
+
+        isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
+        m--;
     }
-
-    levelArray_[level_]->postDropOperation();
-
-    liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
-    timestamp_++;
-
-    checkCompletedRows();
-    curBlock_ = nextBlock_;
-    nextBlock_ = levelArray_[level_]->generateNextBlock();
-
-    // TODO: Disable moves and only allow RESTART
-    isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
     notify();
 }
 
@@ -215,6 +217,7 @@ void BoardModel::checkCompletedRows() {
         }
 
         if (isRowComplete) {
+            std::cout << "ROW COMPLETE" << std::endl;
             nonClearStreak_ = 0;
             // Iterate through row for a second time to process scores, delete cells, and shift down cells
             x = 0;
@@ -254,47 +257,54 @@ void BoardModel::checkCompletedRows() {
             y++;
         }
     }
-    // Add REGULAR POINTS
-    score_ += pow((level_ + rowsCleared), 2);
+
+    if (rowsCleared > 0) {
+        // Add REGULAR POINTS
+        score_ += pow((level_ + rowsCleared), 2);
+    }
+    
+    if (score_ > hi_score_) {
+        hi_score_ = score_;
+    }
 }
 
-void BoardModel::I() {
+void BoardModel::I(int m) {
     std::shared_ptr<GenericBlock> newBlock(new IBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::J() {
+void BoardModel::J(int m) {
     std::shared_ptr<GenericBlock> newBlock(new JBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::L() {
+void BoardModel::L(int m) {
     std::shared_ptr<GenericBlock> newBlock(new LBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::S() {
+void BoardModel::S(int m) {
     std::shared_ptr<GenericBlock> newBlock(new SBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::Z() {
+void BoardModel::Z(int m) {
     std::shared_ptr<GenericBlock> newBlock(new ZBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::O() {
+void BoardModel::O(int m) {
     std::shared_ptr<GenericBlock> newBlock(new OBlock());
     curBlock_ = newBlock;
     notify();
 }
 
-void BoardModel::T() {
+void BoardModel::T(int m) {
     std::shared_ptr<GenericBlock> newBlock(new TBlock());
     curBlock_ = newBlock;
     notify();
@@ -302,16 +312,18 @@ void BoardModel::T() {
 
 void BoardModel::restart() {
     // Reset grid
+    isGameOver_ = false;
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
     score_ = 0;
     level_ = 0;
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    notify();
 }
 
 void BoardModel::random() {
-    levelArray_.at(level_)->setIsNonRandom(true);
+    levelArray_.at(level_)->setIsNonRandom(false);
 }
 
 void BoardModel::hint() {

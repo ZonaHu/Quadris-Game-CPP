@@ -17,6 +17,7 @@ TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel){
   blockTypeToChar_[BlockType::T_BLOCK] = 'T';
   blockTypeToChar_[BlockType::STAR_BLOCK] = '*';
   blockTypeToChar_[BlockType::EMPTY] = ' ';
+  update();
 }
 
 TextDisplay::~TextDisplay() {
@@ -25,11 +26,11 @@ TextDisplay::~TextDisplay() {
 }
 
 void TextDisplay::printHeader() {
-  std::cout << "     Start Text-based Display" << std::endl;
-  std::cout << "     Level:        " << boardModel_->getLevel() << std::endl;
-  std::cout << "     Score:        " << boardModel_->getScore() << std::endl;
-  std::cout << "     Hi-Score:     " << boardModel_->getHiScore() << std::endl;
-  std::cout << "     -----------------" << std::endl;
+  std::cout << "Start Text-Based Display" << std::endl;
+  std::cout << "     Level:      " << boardModel_->getLevel() << std::endl;
+  std::cout << "     Score:      " << boardModel_->getScore() << std::endl;
+  std::cout << "     Hi-Score:   " << boardModel_->getHiScore() << std::endl;
+  std::cout << "     -------------" << std::endl;
 }
 
 void TextDisplay::printGrid() {
@@ -86,7 +87,7 @@ void TextDisplay::printGrid() {
 
 void TextDisplay::printNextBlock() {
   // function to print the next block
-  std::cout << "     -----------------" << std::endl;
+  std::cout << "     -------------" << std::endl;
   std::cout << "     Next Block:      " << std::endl;
   std::shared_ptr <GenericBlock> nextBlock = boardModel_->getNextBlock(); // get the next block we want
   // get the coordinates for each letter's position
@@ -112,9 +113,22 @@ void TextDisplay::printNextBlock() {
   }
 }
 
+void TextDisplay::printGameOver() {
+  std::cout << " _____ _____ _____ _____    _____ _____ _____ _____  \n"
+               "|   __|  _  |     |   __|  |     |  |  |   __| __  | \n"
+               "|  |  |     | | | |   __|  |  |  |  |  |   __|    -| \n"
+               "|_____|__|__|_|_|_|_____|  |_____|\\___/|_____|__|__|\n" << std::endl;
+  std::cout << "YOUR SCORE: " << boardModel_->getScore() << std::endl;
+  std::cout << "HI SCORE: " << boardModel_->getHiScore() << std::endl;
+  std::cout << "Enter [restart] to play again!" << std::endl;
+}
+
 void TextDisplay::update() {
   // this function prints out all
   printHeader();
   printGrid();
   printNextBlock();
+  if (boardModel_->getIsGameOver()) {
+    printGameOver();
+  }
 }

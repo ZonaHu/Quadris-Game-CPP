@@ -22,6 +22,7 @@ private:
   void printHeader();
   void printGrid();
   void printNextBlock();
+  void printGameOver();
 
 public:
   TextDisplay(std::shared_ptr<BoardModel> boardModel); // constructor for initialization
