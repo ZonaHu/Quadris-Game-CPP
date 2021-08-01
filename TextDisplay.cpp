@@ -21,22 +21,26 @@ TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel):boardModel_{boa
 
 TextDisplay::~TextDisplay() {
   //call unsubscribe in the destructor
-  boardModel_->unsubscribe(this);
+  getBoardModel()->unsubscribe(this);
+}
+
+std::shared_ptr<BoardModel> TextDisplay::getBoardModel() const {
+  return boardModel_.lock();
 }
 
 void TextDisplay::printHeader() {
   std::cout << "Start Text-Based Display" << std::endl;
-  std::cout << "     Level:      " << boardModel_->getLevel() << std::endl;
-  std::cout << "     Score:      " << boardModel_->getScore() << std::endl;
-  std::cout << "     Hi-Score:   " << boardModel_->getHiScore() << std::endl;
+  std::cout << "     Level:      " << getBoardModel()->getLevel() << std::endl;
+  std::cout << "     Score:      " << getBoardModel()->getScore() << std::endl;
+  std::cout << "     Hi-Score:   " << getBoardModel()->getHiScore() << std::endl;
   std::cout << "     -------------" << std::endl;
 }
 
 void TextDisplay::printGrid() {
-  std::vector <std::vector <std::pair<BlockType, int>>> curGrid = boardModel_->getGrid(); // the current grid
+  std::vector <std::vector <std::pair<BlockType, int>>> curGrid = getBoardModel()->getGrid(); // the current grid
 
   // Get cell information of current block
-  std::shared_ptr<GenericBlock> curBlock = boardModel_->getCurBlock();
+  std::shared_ptr<GenericBlock> curBlock = getBoardModel()->getCurBlock();
   int r = curBlock->getRotation();
   std::pair <int, int> baseCoords = curBlock->getCoords();
   std::pair <int, int> cell0 = curBlock->getCells().at(r).at(0);
@@ -45,7 +49,7 @@ void TextDisplay::printGrid() {
   std::pair <int, int> cell3 = curBlock->getCells().at(r).at(3);
 
   // Get cell information of hint block, if it exists
-  std::shared_ptr<GenericBlock> hintBlock = boardModel_->getHintBlock();
+  std::shared_ptr<GenericBlock> hintBlock = getBoardModel()->getHintBlock();
   int hintR = hintBlock != nullptr ? hintBlock->getRotation() : -1;
   std::pair <int, int> hintBaseCoords = hintBlock != nullptr ? hintBlock->getCoords() : std::make_pair(-1,-1);
   std::pair <int, int> hintCell0 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(0) : std::make_pair(-1,-1);
@@ -77,7 +81,7 @@ void TextDisplay::printGrid() {
         std::cout << "?";
       } else {
         // print the other blocks on the grid
-        std::cout << blockTypeToChar_.at(boardModel_->getCell(j, 18-1-i).first);
+        std::cout << blockTypeToChar_.at(getBoardModel()->getCell(j, 18-1-i).first);
       }
     }
     std::cout << std::endl;
@@ -88,7 +92,7 @@ void TextDisplay::printNextBlock() {
   // function to print the next block
   std::cout << "     -------------" << std::endl;
   std::cout << "     Next Block:      " << std::endl;
-  std::shared_ptr <GenericBlock> nextBlock = boardModel_->getNextBlock(); // get the next block we want
+  std::shared_ptr <GenericBlock> nextBlock = getBoardModel()->getNextBlock(); // get the next block we want
   // get the coordinates for each letter's position
   std::pair <int, int> a = nextBlock->getCells().at(0).at(0);
   std::pair <int, int> b = nextBlock->getCells().at(0).at(1);
@@ -117,8 +121,8 @@ void TextDisplay::printGameOver() {
                "|   __|  _  |     |   __|  |     |  |  |   __| __  | \n"
                "|  |  |     | | | |   __|  |  |  |  |  |   __|    -| \n"
                "|_____|__|__|_|_|_|_____|  |_____|\\___/|_____|__|__|\n" << std::endl;
-  std::cout << "YOUR SCORE: " << boardModel_->getScore() << std::endl;
-  std::cout << "HI SCORE: " << boardModel_->getHiScore() << std::endl;
+  std::cout << "YOUR SCORE: " << getBoardModel()->getScore() << std::endl;
+  std::cout << "HI SCORE: " << getBoardModel()->getHiScore() << std::endl;
   std::cout << "Enter [restart] to play again!" << std::endl;
 }
 
@@ -127,7 +131,7 @@ void TextDisplay::update() {
   printHeader();
   printGrid();
   printNextBlock();
-  if (boardModel_->getIsGameOver()) {
+  if (getBoardModel()->getIsGameOver()) {
     printGameOver();
   }
 }
