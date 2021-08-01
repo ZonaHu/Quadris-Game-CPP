@@ -107,11 +107,10 @@ void TextDisplay::printGameOver() {
 
 void TextDisplay::update() {
   // this function prints out all
+  printHeader();
+  printGrid();
+  printNextBlock();
   if (boardModel_->getIsGameOver()) {
     printGameOver();
-  } else {
-    printHeader();
-    printGrid();
-    printNextBlock();
   }
 }
