@@ -363,15 +363,17 @@ void BoardModel::hint() {
     notify();
 }
 
-void BoardModel::saveGame() {
-    std::cout << "SAVING..." << std::endl;
+void BoardModel::saveGame(std::string file) {
+    std::cout << "SAVING TO " << file << "..." << std::endl;
     std::ofstream saveFile;
-    saveFile.open ("save.quadris");
+    saveFile.open (file);
+    // Write each major member of BoardModel to a line in the save file
     saveFile << timestamp_ << "\n";
     saveFile << nonClearStreak_ << "\n";
     saveFile << score_ << "\n";
     saveFile << hi_score_ << "\n";
     saveFile << level_ << "\n";
+    // Iterate through grid_ and print each element in a cell pair on its own line
     for (int i = 0; i < gridY_; i++) {
         for (int j = 0; j < gridX_; j++) {
             saveFile << (int)grid_.at(i).at(j).first << "\n";
@@ -383,12 +385,13 @@ void BoardModel::saveGame() {
     std::cout << "SAVE COMPLETE!" << std::endl;
 }
 
-void BoardModel::loadGame() {
-    std::cout << "LOADING..." << std::endl;
+void BoardModel::loadGame(std::string file) {
+    std::cout << "LOADING " << file << "..." << std::endl;
     restart();
-    std::ifstream infile("save.quadris");
+    std::ifstream infile(file);
     std::string line;
 
+    // Will be set to true if a line read ever fails
     bool didLoadFail = false;
 
     if (!std::getline(infile, line)) {
@@ -421,6 +424,7 @@ void BoardModel::loadGame() {
         setLevel(std::stoi(line));
     }
 
+    // Iterate through grid_ to set each cell
     for (int i = 0; i < gridY_; i++) {
         for (int j = 0; j < gridX_; j++) {
             std::string type, id;
@@ -437,7 +441,7 @@ void BoardModel::loadGame() {
     }
 
     if (didLoadFail) {
-        std::cout << "WARNING: Some data could not be loaded.";
+        std::cout << "WARNING: Some data could not be successfully loaded.";
     }
 
     std::cout << "LOAD COMPLETE!" << std::endl;

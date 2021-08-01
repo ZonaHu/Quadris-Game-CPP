@@ -234,10 +234,10 @@ void Controller::execCommand(std::string input, int multiplier) {
 				rename(cmdArgs);
 			} else if (parse(cmdStart, commandList_[21]) && enableBonus_) {
 				macro(cmdArgs);
-			} else if (parse(cmdStart, commandList_[22]) && enableBonus_) {
-				boardModel_->saveGame();
-			} else if (parse(cmdStart, commandList_[23]) && enableBonus_) {
-				boardModel_->loadGame();
+			} else if (parse(cmdStart, commandList_[22]) && enableBonus_ && (int) cmdArgs.size() == 1) {
+				boardModel_->saveGame(cmdArgs[0]);
+			} else if (parse(cmdStart, commandList_[23]) && enableBonus_ && (int) cmdArgs.size() == 1) {
+				boardModel_->loadGame(cmdArgs[0]);
 			} else {
 				std::cout << "Please input a correct command." << std::endl;
 			}

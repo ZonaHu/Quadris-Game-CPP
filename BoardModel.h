@@ -77,8 +77,8 @@ public:
   void T();
   void restart();
   void hint();
-  void saveGame();
-  void loadGame();
+  void saveGame(std::string);
+  void loadGame(std::string);
 
   // Accessors and mutators
   int getGridX() const;
