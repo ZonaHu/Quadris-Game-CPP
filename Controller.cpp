@@ -16,7 +16,7 @@
 
 Controller::Controller(bool enableBonus) {
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
-			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro"};
+			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro", "save", "load"};
 	tempMacroName_ = "";
 	macroInputFlag_ = false;
 	enableBonus_ = enableBonus;
@@ -234,6 +234,10 @@ void Controller::execCommand(std::string input, int multiplier) {
 				rename(cmdArgs);
 			} else if (parse(cmdStart, commandList_[21]) && enableBonus_) {
 				macro(cmdArgs);
+			} else if (parse(cmdStart, commandList_[22]) && enableBonus_ && (int) cmdArgs.size() == 1) {
+				boardModel_->saveGame(cmdArgs[0]);
+			} else if (parse(cmdStart, commandList_[23]) && enableBonus_ && (int) cmdArgs.size() == 1) {
+				boardModel_->loadGame(cmdArgs[0]);
 			} else {
 				std::cout << "Please input a correct command." << std::endl;
 			}

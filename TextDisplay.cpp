@@ -35,13 +35,25 @@ void TextDisplay::printHeader() {
 
 void TextDisplay::printGrid() {
   std::vector <std::vector <std::pair<BlockType, int>>> curGrid = boardModel_->getGrid(); // the current grid
-  std::shared_ptr<GenericBlock> curBlock = boardModel_->getCurBlock(); // the current block
+
+  // Get cell information of current block
+  std::shared_ptr<GenericBlock> curBlock = boardModel_->getCurBlock();
   int r = curBlock->getRotation();
-  std::pair <int, int> base = curBlock->getCoords();
-  std::pair <int, int> a = curBlock->getCells().at(r).at(0);
-  std::pair <int, int> b = curBlock->getCells().at(r).at(1);
-  std::pair <int, int> c = curBlock->getCells().at(r).at(2);
-  std::pair <int, int> d = curBlock->getCells().at(r).at(3);
+  std::pair <int, int> baseCoords = curBlock->getCoords();
+  std::pair <int, int> cell0 = curBlock->getCells().at(r).at(0);
+  std::pair <int, int> cell1 = curBlock->getCells().at(r).at(1);
+  std::pair <int, int> cell2 = curBlock->getCells().at(r).at(2);
+  std::pair <int, int> cell3 = curBlock->getCells().at(r).at(3);
+
+  // Get cell information of hint block, if it exists
+  std::shared_ptr<GenericBlock> hintBlock = boardModel_->getHintBlock();
+  int hintR = hintBlock != nullptr ? hintBlock->getRotation() : -1;
+  std::pair <int, int> hintBaseCoords = hintBlock != nullptr ? hintBlock->getCoords() : std::make_pair(-1,-1);
+  std::pair <int, int> hintCell0 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(0) : std::make_pair(-1,-1);
+  std::pair <int, int> hintCell1 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(1) : std::make_pair(-1,-1);
+  std::pair <int, int> hintCell2 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(2) : std::make_pair(-1,-1);
+  std::pair <int, int> hintCell3 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(3) : std::make_pair(-1,-1);
+
   for(std::size_t i = 0; i < curGrid.size(); ++i) {
     int count = i+1; // count denotes the current line number
     if (count >= 1 && count <= 9){
@@ -52,12 +64,18 @@ void TextDisplay::printGrid() {
     }
     for(std::size_t j = 0; j < curGrid.at(i).size(); ++j){
       // print the rest of things in the same line corresponding to count
-      if (((int)j == base.first+a.first && 18-1-(int)i == base.second+a.second) ||
-          ((int)j == base.first+b.first && 18-1-(int)i == base.second+b.second) ||
-          ((int)j == base.first+c.first && 18-1-(int)i == base.second+c.second) ||
-          ((int)j == base.first+d.first && 18-1-(int)i == base.second+d.second)) {
-        // print the current block
+      if (((int)j == baseCoords.first+cell0.first && 18-1-(int)i == baseCoords.second+cell0.second) ||
+          ((int)j == baseCoords.first+cell1.first && 18-1-(int)i == baseCoords.second+cell1.second) ||
+          ((int)j == baseCoords.first+cell2.first && 18-1-(int)i == baseCoords.second+cell2.second) ||
+          ((int)j == baseCoords.first+cell3.first && 18-1-(int)i == baseCoords.second+cell3.second)) {
+        // print the current block's cell
         std::cout << blockTypeToChar_.at(curBlock->getType());
+      } else if (((int)j == hintBaseCoords.first+hintCell0.first && 18-1-(int)i == hintBaseCoords.second+hintCell0.second) ||
+                 ((int)j == hintBaseCoords.first+hintCell1.first && 18-1-(int)i == hintBaseCoords.second+hintCell1.second) ||
+                 ((int)j == hintBaseCoords.first+hintCell2.first && 18-1-(int)i == hintBaseCoords.second+hintCell2.second) ||
+                 ((int)j == hintBaseCoords.first+hintCell3.first && 18-1-(int)i == hintBaseCoords.second+hintCell3.second)) {
+        // Print out hint character
+        std::cout << "?";
       } else {
         // print the other blocks on the grid
         std::cout << blockTypeToChar_.at(boardModel_ -> getCell(j, 18-1-i).first);
@@ -87,7 +105,7 @@ void TextDisplay::printNextBlock() {
           || (d.second == j && d.first == i)){ // if any coordinate matches
         std::cout << blockTypeToChar_.at(nextBlock->getType()); // print the current type
       }
-      else{
+      else {
         std::cout << " "; // else it should be empty
       }
     }
