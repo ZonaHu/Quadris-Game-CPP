@@ -161,7 +161,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 				cmd = input;
 			}
 			for (int i = 0; i < (int) commandList_.size(); i++) {
-				if (commandList_[i] == cmd) {
+				if (parse(cmd, commandList_[i])) {
 					cmdNum = i;
 					break;
 				}
