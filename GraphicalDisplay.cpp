@@ -9,4 +9,9 @@
 // TODO:
 GraphicalDisplay::GraphicalDisplay(std::shared_ptr<BoardModel>) {}
 GraphicalDisplay::~GraphicalDisplay() {}
+
+std::shared_ptr<BoardModel> GraphicalDisplay::getBoardModel() const {
+  return boardModel_.lock();
+}
+
 void GraphicalDisplay::update() {}
