@@ -372,6 +372,13 @@ void BoardModel::saveGame() {
     saveFile << score_ << "\n";
     saveFile << hi_score_ << "\n";
     saveFile << level_ << "\n";
+    for (int i = 0; i < gridY_; i++) {
+        for (int j = 0; j < gridX_; j++) {
+            saveFile << (int)grid_.at(i).at(j).first << "\n";
+            saveFile << grid_.at(i).at(j).second << "\n";
+        }
+    }
+    saveFile << "\n";
     saveFile.close();
     std::cout << "SAVE COMPLETE!" << std::endl;
 }
@@ -414,9 +421,25 @@ void BoardModel::loadGame() {
         setLevel(std::stoi(line));
     }
 
+    for (int i = 0; i < gridY_; i++) {
+        for (int j = 0; j < gridX_; j++) {
+            std::string type, id;
+            if (!std::getline(infile, type) || !std::getline(infile, id)) {
+                didLoadFail = true;
+                break;
+            } else {
+                grid_.at(i).at(j) = std::make_pair((BlockType)std::stoi(type), std::stoi(id));
+            }
+        }
+        if (didLoadFail) {
+            break;
+        }
+    }
+
     if (didLoadFail) {
         std::cout << "WARNING: Some data could not be loaded.";
     }
 
     std::cout << "LOAD COMPLETE!" << std::endl;
+    notify();
 }
