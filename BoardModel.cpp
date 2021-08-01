@@ -246,6 +246,10 @@ void BoardModel::checkCompletedRows() {
     }
     // Add REGULAR POINTS
     score_ += pow((level_ + rowsCleared), 2);
+    
+    if (score_ > hi_score_) {
+        hi_score_ = score_;
+    }
 }
 
 void BoardModel::I() {
