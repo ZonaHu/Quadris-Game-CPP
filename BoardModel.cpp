@@ -219,7 +219,6 @@ void BoardModel::checkCompletedRows() {
         }
 
         if (isRowComplete) {
-            std::cout << "ROW COMPLETE" << std::endl;
             nonClearStreak_ = 0;
             // Iterate through row for a second time to process scores, delete cells, and shift down cells
             x = 0;
