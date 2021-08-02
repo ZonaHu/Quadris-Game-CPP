@@ -27,7 +27,6 @@ private:
   void rename(std::vector <std::string>);
   void macro(std::vector <std::string>);
   void execCommand(std::string, int);
-  std::vector <BlockType> norandom(std::string);
   void sequence(std::string);
   
 public:

@@ -62,7 +62,6 @@ public:
   bool checkIfValidMove(int, int, int); // check if any of the 4 coordinates overlaps with a filled cell on the grid.
   // function to check if rows are completed
   void checkCompletedRows();
-  void calcScore();
   void left(int, bool, bool); // handles the left command
   void right(int, bool, bool); // handles the right command
   void down(int, bool, bool); // handles the down command
