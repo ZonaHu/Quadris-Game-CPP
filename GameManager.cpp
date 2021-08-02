@@ -13,6 +13,7 @@
 #include "Level3.h"
 #include "Level4.h"
 #include <memory>
+#include <thread>
 # include <gtkmm-3.0/gtkmm/application.h>
 # include <gtkmm-3.0/gtkmm/window.h>
 
@@ -20,7 +21,6 @@
 Create instance of  appropriate Observer derived classes based on value of isTextOnly; subscribe them to the BoardModel.
 Create an instance of Controller passing BoardModel to the constructor.
 Begin an infinite while loop that reads user input from cin into the Controller input overload.*/
-
 GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
                          int startLevel, bool enableBonus) {
   // int seed  sets the random number generator's seed to this number
@@ -62,6 +62,8 @@ void GameManager::start() {
   // Initializes the game.
   // Create instance of appropriate Observer derived classes
   // based on value of isTextOnly; subscribe them to the BoardModel.
+  std::vector<std::thread> threads;
+
   if (isTextOnly_){
     std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
     BoardModel_->subscribe(t); // subscribe the text display only
@@ -70,16 +72,27 @@ void GameManager::start() {
     // subscribe to both displays
     std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
     BoardModel_->subscribe(t);
-    // base window set up
-    auto app = Gtk::Application::create();
-    Gtk::Window window;
-    Gtk::Window* winptr = &window;
-    std::shared_ptr <Observer> g = std::make_shared<GraphicalDisplay>(BoardModel_, winptr);
-    BoardModel_->subscribe(g);
-    app->run(window);
+    // to stop things from getting blocked we have the gui on one thread and the infinite loop for reading input on another thread
+    threads.push_back(std::thread(setUpApp, this));
   }
+  threads.push_back(std::thread(controlLoop, this));
+  for (auto& thread : threads){
+	  thread.join();
+  }
+}
+
+void GameManager::setUpApp(){
+  auto app = Gtk::Application::create(); // overall base for window
+  Gtk::Window window; // creating window
+  Gtk::Window* winptr = &window;
+  std::shared_ptr <Observer> g = std::make_shared<GraphicalDisplay>(BoardModel_, winptr);
+  BoardModel_->subscribe(g); // subscribe to the gui
+  app->run(window); // run the gui
+}
+
+void GameManager::controlLoop(){
   while(!std::cin.eof()||!std::cin.fail()){
-    //Begin an infinite while loop that reads user input from cin into the Controller input overload.
-    std::cin >> *controller_;
+  //Begin an infinite while loop that reads user input from cin into the Controller input overload.
+	  std::cin >> *controller_;
   }
 }

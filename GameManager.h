@@ -23,6 +23,8 @@ private:
 public:
   GameManager(bool isTextOnly, int seed, std::string scriptFile, int startLevel, bool enableBonus); //  constructor
   ~GameManager()= default; // destructor
+  void setUpApp(); // For initializing the GUI
+  void controlLoop(); // Place the infinite while loop in here
   void start(); // Initializes the game, game ends on reading EOF
 };
 
