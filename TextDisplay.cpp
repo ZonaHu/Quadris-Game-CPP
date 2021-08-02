@@ -20,15 +20,17 @@ TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel):boardModel_{boa
 }
 
 TextDisplay::~TextDisplay() {
-  //call unsubscribe in the destructor
+  // call unsubscribe in the destructor
   getBoardModel()->unsubscribe(this);
 }
 
 std::shared_ptr<BoardModel> TextDisplay::getBoardModel() const {
+  // getter
   return boardModel_.lock();
 }
 
 void TextDisplay::printHeader() {
+  // function to print the header message
   std::cout << "Start Text-Based Display" << std::endl;
   std::cout << "     Level:      " << getBoardModel()->getLevel() << std::endl;
   std::cout << "     Score:      " << getBoardModel()->getScore() << std::endl;
@@ -117,6 +119,7 @@ void TextDisplay::printNextBlock() {
 }
 
 void TextDisplay::printGameOver() {
+  // function to print the game over message
   std::cout << " _____ _____ _____ _____    _____ _____ _____ _____  \n"
                "|   __|  _  |     |   __|  |     |  |  |   __| __  | \n"
                "|  |  |     | | | |   __|  |  |  |  |  |   __|    -| \n"
@@ -127,7 +130,7 @@ void TextDisplay::printGameOver() {
 }
 
 void TextDisplay::update() {
-  // this function prints out all
+  // this function prints out all messages
   printHeader();
   printGrid();
   printNextBlock();
