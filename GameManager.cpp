@@ -31,7 +31,7 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
 
   // Read in the block sequence for Level0
   std::vector<BlockType> level0BlockSeq = controller_->blockSequenceSource(scriptFile);
-  
+
   // Instantiate BoardModel
   BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance
 
@@ -66,9 +66,9 @@ void GameManager::start() {
   }
   else{
     // subscribe to both displays
-    std::shared_ptr<Observer> t = std::make_shared<TextDisplay>(BoardModel_);
+    std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
     BoardModel_->subscribe(t);
-    std::shared_ptr<Observer> g = std::make_shared<GraphicalDisplay>();
+    std::shared_ptr <Observer> g = std::make_shared<GraphicalDisplay>(BoardModel_);
     BoardModel_->subscribe(g);
   }
   while(!std::cin.eof()||!std::cin.fail()){

@@ -6,7 +6,7 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level1::Level1(const std::shared_ptr<BoardModel> p, int seed) {
+Level1::Level1(const std::weak_ptr<BoardModel> p, int seed) {
   // constructor
   boardModel_ = p;
   seed_ = seed;
@@ -16,7 +16,7 @@ std::shared_ptr <GenericBlock> Level1::generateNextBlock() {
   // generate the next block in level 1
   std::shared_ptr<GenericBlock> res;
   static std::mt19937 rng(seed_);
-  int num = (int) rng() % 12;
+  int num = abs((int) rng()) % 12;
   // S and Z are selected with a probability of 1/12 each
   if (num == 0){
     res = std::make_shared<SBlock>();
@@ -48,5 +48,8 @@ void Level1::postMoveOperation() {
 }
 
 void Level1::postDropOperation() {
+  // do nothing in level 1
+}
+void Level1::setCounter(int) {
   // do nothing in level 1
 }

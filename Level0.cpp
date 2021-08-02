@@ -6,11 +6,15 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level0::Level0(const std::shared_ptr<BoardModel> p, std::vector<BlockType> blockSeq) {
+Level0::Level0(const std::weak_ptr<BoardModel> p, std::vector<BlockType> blockSeq) {
   // constructor
   boardModel_ = p;
   blockSeq_ = blockSeq;
   counter_ = 0;
+}
+
+void Level0::setCounter(int count) {
+  counter_ = count; // used in restart to reset the counter
 }
 
 std::shared_ptr <GenericBlock> Level0::generateNextBlock() {  // level 0 follows the sequence file
@@ -54,4 +58,3 @@ void Level0::postMoveOperation() {
 void Level0::postDropOperation() {
   // do nothing in level 0
 }
-

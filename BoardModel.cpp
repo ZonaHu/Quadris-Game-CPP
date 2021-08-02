@@ -318,6 +318,7 @@ void BoardModel::restart() {
     grid_ = grid;
     score_ = 0;
     level_ = 0;
+    levelArray_.at(level_)->setCounter(0); //reset the counter
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
     notify();

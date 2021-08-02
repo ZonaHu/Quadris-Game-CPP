@@ -7,7 +7,7 @@
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in
-Level2::Level2(const std::shared_ptr<BoardModel> p, int seed) {
+Level2::Level2(const std::weak_ptr<BoardModel> p, int seed) {
   // constructor
   boardModel_ = p;
   seed_ = seed;
@@ -49,5 +49,8 @@ void Level2::postMoveOperation() {
 }
 
 void Level2::postDropOperation() {
+  // do nothing in level 2
+}
+void Level2::setCounter(int) {
   // do nothing in level 2
 }
