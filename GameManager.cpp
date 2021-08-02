@@ -13,6 +13,8 @@
 #include "Level3.h"
 #include "Level4.h"
 #include <memory>
+# include <gtkmm-3.0/gtkmm/application.h>
+# include <gtkmm-3.0/gtkmm/window.h>
 
 /* Create instance of BoardModel passing the following to the constructor (seed, scriptFile, startLevel).
 Create instance of  appropriate Observer derived classes based on value of isTextOnly; subscribe them to the BoardModel.
@@ -68,8 +70,13 @@ void GameManager::start() {
     // subscribe to both displays
     std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
     BoardModel_->subscribe(t);
-    std::shared_ptr <Observer> g = std::make_shared<GraphicalDisplay>(BoardModel_);
+    // base window set up
+    auto app = Gtk::Application::create();
+    Gtk::Window window;
+    Gtk::Window* winptr = &window;
+    std::shared_ptr <Observer> g = std::make_shared<GraphicalDisplay>(BoardModel_, winptr);
     BoardModel_->subscribe(g);
+    app->run(window);
   }
   while(!std::cin.eof()||!std::cin.fail()){
     //Begin an infinite while loop that reads user input from cin into the Controller input overload.

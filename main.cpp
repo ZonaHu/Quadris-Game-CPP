@@ -12,6 +12,7 @@
 # include <memory>
 
 int main(int argc, char *argv[]){
+
   // initialize the variables to default values
   bool isTextOnly = false; // the default behaviour is to show both text and graphics
   int seed = 0; // set the default seed to 0
