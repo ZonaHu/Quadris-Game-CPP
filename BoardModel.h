@@ -53,32 +53,36 @@ private:
   std::vector <std::shared_ptr<GenericLevel>> levelArray_;
 
 public:
+  // default constructor for the board model
   BoardModel();
+  // constructor to initialize the flags
   BoardModel(int, std::string, int, bool);
+  // destructor
   ~BoardModel();
   bool checkIfValidMove(int, int, int); // check if any of the 4 coordinates overlaps with a filled cell on the grid.
+  // function to check if rows are completed
   void checkCompletedRows();
   void calcScore();
-  void left(int, bool, bool);
-  void right(int, bool, bool);
-  void down(int, bool, bool);
-  void clockwise(int, bool, bool);
-  void counterclockwise(int, bool, bool);
-  void drop(int);
-  void levelup(int);
-  void leveldown(int);
-  void random();
-  void I(int);
-  void J(int);
-  void L(int);
-  void S(int);
-  void Z(int);
-  void O(int);
-  void T(int);
-  void restart();
-  void hint();
-  void saveGame(std::string);
-  void loadGame(std::string);
+  void left(int, bool, bool); // handles the left command
+  void right(int, bool, bool); // handles the right command
+  void down(int, bool, bool); // handles the down command
+  void clockwise(int, bool, bool); // handles the clockwise command
+  void counterclockwise(int, bool, bool); // handles the counterclockwise command
+  void drop(int); // handles the drop command
+  void levelup(int); // handles the levelup command
+  void leveldown(int); // handles the leveldown command
+  void random(); // set random mode
+  void I(int); // handles the I command
+  void J(int); // handles the J command
+  void L(int); // handles the L command
+  void S(int); // handles the S command
+  void Z(int); // handles the Z command
+  void O(int); // handles the O command
+  void T(int); // handles the T command
+  void restart(); // handles the restart command
+  void hint(); // handles the hint command
+  void saveGame(std::string); // handles the save game command
+  void loadGame(std::string); // function to load the game
 
   // Accessors and mutators
   int getGridX() const;

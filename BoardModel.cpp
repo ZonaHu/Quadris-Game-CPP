@@ -1,4 +1,4 @@
-//
+// BoardModel.cpp
 //
 // Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
 // on 2021-07-16.
@@ -10,11 +10,13 @@
 #include <stdlib.h>
 
 BoardModel::BoardModel() {
+    // default constructor for the board model
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
 }
 
 BoardModel::BoardModel(int seed, std::string scriptFile, int startLevel, bool enableBonus) {
+    // constructor to initialize the flags
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
     score_ = 0;
@@ -29,6 +31,7 @@ BoardModel::BoardModel(int seed, std::string scriptFile, int startLevel, bool en
 BoardModel::~BoardModel() {}
 
 void BoardModel::setLevels(std::vector <std::shared_ptr<GenericLevel>> levelArray) {
+    // function to set levels
     levelArray_ = levelArray;
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
@@ -42,8 +45,10 @@ void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
 }
 
+// function to return the member gridX
 int BoardModel::getGridX() const { return gridX_; }
 
+// function to return the member gridY
 int BoardModel::getGridY() const { return gridY_; }
 
 std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() const { return grid_; }
@@ -202,6 +207,7 @@ void BoardModel::leveldown(int m = 1) {
 }
 
 void BoardModel::checkCompletedRows() {
+  // check completed rows
     int y = 0;
     int x = 0;
     int rowsCleared = 0;
