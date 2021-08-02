@@ -51,3 +51,6 @@ void Level2::postMoveOperation() {
 void Level2::postDropOperation() {
   // do nothing in level 2
 }
+void Level2::setCounter(int) {
+  // do nothing in level 2
+}

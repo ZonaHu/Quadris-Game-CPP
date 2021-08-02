@@ -50,3 +50,6 @@ void Level1::postMoveOperation() {
 void Level1::postDropOperation() {
   // do nothing in level 1
 }
+void Level1::setCounter(int) {
+  // do nothing in level 1
+}

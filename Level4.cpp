@@ -15,6 +15,10 @@ Level4::Level4(const std::weak_ptr<BoardModel> p, int seed, bool nonrandom) {
   counter_ = 0;
 }
 
+void Level4::setCounter(int count) {
+  counter_ = count; // used in restart to reset the counter
+}
+
 std::shared_ptr <GenericBlock> Level4::generateNextBlock() {
   // generate the next block in level 4
   std::shared_ptr<GenericBlock> res;

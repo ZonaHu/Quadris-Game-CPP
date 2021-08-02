@@ -13,6 +13,10 @@ Level0::Level0(const std::weak_ptr<BoardModel> p, std::vector<BlockType> blockSe
   counter_ = 0;
 }
 
+void Level0::setCounter(int count) {
+  counter_ = count; // used in restart to reset the counter
+}
+
 std::shared_ptr <GenericBlock> Level0::generateNextBlock() {  // level 0 follows the sequence file
   std::shared_ptr<GenericBlock> res;
   // read the block type from the vector at the correct index
@@ -54,4 +58,3 @@ void Level0::postMoveOperation() {
 void Level0::postDropOperation() {
   // do nothing in level 0
 }
-

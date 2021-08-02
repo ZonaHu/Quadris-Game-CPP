@@ -15,6 +15,10 @@ Level3::Level3(const std::weak_ptr<BoardModel> p, int seed, bool nonrandom) {
   counter_ = 0;
 }
 
+void Level3::setCounter(int count) {
+  counter_ = count; // used in restart to reset the counter
+}
+
 std::shared_ptr <GenericBlock> Level3::generateNextBlock() {
   // generate the next block in level 3
   std::shared_ptr<GenericBlock> res;

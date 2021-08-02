@@ -321,6 +321,7 @@ void BoardModel::restart() {
     level_ = 0;
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    levelArray_.at(level_)->setCounter(0);
     notify();
 }
 

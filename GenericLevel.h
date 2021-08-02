@@ -36,9 +36,11 @@ public:
   // Gets called after every drop() in BoardModel
   virtual void postDropOperation() = 0;
 
-  std::shared_ptr <BoardModel> getBoardModel() const;
-  void setBlockGenSequence(std::vector<BlockType>);
-  void setIsNonRandom(bool);
+  virtual void setCounter(int) = 0; // function to reset the counter
+
+  std::shared_ptr <BoardModel> getBoardModel() const; // getter for the board model
+  void setBlockGenSequence(std::vector<BlockType>); // set the block sequence
+  void setIsNonRandom(bool); // set non random boolean
 };
 
 #endif // PROJECT_2_3_GENERICLEVEL_H
