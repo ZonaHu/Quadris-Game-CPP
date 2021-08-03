@@ -10,7 +10,7 @@
 #include <cstdlib>
 #include <map>
 #include <algorithm>
-#include <ctype.h>
+#include <cctype>
 #include <iostream>
 #include <fstream>
 
