@@ -290,7 +290,7 @@ void GraphicalDisplay::getNextBlock() {
 				}
 			}
 	}
-
+	std::cout << "YAY - end" << std::endl;
 	return;
 }
 
@@ -306,6 +306,7 @@ void GraphicalDisplay::generateBoard() {
 			}
 		}
 	std::cout << "end here" << std::endl;
+
 	return;
 	// Remaking the grid:
 //	std::vector <std::vector <std::pair<BlockType, int>>> curGrid = getBoardModel()->getGrid(); // the current grid
@@ -343,7 +344,7 @@ void GraphicalDisplay::generateBoard() {
 //	        // hint block
 //	    	  buttonBoardGrid.at(i).at(j)->set_label(blockTypeToColour_.at(hintBlock->getType()));
 //	      } else {
-//	        // other blocks
+//	        // other blocks (need to finish)
 //	         buttonBoardGrid.at(i).at(j)->set_label(blockTypeToColour_.at(getBoardModel()->getCell(j, 18-1-i).first));
 //
 //	      }
