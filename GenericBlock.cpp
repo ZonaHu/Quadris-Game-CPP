@@ -5,6 +5,8 @@
 
 #include "GenericBlock.h"
 
+GenericBlock::GenericBlock(int l) : levelGenerated_{l} {};
+
 BlockType GenericBlock::getType() const { return type_; } // getter for the type of a block
 void GenericBlock::setType(BlockType type) { type_ = type; } // setter for the type of a block
 
@@ -22,3 +24,7 @@ void GenericBlock::setCoords(int x, int y) {
   x_ = x;
   y_ = y;
 }
+
+int GenericBlock::getLevelGenerated() const { return levelGenerated_; }
+
+void GenericBlock::setLevelGenerated(int l) { levelGenerated_ = l; }

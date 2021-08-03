@@ -41,6 +41,7 @@ std::shared_ptr <GenericBlock> Level2::generateNextBlock() {
   else if (num == 6){
     res = std::make_shared<IBlock>();
   }
+  res->setLevelGenerated(2);
   return res;
 }
 

@@ -80,6 +80,7 @@ std::shared_ptr <GenericBlock> Level3::generateNextBlock() {
       res = std::make_shared<IBlock>();
     }
   }
+  res->setLevelGenerated(3);
   return res;
 }
 

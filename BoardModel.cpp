@@ -207,7 +207,7 @@ void BoardModel::drop(int m = 1) {
 
         levelArray_[level_]->postDropOperation(); // perform post drop operations
 
-        liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
+        liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, curBlock_->getLevelGenerated())));
         timestamp_++; // increment the time stamp
 
         checkCompletedRows();
@@ -305,6 +305,7 @@ void BoardModel::checkCompletedRows() {
 // function to handle the I command, change current block to I
 void BoardModel::I(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<IBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -312,6 +313,7 @@ void BoardModel::I(int m) {
 // function to handle the J command, change current block to J
 void BoardModel::J(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<JBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -319,6 +321,7 @@ void BoardModel::J(int m) {
 // function to handle the L command, change current block to L
 void BoardModel::L(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<LBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -326,6 +329,7 @@ void BoardModel::L(int m) {
 // function to handle the S command, change current block to S
 void BoardModel::S(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<SBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -333,6 +337,7 @@ void BoardModel::S(int m) {
 // function to handle the Z command, change current block to Z
 void BoardModel::Z(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<ZBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -340,6 +345,7 @@ void BoardModel::Z(int m) {
 // function to handle the O command, change current block to O
 void BoardModel::O(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<OBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -347,6 +353,7 @@ void BoardModel::O(int m) {
 // function to handle the T command, change current block to T
 void BoardModel::T(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<TBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
