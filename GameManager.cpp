@@ -14,6 +14,7 @@
 #include "Level4.h"
 #include <memory>
 #include <thread>
+#include <exception>
 # include <gtkmm-3.0/gtkmm/application.h>
 # include <gtkmm-3.0/gtkmm/window.h>
 
@@ -62,7 +63,6 @@ void GameManager::start() {
   // Initializes the game.
   // Create instance of appropriate Observer derived classes
   // based on value of isTextOnly; subscribe them to the BoardModel.
-  std::vector<std::thread> threads;
 
   if (isTextOnly_){
     std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
@@ -95,4 +95,5 @@ void GameManager::controlLoop(){
   //Begin an infinite while loop that reads user input from cin into the Controller input overload.
 	  std::cin >> *controller_;
   }
+  std::terminate();
 }

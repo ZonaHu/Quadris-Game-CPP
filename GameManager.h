@@ -11,6 +11,7 @@
 #include "Controller.h"
 #include "TextDisplay.h"
 #include "GraphicalDisplay.h"
+#include <thread>
 #include <memory>
 
 class GameManager {
@@ -21,6 +22,7 @@ private:
   std::shared_ptr<Controller> controller_; // Controller on stack
 
 public:
+  std::vector<std::thread> threads;
   GameManager(bool isTextOnly, int seed, std::string scriptFile, int startLevel, bool enableBonus); //  constructor
   ~GameManager()= default; // destructor
   void setUpApp(); // For initializing the GUI
