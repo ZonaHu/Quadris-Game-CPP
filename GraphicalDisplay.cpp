@@ -29,7 +29,7 @@ GraphicalDisplay::GraphicalDisplay(std::shared_ptr<BoardModel> boardModel, Gtk::
 	blockTypeToColour_[BlockType::Z_BLOCK] = "\U0001F7EB"; // brown
 	blockTypeToColour_[BlockType::T_BLOCK] = "\U0001F7E8"; // yellow
 	blockTypeToColour_[BlockType::STAR_BLOCK] = "\U00002B50"; // star
-	blockTypeToColour_[BlockType::EMPTY] = ""; // grey
+	blockTypeToColour_[BlockType::EMPTY] = " "; // grey
 	windowInit();
 	update();
 }
@@ -118,6 +118,7 @@ void GraphicalDisplay::windowInit() {
 		for (int j = 0; j < 18; j++){
 			Gtk::ColorButton* cell = new Gtk::ColorButton();
 			cell->set_sensitive(false);
+			cell->set_label(" ");
 			row.push_back(Gtk::manage(cell));
 		}
 		buttonBoardGrid.push_back(row);
@@ -133,6 +134,7 @@ void GraphicalDisplay::windowInit() {
 		for (int j = 0; j < 4; j++){
 			Gtk::ColorButton* cell = new Gtk::ColorButton();
 			cell->set_sensitive(false);
+			cell->set_label(" ")
 			row.push_back(Gtk::manage(cell));
 		}
 		buttonUpcomingBlockGrid.push_back(row);
@@ -266,6 +268,25 @@ void GraphicalDisplay::getNextBlock() {
 	std::pair <int, int> c = nextBlock->getCells().at(0).at(2);
 	std::pair <int, int> d = nextBlock->getCells().at(0).at(3);
 
-	//cell->set_color(blockTypeToColour_.at(nextBlock->getType()));
-	dynamic_cast<Gtk::ColorButton*>(upcomingBlockGrid.get_child_at(a.first, a.second))->set_label(blockTypeToColour_.at(nextBlock->getType()));
+	std::cout << a.first << " " << a.second << std::endl;
+	std::cout << b.first << " " << b.second << std::endl;
+	std::cout << c.first << " " << c.second << std::endl;
+	std::cout << d.first << " " << d.second << std::endl;
+
+	//resetting the grid to blank + colouring the four cells of the upcoming block
+	for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (j == a.first && i == (3 - a.second)){
+					buttonUpcomingBlockGrid.at(a.first).at(3 - a.second)->set_label(blockTypeToColour_.at(nextBlock->getType()));
+				} else if (j == b.first && i == (3 - b.second)){
+					buttonUpcomingBlockGrid.at(b.first).at(3 - b.second)->set_label(blockTypeToColour_.at(nextBlock->getType()));
+				} else if (j == c.first && i == (3 - c.second)){
+					buttonUpcomingBlockGrid.at(c.first).at(3 - c.second)->set_label(blockTypeToColour_.at(nextBlock->getType()));
+				} else if (j == d.first && i == (3 - d.second)){
+					buttonUpcomingBlockGrid.at(d.first).at(3 - d.second)->set_label(blockTypeToColour_.at(nextBlock->getType()));
+				} else {
+					buttonUpcomingBlockGrid.at(i).at(j)->set_label(" ");
+				}
+			}
+	}
 }
