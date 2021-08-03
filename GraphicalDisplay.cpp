@@ -134,7 +134,7 @@ void GraphicalDisplay::windowInit() {
 		for (int j = 0; j < 4; j++){
 			Gtk::ColorButton* cell = new Gtk::ColorButton();
 			cell->set_sensitive(false);
-			cell->set_label(" ")
+			cell->set_label(" ");
 			row.push_back(Gtk::manage(cell));
 		}
 		buttonUpcomingBlockGrid.push_back(row);
