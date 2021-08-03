@@ -1,0 +1,47 @@
+4levelup
+macro new odrop
+O
+drop
+O
+2right
+drop
+O
+7right
+drop
+O
+9right
+drop
+macro save
+macro new oblocks
+macro exec odrop
+macro exec odrop
+macro exec odrop
+macro exec odrop
+macro exec odrop
+macro exec odrop
+macro save
+macro exec oblocks
+I
+c
+4right
+drop
+I
+c
+4right
+drop
+I
+c
+4right
+drop
+I
+c
+6right
+drop
+I
+c
+6right
+drop
+I
+c
+6right
+drop
