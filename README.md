@@ -6,7 +6,7 @@
 
 `<m>down`: Moves the current block down `m` times.
 
-`<m>clockwise`: Rotates the current block counterclockwise by `m * 90` degrees.
+`<m>clockwise`: Rotates the current block clockwise by `m * 90` degrees.
 
 `<m>counterclockwise`: Rotates the current block counterclockwise by `m * 90` degrees.
 
