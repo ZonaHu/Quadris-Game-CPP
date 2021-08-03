@@ -21,7 +21,7 @@ TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel):boardModel_{boa
 
 TextDisplay::~TextDisplay() {
   // call unsubscribe in the destructor
-  getBoardModel()->unsubscribe(this);
+  getBoardModel()->unsubscribe(shared_from_this());
 }
 
 std::shared_ptr<BoardModel> TextDisplay::getBoardModel() const {

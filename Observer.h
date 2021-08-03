@@ -9,7 +9,7 @@
 
 class Subject;
 
-class Observer{
+class Observer: public std::enable_shared_from_this<Observer>{
 public:
   virtual ~Observer(){}; // destructor
   virtual void update() = 0;
