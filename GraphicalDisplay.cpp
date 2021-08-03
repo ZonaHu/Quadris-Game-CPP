@@ -14,6 +14,7 @@
 #include <gtkmm-3.0/gtkmm/messagedialog.h>
 #include <gtkmm-3.0/gtkmm/entry.h>
 #include <gtkmm-3.0/gtkmm/grid.h>
+#include <memory>
 #include <vector>
 #include <string>
 #include <glib.h>
@@ -269,11 +270,6 @@ void GraphicalDisplay::getNextBlock() {
 	std::pair <int, int> c = nextBlock->getCells().at(0).at(2);
 	std::pair <int, int> d = nextBlock->getCells().at(0).at(3);
 
-	std::cout << a.first << " " << a.second << std::endl;
-	std::cout << b.first << " " << b.second << std::endl;
-	std::cout << c.first << " " << c.second << std::endl;
-	std::cout << d.first << " " << d.second << std::endl;
-
 	//resetting the grid to blank + colouring the four cells of the upcoming block
 	for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -301,25 +297,25 @@ void GraphicalDisplay::generateBoard() {
 		}
 
 	// Remaking the grid:
-	std::vector <std::vector <std::pair<BlockType, int>>> curGrid = getBoardModel()->getGrid(); // the current grid
-
-	// Get cell information of current block
-	std::shared_ptr<GenericBlock> curBlock = getBoardModel()->getCurBlock();
-	int r = curBlock->getRotation();
-	std::pair <int, int> baseCoords = curBlock->getCoords();
-	std::pair <int, int> cell0 = curBlock->getCells().at(r).at(0);
-	std::pair <int, int> cell1 = curBlock->getCells().at(r).at(1);
-	std::pair <int, int> cell2 = curBlock->getCells().at(r).at(2);
-	std::pair <int, int> cell3 = curBlock->getCells().at(r).at(3);
-
-	// Get cell information of hint block, if it exists
-	std::shared_ptr<GenericBlock> hintBlock = getBoardModel()->getHintBlock();
-	int hintR = hintBlock != nullptr ? hintBlock->getRotation() : -1;
-	std::pair <int, int> hintBaseCoords = hintBlock != nullptr ? hintBlock->getCoords() : std::make_pair(-1,-1);
-	std::pair <int, int> hintCell0 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(0) : std::make_pair(-1,-1);
-	std::pair <int, int> hintCell1 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(1) : std::make_pair(-1,-1);
-	std::pair <int, int> hintCell2 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(2) : std::make_pair(-1,-1);
-	std::pair <int, int> hintCell3 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(3) : std::make_pair(-1,-1);
+//	std::vector <std::vector <std::pair<BlockType, int>>> curGrid = getBoardModel()->getGrid(); // the current grid
+//
+//	// Get cell information of current block
+//	std::shared_ptr<GenericBlock> curBlock = getBoardModel()->getCurBlock();
+//	int r = curBlock->getRotation();
+//	std::pair <int, int> baseCoords = curBlock->getCoords();
+//	std::pair <int, int> cell0 = curBlock->getCells().at(r).at(0);
+//	std::pair <int, int> cell1 = curBlock->getCells().at(r).at(1);
+//	std::pair <int, int> cell2 = curBlock->getCells().at(r).at(2);
+//	std::pair <int, int> cell3 = curBlock->getCells().at(r).at(3);
+//
+//	// Get cell information of hint block, if it exists
+//	std::shared_ptr<GenericBlock> hintBlock = getBoardModel()->getHintBlock();
+//	int hintR = hintBlock != nullptr ? hintBlock->getRotation() : -1;
+//	std::pair <int, int> hintBaseCoords = hintBlock != nullptr ? hintBlock->getCoords() : std::make_pair(-1,-1);
+//	std::pair <int, int> hintCell0 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(0) : std::make_pair(-1,-1);
+//	std::pair <int, int> hintCell1 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(1) : std::make_pair(-1,-1);
+//	std::pair <int, int> hintCell2 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(2) : std::make_pair(-1,-1);
+//	std::pair <int, int> hintCell3 = hintBlock != nullptr ? hintBlock->getCells().at(hintR).at(3) : std::make_pair(-1,-1);
 
 //	  for(std::size_t i = 0; i < curGrid.size(); ++i) {
 //	    for(std::size_t j = 0; j < curGrid.at(i).size(); ++j){

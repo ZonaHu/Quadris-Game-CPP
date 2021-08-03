@@ -14,6 +14,7 @@
 #include <gtkmm-3.0/gtkmm/colorbutton.h>
 #include <gtkmm-3.0/gtkmm/grid.h>
 #include <vector>
+#include <memory>
 #include <glib.h>
 #include <utility>
 #include <string>
