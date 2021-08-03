@@ -5,15 +5,6 @@
 
 #include "GenericBlock.h"
 
-GenericBlock::GenericBlock() {
-  // TODO: implement this
-}
-
-GenericBlock::~GenericBlock() {
-  // TODO: implement this
-}
-
-// TODO: implement the rest
 BlockType GenericBlock::getType() const { return type_; }
 void GenericBlock::setType(BlockType type) { type_ = type; }
 

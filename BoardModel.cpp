@@ -5,9 +5,9 @@
 
 #include "BoardModel.h"
 #include <utility>
-#include <math.h>
+#include <cmath>
 #include <fstream>
-#include <stdlib.h>
+#include <cstdlib>
 
 BoardModel::BoardModel() {
     // default constructor for the board model

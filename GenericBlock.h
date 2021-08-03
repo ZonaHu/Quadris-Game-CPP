@@ -38,8 +38,8 @@ protected:
   int y_;
 
 public:
-  GenericBlock(); // default constructor
-  ~GenericBlock(); // destructor
+  GenericBlock() = default; // default constructor
+  ~GenericBlock() = default; // destructor
 
   // getter for a block's type
   BlockType getType() const;
