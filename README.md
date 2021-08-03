@@ -16,11 +16,11 @@
 
 `<m>leveldown`: Levels down`m` times.
 
-`norandom <file>`: Uses block sequence from `file` for Levels 3 and 4.
+`norandom <file>`: Uses block sequence from `file` for Levels 3 and 4. Make sure to include the file extension.
 
 `random`: Uses randomization for Levels 3 and 4.
 
-`sequence <file>`: Executes commands from `file` in sequence.
+`sequence <file>`: Executes commands from `file` in sequence. Make sure to include the file extension.
 
 `I J L S Z O T`: Spawn a block based on the letter used.
 
@@ -50,3 +50,8 @@
 
 ## Assumptions
 - The randomness setting for Levels 3 and 4 are preserved for the specific level the command was ran on. For example, if `norandom` was run on Level 3, and the user level up to Level 4, Level 4 will be random. Going back to Level 3, the blocks will still be generated non-randomly.
+- If an invalid file is passed with the `-scriptfile` flag, the program will use the default file `sequence.txt` for Level 0. If an invalid file is passed in the `norandom` command, the program will stay in its current randomness state.
+- `hint` will suggest the block placement that puts the block in the lowest point.
+- The heaviness property of the current and next block will change as the level changes (this design was already approved in the P2 design document)
+- Star blocks are included in the calculation of the scores
+- The position in the block sequence for levels that use block sequences is preserved after level changes. For example, if the user is on block # 5 in the sequence in Level 0, levels up to Level 1, and then levels down to Level 0, they will still be on block #5.
