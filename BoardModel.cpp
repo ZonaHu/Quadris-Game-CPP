@@ -253,7 +253,7 @@ void BoardModel::checkCompletedRows() {
 
         if (isRowComplete) {
             nonClearStreak_ = 0;
-            // Iterate through row for a second time to process scores, delete cells, and shift down cells
+            // Iterate through row for a second time to process scores, clear cells, and shift down cells
             x = 0;
             while (x < gridX_) {
                 // Look-up the current cell's data in liveBlocks_ using its timestamp
