@@ -49,8 +49,8 @@
 `load <savefile>`: Load a saved game file called `savefile`, replacing the current state of the game.
 
 ## Assumptions
-- The heaviness property of the current and next block will change as the level changes (based on P2 design document)
-- The bonus score is calculated using the level in which the block was dropped (based on P2 design document)
+- The heaviness property of the current and next block will change as the level changes. For example, if a block was generated in Level 3, and the user levels down to Level 2, the block will not retain its heaviness (based on P2 design document)
+- The bonus score is calculated using the level in which the block was dropped (i.e. bonus points = (level at which block was dropped + 1) ^2) (based on P2 design document)
 - The randomness setting for Levels 3 and 4 are preserved for the specific level the command was ran on. For example, if `norandom` was run on Level 3, and the user levels up to Level 4, Level 4 will still be random. Going back to Level 3, the blocks will still be generated non-randomly.
 - If an invalid filename is passed with the `-scriptfile` flag, the program will use the default file `sequence.txt` for Level 0. If an invalid file is passed in the `norandom` command, the program will do nothing, staying in its current randomness state.
 - `hint` will suggest the block placement that puts the block in the lowest point.
