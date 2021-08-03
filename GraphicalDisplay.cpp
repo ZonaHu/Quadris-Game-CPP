@@ -270,6 +270,8 @@ void GraphicalDisplay::getNextBlock() {
 	std::pair <int, int> c = nextBlock->getCells().at(0).at(2);
 	std::pair <int, int> d = nextBlock->getCells().at(0).at(3);
 
+	std::cout << "YAY" << std::endl;
+
 	//resetting the grid to blank + colouring the four cells of the upcoming block
 	for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -290,12 +292,16 @@ void GraphicalDisplay::getNextBlock() {
 
 void GraphicalDisplay::generateBoard() {
 	// Clearing the grid:
+
+	std::cout << "start here" << std::endl;
 	for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 18; j++) {
-				buttonBoardGrid.at(i).at(j)->set_label(" ");
+				if (buttonBoardGrid.at(i).at(j)->get_label() != " "){
+					buttonBoardGrid.at(i).at(j)->set_label(" ");
+				}
 			}
 		}
-
+	std::cout << "end here" << std::endl;
 	// Remaking the grid:
 //	std::vector <std::vector <std::pair<BlockType, int>>> curGrid = getBoardModel()->getGrid(); // the current grid
 //
