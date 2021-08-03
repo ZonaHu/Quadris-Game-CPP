@@ -39,10 +39,12 @@ void BoardModel::setLevels(std::vector <std::shared_ptr<GenericLevel>> levelArra
 
 // Sets the block sequence for the current level
 void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
-    levelArray_.at(level_)->setBlockGenSequence(seq);
-    levelArray_.at(level_)->setIsNonRandom(true);
-    curBlock_ = levelArray_.at(level_)->generateNextBlock();
-    nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    if (seq.size() > 0) {
+        levelArray_.at(level_)->setBlockGenSequence(seq);
+        levelArray_.at(level_)->setIsNonRandom(true);
+        curBlock_ = levelArray_.at(level_)->generateNextBlock();
+        nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    }
 }
 
 // function to return the member gridX
@@ -302,49 +304,49 @@ void BoardModel::checkCompletedRows() {
 
 // function to handle the I command, change current block to I
 void BoardModel::I(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new IBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<IBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
 // function to handle the J command, change current block to J
 void BoardModel::J(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new JBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<JBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
 // function to handle the L command, change current block to L
 void BoardModel::L(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new LBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<LBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
 // function to handle the S command, change current block to S
 void BoardModel::S(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new SBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<SBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
 // function to handle the Z command, change current block to Z
 void BoardModel::Z(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new ZBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<ZBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
 // function to handle the O command, change current block to O
 void BoardModel::O(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new OBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<OBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
 // function to handle the T command, change current block to T
 void BoardModel::T(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new TBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<TBlock>();
     curBlock_ = newBlock;
     notify();
 }
@@ -512,7 +514,7 @@ void BoardModel::loadGame(std::string file) {
     }
 
     if (didLoadFail) {
-        std::cout << "WARNING: Some data could not be successfully loaded.";
+        std::cout << "WARNING: Some data could not be successfully loaded." << std::endl;;
     }
 
     std::cout << "LOAD COMPLETE!" << std::endl; // output the load complete message
