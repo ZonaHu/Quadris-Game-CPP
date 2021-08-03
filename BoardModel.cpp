@@ -514,7 +514,7 @@ void BoardModel::loadGame(std::string file) {
     }
 
     if (didLoadFail) {
-        std::cout << "WARNING: Some data could not be successfully loaded.";
+        std::cout << "WARNING: Some data could not be successfully loaded." << std::endl;;
     }
 
     std::cout << "LOAD COMPLETE!" << std::endl; // output the load complete message
