@@ -8,11 +8,11 @@
 #include "Observer.h"
 
 void Subject::subscribe(std::shared_ptr<Observer> newObserver){
-  observers_.insert(newObserver);
+  observers_.insert(newObserver); // insert into the set of subscribed observers
 }
 
 void Subject::unsubscribe(std::shared_ptr<Observer> oldObserver){
-   observers_.erase(oldObserver);
+   observers_.erase(oldObserver); // remove from the set of subscribed observers
 }
 
 void Subject::notify(){
