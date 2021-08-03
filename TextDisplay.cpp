@@ -126,10 +126,11 @@ void TextDisplay::printGameOver() {
 
 void TextDisplay::update() {
   // this function prints out all messages
-  printHeader();
-  printGrid();
-  printNextBlock();
   if (getBoardModel()->getIsGameOver()) {
     printGameOver();
+  } else {
+    printHeader();
+    printGrid();
+    printNextBlock();
   }
 }
