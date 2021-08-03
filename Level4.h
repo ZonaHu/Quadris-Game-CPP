@@ -1,9 +1,13 @@
+// Level4.h
+// Derived from GenericLevel
+// Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
+// on 2021-07-16.
 #include "GenericLevel.h"
 
 class Level4: public GenericLevel{
 private:
-  int seed_;
-  int counter_;
+  int seed_; // seed
+  int counter_; // current index for the block seq vector
 public:
   Level4(const std::weak_ptr<BoardModel> p, int seed, bool nonrandom); // constructor
   ~Level4(){};  // default destructor

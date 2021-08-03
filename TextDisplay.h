@@ -26,7 +26,6 @@ private:
 
 public:
   explicit TextDisplay(std::shared_ptr<BoardModel>); // constructor for initialization
-  ~TextDisplay() override; // destructor that cleans up the memory
 
   void update () override; //function for updating in observer
 

@@ -19,11 +19,6 @@ TextDisplay::TextDisplay(std::shared_ptr<BoardModel> boardModel):boardModel_{boa
   update();
 }
 
-TextDisplay::~TextDisplay() {
-  // call unsubscribe in the destructor
-  getBoardModel()->unsubscribe(this);
-}
-
 std::shared_ptr<BoardModel> TextDisplay::getBoardModel() const {
   // getter
   return boardModel_.lock();
@@ -131,10 +126,11 @@ void TextDisplay::printGameOver() {
 
 void TextDisplay::update() {
   // this function prints out all messages
-  printHeader();
-  printGrid();
-  printNextBlock();
   if (getBoardModel()->getIsGameOver()) {
     printGameOver();
+  } else {
+    printHeader();
+    printGrid();
+    printNextBlock();
   }
 }

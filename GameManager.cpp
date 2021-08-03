@@ -34,6 +34,10 @@ GameManager::GameManager(bool isTextOnly, int seed, std::string scriptFile,
 
   // Read in the block sequence for Level0
   std::vector<BlockType> level0BlockSeq = controller_->blockSequenceSource(scriptFile);
+  if (level0BlockSeq.size() == 0) {
+    std::cout << "Using sequence.txt for Level0 instead." << std::endl;
+    level0BlockSeq = controller_->blockSequenceSource("sequence.txt");
+  }
 
   // Instantiate BoardModel
   BoardModel_ = std::make_shared<BoardModel> (seed, scriptFile, startLevel, enableBonus); // initialize a board model instance

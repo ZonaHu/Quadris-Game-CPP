@@ -5,25 +5,19 @@
 
 #include "GenericBlock.h"
 
-GenericBlock::GenericBlock() {
-  // TODO: implement this
-}
-
-GenericBlock::~GenericBlock() {
-  // TODO: implement this
-}
-
-// TODO: implement the rest
-BlockType GenericBlock::getType() const { return type_; }
-void GenericBlock::setType(BlockType type) { type_ = type; }
+BlockType GenericBlock::getType() const { return type_; } // getter for the type of a block
+void GenericBlock::setType(BlockType type) { type_ = type; } // setter for the type of a block
 
 std::vector<std::vector<std::pair<int, int>>>
-GenericBlock::getCells() { return cells_; }
+GenericBlock::getCells() { return cells_; } // getter for the cells
 
-int GenericBlock::getRotation() const { return rotation_; }
-void GenericBlock::setRotation(int rotation) { rotation_ = rotation; }
+int GenericBlock::getRotation() const { return rotation_; } // getter for rotation
+void GenericBlock::setRotation(int rotation) { rotation_ = rotation; } // setter for the rotation
 
+// getter for the coordinates
 std::pair<int, int> GenericBlock::getCoords() const {return std::pair<int, int>{x_, y_}; }
+
+// setter for the coordinates
 void GenericBlock::setCoords(int x, int y) {
   x_ = x;
   y_ = y;

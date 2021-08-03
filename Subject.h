@@ -28,7 +28,7 @@ public:
   //Add referenced observer to set of observers
   void subscribe(std::shared_ptr<Observer>); // used raw pointer since not meant to express ownership
   //Remove referenced observer to set of observers
-  void unsubscribe(Observer*);   // used raw pointer since not meant to express ownership
+  void unsubscribe(std::shared_ptr<Observer>);   // used raw pointer since not meant to express ownership
 };
 
 #endif // PROJECT_2_3_SUBJECT_H

@@ -1,0 +1,32 @@
+macro new oblocks
+O
+drop
+O
+2right
+drop
+O
+4right
+drop
+O
+6right
+drop
+O
+8right
+drop
+macro save
+macro exec oblocks
+macro exec oblocks
+macro exec oblocks
+macro exec oblocks
+macro exec oblocks
+macro exec oblocks
+3levelup
+macro new iblock
+I
+c
+10right
+drop
+macro save
+macro exec iblock
+macro exec iblock
+macro exec iblock

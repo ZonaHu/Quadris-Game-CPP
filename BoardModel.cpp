@@ -1,20 +1,22 @@
-//
+// BoardModel.cpp
 //
 // Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
 // on 2021-07-16.
 
 #include "BoardModel.h"
 #include <utility>
-#include <math.h>
+#include <cmath>
 #include <fstream>
-#include <stdlib.h>
+#include <cstdlib>
 
 BoardModel::BoardModel() {
+    // default constructor for the board model
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
 }
 
 BoardModel::BoardModel(int seed, std::string scriptFile, int startLevel, bool enableBonus) {
+    // constructor to initialize the flags
     std::vector<std::vector<std::pair<BlockType, int>>> grid(gridY_, std::vector <std::pair<BlockType, int>> (gridX_, std::make_pair(BlockType::EMPTY, 0)));
     grid_ = grid;
     score_ = 0;
@@ -29,21 +31,26 @@ BoardModel::BoardModel(int seed, std::string scriptFile, int startLevel, bool en
 BoardModel::~BoardModel() {}
 
 void BoardModel::setLevels(std::vector <std::shared_ptr<GenericLevel>> levelArray) {
+    // function to set levels
     levelArray_ = levelArray;
-    curBlock_ = levelArray_.at(level_)->generateNextBlock();
-    nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    curBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
+    nextBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
 }
 
 // Sets the block sequence for the current level
 void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
-    levelArray_.at(level_)->setBlockGenSequence(seq);
-    levelArray_.at(level_)->setIsNonRandom(true);
-    curBlock_ = levelArray_.at(level_)->generateNextBlock();
-    nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    if (seq.size() > 0) {
+        levelArray_.at(level_)->setBlockGenSequence(seq);
+        levelArray_.at(level_)->setIsNonRandom(true); // the non random flag should be true when setting the sequence ourselves
+        curBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
+        nextBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
+    }
 }
 
+// function to return the member gridX
 int BoardModel::getGridX() const { return gridX_; }
 
+// function to return the member gridY
 int BoardModel::getGridY() const { return gridY_; }
 
 std::vector <std::vector <std::pair<BlockType, int>>> BoardModel::getGrid() const { return grid_; }
@@ -54,38 +61,54 @@ std::pair<BlockType, int> BoardModel::getCell(int x, int y) const {
     return grid_.at(gridY_-1-y).at(x);
 }
 
+// setter for the cell
 void BoardModel::setCell(int x, int y, std::pair<BlockType, int> data) {
     grid_.at(gridY_-1-y).at(x) = data;
 }
 
+// getter for the current block
 std::shared_ptr<GenericBlock> BoardModel::getCurBlock() const { return curBlock_; }
 
+// getter for the next block
 std::shared_ptr<GenericBlock> BoardModel::getNextBlock() const { return nextBlock_; }
 
+// getter for the hint block
 std::shared_ptr<GenericBlock> BoardModel::getHintBlock() const { return hintBlock_; }
 
+// clear the hint block
 void BoardModel::clearHintBlock() { hintBlock_ = nullptr; }
 
+// getter for the score
 int BoardModel::getScore() const { return score_; }
 
+// setter for the score
 void BoardModel::setScore(int score) { score_ = score; }
 
+// getter for HI score
 int BoardModel::getHiScore() const { return hi_score_; }
 
+// setter for HI score
 void BoardModel::setHiScore(int hi_score) { hi_score_ = hi_score; }
 
+// getter for the level
 int BoardModel::getLevel() const { return level_; }
 
+// setter for the level
 void BoardModel::setLevel(int level) { level_ = level; }
 
+// getter for the current non clear streak
 int BoardModel::getNonClearStreak() const { return nonClearStreak_; }
 
+// getter for the game over flag
 bool BoardModel::getIsGameOver() const { return isGameOver_; }
 
+// setter for the non clear streak
 void BoardModel::setNonClearStreak(int n) { nonClearStreak_ = n; }
 
+// setter for the time stamp
 void BoardModel::setTimestamp(int t) { timestamp_ = t; }
 
+// function to check if a move is valid
 bool BoardModel::checkIfValidMove(int x, int y, int r) {
     // Get the cells of curBlock_ that correspond to rotation r
     std::vector<std::pair<int, int>> cells = curBlock_->getCells().at(r);
@@ -107,6 +130,7 @@ bool BoardModel::checkIfValidMove(int x, int y, int r) {
     return true;
 }
 
+// function to move a block to left
 void BoardModel::left(int m, bool doesPostMove, bool doesNotify) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first - 1, 
                                      curBlock_->getCoords().second, 
@@ -118,6 +142,7 @@ void BoardModel::left(int m, bool doesPostMove, bool doesNotify) {
     if (doesNotify) notify();
 }
 
+// function to move a block to right
 void BoardModel::right(int m, bool doesPostMove, bool doesNotify) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first + 1, 
                                      curBlock_->getCoords().second, 
@@ -129,6 +154,7 @@ void BoardModel::right(int m, bool doesPostMove, bool doesNotify) {
     if (doesNotify) notify();
 }
 
+// function to move down a block
 void BoardModel::down(int m, bool doesPostMove, bool doesNotify) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second - 1, 
@@ -140,6 +166,7 @@ void BoardModel::down(int m, bool doesPostMove, bool doesNotify) {
     if (doesNotify) notify();
 }
 
+// function to move a block clockwise
 void BoardModel::clockwise(int m, bool doesPostMove, bool doesNotify) {
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
                                      curBlock_->getCoords().second, 
@@ -151,6 +178,7 @@ void BoardModel::clockwise(int m, bool doesPostMove, bool doesNotify) {
     if (doesNotify) notify();
 }
 
+// function to move a block counterclockwise
 void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
     // Incrementing by 3 (mod 4) is equivalent to subtracting 1 (mod 4)
     while (m > 0 && checkIfValidMove(curBlock_->getCoords().first, 
@@ -163,6 +191,7 @@ void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
     if (doesNotify) notify();
 }
 
+// function to drop a block
 void BoardModel::drop(int m = 1) {
     // Move block down as far as possible
     while (m > 0 && !isGameOver_) {
@@ -176,14 +205,14 @@ void BoardModel::drop(int m = 1) {
             setCell(x+cells[i].first, y+cells[i].second, std::make_pair(curBlock_->getType(), timestamp_));
         }
 
-        levelArray_[level_]->postDropOperation();
+        levelArray_[level_]->postDropOperation(); // perform post drop operations
 
         liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
-        timestamp_++;
+        timestamp_++; // increment the time stamp
 
         checkCompletedRows();
-        curBlock_ = nextBlock_;
-        nextBlock_ = levelArray_[level_]->generateNextBlock();
+        curBlock_ = nextBlock_; // update the current block
+        nextBlock_ = levelArray_[level_]->generateNextBlock(); // update the next block
 
         isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
         m--;
@@ -191,17 +220,21 @@ void BoardModel::drop(int m = 1) {
     notify();
 }
 
+// function to handle the levelup command
 void BoardModel::levelup(int m = 1) {
     level_ = level_ + m >= (int)levelArray_.size() ? (int)levelArray_.size() - 1 : level_ + m;
     notify();
 }
 
+// function to handle the leveldown command
 void BoardModel::leveldown(int m = 1) {
     level_ = level_ - m < 0 ? 0 : level_ - m;
     notify();
 }
 
+// function to check completed rows
 void BoardModel::checkCompletedRows() {
+  // check completed rows
     int y = 0;
     int x = 0;
     int rowsCleared = 0;
@@ -220,7 +253,7 @@ void BoardModel::checkCompletedRows() {
 
         if (isRowComplete) {
             nonClearStreak_ = 0;
-            // Iterate through row for a second time to process scores, delete cells, and shift down cells
+            // Iterate through row for a second time to process scores, clear cells, and shift down cells
             x = 0;
             while (x < gridX_) {
                 // Look-up the current cell's data in liveBlocks_ using its timestamp
@@ -269,48 +302,56 @@ void BoardModel::checkCompletedRows() {
     }
 }
 
+// function to handle the I command, change current block to I
 void BoardModel::I(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new IBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<IBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
+// function to handle the J command, change current block to J
 void BoardModel::J(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new JBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<JBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
+// function to handle the L command, change current block to L
 void BoardModel::L(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new LBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<LBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
+// function to handle the S command, change current block to S
 void BoardModel::S(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new SBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<SBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
+// function to handle the Z command, change current block to Z
 void BoardModel::Z(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new ZBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<ZBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
+// function to handle the O command, change current block to O
 void BoardModel::O(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new OBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<OBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
+// function to handle the T command, change current block to T
 void BoardModel::T(int m) {
-    std::shared_ptr<GenericBlock> newBlock(new TBlock());
+    std::shared_ptr<GenericBlock> newBlock = std::make_shared<TBlock>();
     curBlock_ = newBlock;
     notify();
 }
 
+// function to handle the restart command, restart the game
 void BoardModel::restart() {
     // Reset grid
     isGameOver_ = false;
@@ -319,15 +360,18 @@ void BoardModel::restart() {
     score_ = 0;
     level_ = 0;
     levelArray_.at(level_)->setCounter(0); //reset the counter
+    // generate new blocks
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
     notify();
 }
 
+// function to set game to random mode
 void BoardModel::random() {
     levelArray_.at(level_)->setIsNonRandom(false);
 }
 
+// function to handle the hint command, gives a hint to the user
 void BoardModel::hint() {
     // Tries out all x positions and rotations using the curBlock_ and sets the hintBlock_
     // to the configuration that gives the lowest y position after a drop
@@ -388,6 +432,8 @@ void BoardModel::hint() {
     notify();
 }
 
+// function to handle the save game command, a bonus feature
+// save game state to txt
 void BoardModel::saveGame(std::string file) {
     std::cout << "SAVING TO " << file << "..." << std::endl;
     std::ofstream saveFile;
@@ -407,9 +453,11 @@ void BoardModel::saveGame(std::string file) {
     }
     saveFile << "\n";
     saveFile.close();
-    std::cout << "SAVE COMPLETE!" << std::endl;
+    std::cout << "SAVE COMPLETE!" << std::endl; // output the save complete message
 }
 
+// function to handle the load game command, a bonus feature
+// load game state from txt
 void BoardModel::loadGame(std::string file) {
     std::cout << "LOADING " << file << "..." << std::endl;
     restart();
@@ -466,9 +514,9 @@ void BoardModel::loadGame(std::string file) {
     }
 
     if (didLoadFail) {
-        std::cout << "WARNING: Some data could not be successfully loaded.";
+        std::cout << "WARNING: Some data could not be successfully loaded." << std::endl;;
     }
 
-    std::cout << "LOAD COMPLETE!" << std::endl;
+    std::cout << "LOAD COMPLETE!" << std::endl; // output the load complete message
     notify();
 }

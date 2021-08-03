@@ -3,7 +3,7 @@
 // Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
 // on 2021-07-16.
 #include "Level2.h"
-#include <stdlib.h> 
+#include <cstdlib>
 
 // initialize all data members
 // gets called in the board model class, the parameter will be passes in

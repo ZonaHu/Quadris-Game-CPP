@@ -38,8 +38,8 @@ protected:
   int y_;
 
 public:
-  GenericBlock(); // default constructor
-  ~GenericBlock(); // destructor
+  GenericBlock() = default; // default constructor
+  ~GenericBlock() = default; // destructor
 
   // getter for a block's type
   BlockType getType() const;
@@ -65,7 +65,7 @@ public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
   IBlock();
   // destructor to clean up memory
-  ~IBlock();
+  ~IBlock() = default;
 };
 
 class JBlock: public GenericBlock{
@@ -73,7 +73,7 @@ public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
   JBlock();
   // destructor to clean up memory
-  ~JBlock();
+  ~JBlock() = default;
 };
 
 class LBlock: public GenericBlock{
@@ -81,7 +81,7 @@ public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
   LBlock();
   // destructor to clean up memory
-  ~LBlock();
+  ~LBlock() = default;
 };
 
 class SBlock: public GenericBlock{
@@ -89,7 +89,7 @@ public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
   SBlock();
   // destructor to clean up memory
-  ~SBlock();
+  ~SBlock() = default;
 };
 
 class ZBlock: public GenericBlock{
@@ -97,7 +97,7 @@ public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
   ZBlock();
   // destructor to clean up memory
-  ~ZBlock();
+  ~ZBlock() = default;
 };
 
 class OBlock: public GenericBlock{
@@ -105,14 +105,14 @@ public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
   OBlock();
   // destructor to clean up memory
-  ~OBlock();
+  ~OBlock()= default;
 };
 
 class TBlock: public GenericBlock{
 public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
   TBlock();
-  ~TBlock(); // destructor to clean up memory
+  ~TBlock() = default; // destructor to clean up memory
 };
 
 class StarBlock: public GenericBlock{
@@ -120,7 +120,7 @@ class StarBlock: public GenericBlock{
 public:
   // default constructor, initialize the members with the appropriate values (i.e. type, cells, x, y)
   StarBlock();
-  ~StarBlock(); // destructor to clean up memory
+  ~StarBlock()= default; // destructor to clean up memory
 };
 
 #endif // PROJECT_2_3_GENERICBLOCK_H
