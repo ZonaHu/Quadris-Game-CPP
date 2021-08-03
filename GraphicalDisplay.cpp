@@ -260,6 +260,8 @@ void GraphicalDisplay::getStatistics() {
 
 	Glib::ustring hiScoreUpdate = Glib::ustring::format(getBoardModel()->getHiScore());
 	hiScoreLabel.set_text("Hi-Score: " + hiScoreUpdate);
+
+	return;
 }
 
 void GraphicalDisplay::getNextBlock() {
@@ -288,6 +290,8 @@ void GraphicalDisplay::getNextBlock() {
 				}
 			}
 	}
+
+	return;
 }
 
 void GraphicalDisplay::generateBoard() {
@@ -302,6 +306,7 @@ void GraphicalDisplay::generateBoard() {
 			}
 		}
 	std::cout << "end here" << std::endl;
+	return;
 	// Remaking the grid:
 //	std::vector <std::vector <std::pair<BlockType, int>>> curGrid = getBoardModel()->getGrid(); // the current grid
 //
