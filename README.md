@@ -47,3 +47,6 @@
 `save <savefile>`: Save the current state of the game to a file called `savefile`
 
 `load <savefile>`: Load a saved game file called `savefile`, replacing the current state of the game.
+
+## Assumptions
+- The randomness setting for Levels 3 and 4 are preserved for the specific level the command was ran on. For example, if `norandom` was run on Level 3, and the user level up to Level 4, Level 4 will be random. Going back to Level 3, the blocks will still be generated non-randomly.
