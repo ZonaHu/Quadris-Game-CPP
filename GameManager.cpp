@@ -67,6 +67,7 @@ void GameManager::start() {
   if (isTextOnly_){
     std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
     BoardModel_->subscribe(t); // subscribe the text display only
+    controlLoop();
   }
   else{
     // subscribe to both displays
@@ -74,10 +75,10 @@ void GameManager::start() {
     BoardModel_->subscribe(t);
     // to stop things from getting blocked we have the gui on one thread and the infinite loop for reading input on another thread
     threads.push_back(std::thread(&GameManager::setUpApp, this));
-  }
-  threads.push_back(std::thread(&GameManager::controlLoop, this));
-  for (auto& thread : threads){
-	  thread.join();
+    threads.push_back(std::thread(&GameManager::controlLoop, this));
+    for (auto& thread : threads){
+  	  thread.join();
+    }
   }
 }
 

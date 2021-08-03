@@ -21,15 +21,15 @@
 
 GraphicalDisplay::GraphicalDisplay(std::shared_ptr<BoardModel> boardModel, Gtk::Window* winptr):boardModel_{boardModel}{
 	window_ = winptr;
-	blockTypeToColour_[BlockType::I_BLOCK] = Gdk::RGBA("66, 135, 245, 1");// blue
-	blockTypeToColour_[BlockType::J_BLOCK] = Gdk::RGBA("245, 66, 66, 1"); // red
-	blockTypeToColour_[BlockType::L_BLOCK] = Gdk::RGBA("60, 255, 46, 1"); // green
-	blockTypeToColour_[BlockType::O_BLOCK] = Gdk::RGBA("252, 165, 3, 1"); // orange
-	blockTypeToColour_[BlockType::S_BLOCK] = Gdk::RGBA("144, 3, 252, 1"); // purple
-	blockTypeToColour_[BlockType::Z_BLOCK] = Gdk::RGBA("252, 3, 211, 1"); // pink
-	blockTypeToColour_[BlockType::T_BLOCK] = Gdk::RGBA("0, 234, 255, 1"); // light blue
-	blockTypeToColour_[BlockType::STAR_BLOCK] = Gdk::RGBA("255, 255, 0, 1"); // yellow
-	blockTypeToColour_[BlockType::EMPTY] = Gdk::RGBA("173, 166, 172, 1"); // grey
+	blockTypeToColour_[BlockType::I_BLOCK] = "\U0001F7E6";// blue
+	blockTypeToColour_[BlockType::J_BLOCK] = "\U0001F7E5"; // red
+	blockTypeToColour_[BlockType::L_BLOCK] = "\U0001F7E9"; // green
+	blockTypeToColour_[BlockType::O_BLOCK] = "\U0001F7E7"; // orange
+	blockTypeToColour_[BlockType::S_BLOCK] = "\U0001F7EA"; // purple
+	blockTypeToColour_[BlockType::Z_BLOCK] = "\U0001F7EB"; // brown
+	blockTypeToColour_[BlockType::T_BLOCK] = "\U0001F7E8"; // yellow
+	blockTypeToColour_[BlockType::STAR_BLOCK] = "\U00002B50"; // star
+	blockTypeToColour_[BlockType::EMPTY] = ""; // grey
 	windowInit();
 	update();
 }
@@ -118,7 +118,6 @@ void GraphicalDisplay::windowInit() {
 		for (int j = 0; j < 18; j++){
 			Gtk::ColorButton* cell = new Gtk::ColorButton();
 			cell->set_sensitive(false);
-			cell->set_rgba(Gdk::RGBA("173, 166, 172, 0"));
 			row.push_back(Gtk::manage(cell));
 		}
 		buttonBoardGrid.push_back(row);
@@ -134,7 +133,6 @@ void GraphicalDisplay::windowInit() {
 		for (int j = 0; j < 4; j++){
 			Gtk::ColorButton* cell = new Gtk::ColorButton();
 			cell->set_sensitive(false);
-			cell->set_rgba(Gdk::RGBA("173, 166, 172, 0"));
 			row.push_back(Gtk::manage(cell));
 		}
 		buttonUpcomingBlockGrid.push_back(row);
@@ -268,11 +266,6 @@ void GraphicalDisplay::getNextBlock() {
 	std::pair <int, int> c = nextBlock->getCells().at(0).at(2);
 	std::pair <int, int> d = nextBlock->getCells().at(0).at(3);
 
-	upcomingBlockGrid.remove(*upcomingBlockGrid.get_child_at(a.first, a.second));
-	Gtk::ColorButton* cell = new Gtk::ColorButton();
-	cell->set_sensitive(false);
 	//cell->set_color(blockTypeToColour_.at(nextBlock->getType()));
-	cell->set_rgba(Gdk::RGBA("0, 0, 0, 1"));
-	buttonUpcomingBlockGrid[a.first][a.second] = cell;
-	upcomingBlockGrid.attach(*buttonUpcomingBlockGrid[a.first][a.second], a.first, a.second, 1, 1);
+	dynamic_cast<Gtk::ColorButton*>(upcomingBlockGrid.get_child_at(a.first, a.second))->set_label(blockTypeToColour_.at(nextBlock->getType()));
 }

@@ -16,6 +16,7 @@
 #include <vector>
 #include <glib.h>
 #include <utility>
+#include <string>
 #include <unordered_map>
 
 class BoardModel;
@@ -23,7 +24,7 @@ class BoardModel;
 class GraphicalDisplay: public Observer {
 private:
   std::weak_ptr<BoardModel> boardModel_;
-  std::unordered_map<BlockType, Gdk::RGBA> blockTypeToColour_;
+  std::unordered_map<BlockType, std::string> blockTypeToColour_;
 
 public:
   // window components:
