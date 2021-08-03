@@ -49,9 +49,10 @@
 `load <savefile>`: Load a saved game file called `savefile`, replacing the current state of the game.
 
 ## Assumptions
-- The randomness setting for Levels 3 and 4 are preserved for the specific level the command was ran on. For example, if `norandom` was run on Level 3, and the user level up to Level 4, Level 4 will be random. Going back to Level 3, the blocks will still be generated non-randomly.
-- If an invalid file is passed with the `-scriptfile` flag, the program will use the default file `sequence.txt` for Level 0. If an invalid file is passed in the `norandom` command, the program will stay in its current randomness state.
+- The heaviness property of the current and next block will change as the level changes (based on P2 design document)
+- The bonus score is calculated using the level in which the block was dropped (based on P2 design document)
+- The randomness setting for Levels 3 and 4 are preserved for the specific level the command was ran on. For example, if `norandom` was run on Level 3, and the user levels up to Level 4, Level 4 will still be random. Going back to Level 3, the blocks will still be generated non-randomly.
+- If an invalid filename is passed with the `-scriptfile` flag, the program will use the default file `sequence.txt` for Level 0. If an invalid file is passed in the `norandom` command, the program will do nothing, staying in its current randomness state.
 - `hint` will suggest the block placement that puts the block in the lowest point.
-- The heaviness property of the current and next block will change as the level changes (this design was already approved in the P2 design document)
 - Star blocks are included in the calculation of the scores
-- The position in the block sequence for levels that use block sequences is preserved after level changes. For example, if the user is on block # 5 in the sequence in Level 0, levels up to Level 1, and then levels down to Level 0, they will still be on block #5.
+- For levels that use non-random block generation, the position in the block sequence is preserved after level changes. For example, if the user is on block #5 in the sequence in Level 0, levels up to Level 1, and then levels down to Level 0, they will still be on block #5.
