@@ -39,10 +39,12 @@ void BoardModel::setLevels(std::vector <std::shared_ptr<GenericLevel>> levelArra
 
 // Sets the block sequence for the current level
 void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
-    levelArray_.at(level_)->setBlockGenSequence(seq);
-    levelArray_.at(level_)->setIsNonRandom(true);
-    curBlock_ = levelArray_.at(level_)->generateNextBlock();
-    nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    if (seq.size() > 0) {
+        levelArray_.at(level_)->setBlockGenSequence(seq);
+        levelArray_.at(level_)->setIsNonRandom(true);
+        curBlock_ = levelArray_.at(level_)->generateNextBlock();
+        nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    }
 }
 
 // function to return the member gridX
