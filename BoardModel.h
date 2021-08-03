@@ -84,27 +84,27 @@ public:
   void loadGame(std::string); // function to load the game
 
   // Accessors and mutators
-  int getGridX() const;
-  int getGridY() const;
-  std::vector <std::vector <std::pair<BlockType, int>>> getGrid() const;
-  std::pair<BlockType, int> getCell(int, int) const;
-  void setCell(int, int, std::pair<BlockType, int>);
-  std::shared_ptr<GenericBlock> getCurBlock() const;
-  std::shared_ptr<GenericBlock> getNextBlock() const;
-  std::shared_ptr<GenericBlock> getHintBlock() const;
-  void clearHintBlock();
-  int getScore() const;
-  void setScore(int);
-  int getHiScore() const;
-  void setHiScore(int);
-  int getLevel() const;
-  void setLevel(int);
-  int getNonClearStreak() const;
-  void setNonClearStreak(int);
-  void setTimestamp(int);
-  void setBlockGenSequence(std::vector<BlockType>);
-  void setLevels(std::vector <std::shared_ptr<GenericLevel>>);
-  bool getIsGameOver() const;
+  int getGridX() const; // getter grid x constant
+  int getGridY() const; // getter grid y constant
+  std::vector <std::vector <std::pair<BlockType, int>>> getGrid() const; // getter for grid
+  std::pair<BlockType, int> getCell(int, int) const; // getter for cell
+  void setCell(int, int, std::pair<BlockType, int>); // setter for cell
+  std::shared_ptr<GenericBlock> getCurBlock() const; // getter for the current block
+  std::shared_ptr<GenericBlock> getNextBlock() const; // getter for the next block
+  std::shared_ptr<GenericBlock> getHintBlock() const; // getter for the hint block
+  void clearHintBlock(); //clear the hint block
+  int getScore() const; // getter for the score
+  void setScore(int); // setter for the score
+  int getHiScore() const; // getter for the HI score
+  void setHiScore(int); // setter for the HI score
+  int getLevel() const; // getter for the level
+  void setLevel(int); // setter for the level
+  int getNonClearStreak() const; // getter for the non clear streak
+  void setNonClearStreak(int); // setter for the non clear streak
+  void setTimestamp(int); // setter for the time stamp
+  void setBlockGenSequence(std::vector<BlockType>); // setter for the block generating sequence
+  void setLevels(std::vector <std::shared_ptr<GenericLevel>>); // setter for the levels
+  bool getIsGameOver() const; // getter for the game over flag
 };
 
 #endif // PROJECT_2_3_BOARDMODEL_H
