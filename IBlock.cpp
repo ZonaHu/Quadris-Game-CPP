@@ -8,6 +8,7 @@
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
 IBlock::IBlock() {
   type_ = BlockType::I_BLOCK;
+  // coordinates for cells based on the rotation
   std::vector<std::vector<std::pair<int, int>>>
                         cells{{{0, 0}, {1, 0}, {2, 0}, {3, 0}}, 
                               {{0, 0}, {0, 1}, {0, 2}, {0, 3}}, 
@@ -17,9 +18,4 @@ IBlock::IBlock() {
   rotation_ = 0;
   x_ = 0;
   y_ = 14;
-}
-
-IBlock::~IBlock() {
-  // TODO: implement this
-
 }

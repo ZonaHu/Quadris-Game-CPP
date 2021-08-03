@@ -8,6 +8,7 @@
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
 LBlock::LBlock() {
   type_ = BlockType::L_BLOCK;
+  // coordinates for cells based on the rotation
   std::vector<std::vector<std::pair<int, int>>> 
                         cells{{{0, 0}, {1, 0}, {2, 0}, {2, 1}}, 
                               {{0, 0}, {0, 1}, {0, 2}, {1, 0}}, 
@@ -17,9 +18,4 @@ LBlock::LBlock() {
   rotation_ = 0;
   x_ = 0;
   y_ = 13;
-}
-
-LBlock::~LBlock() {
-  // TODO: implement this
-
 }

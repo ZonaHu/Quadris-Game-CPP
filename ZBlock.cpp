@@ -8,6 +8,9 @@
 // initialize the members with the appropriate values (i.e. type, cells, x, y)
 ZBlock::ZBlock() {
   type_ = BlockType::Z_BLOCK;
+  // coordinates for cells based on the rotation
+  // each containing the relative coordinates (relative to bottom left) of the cells in pairs.
+  // Each index represents a rotation (i.e. cells[0] is 0 deg, cells[1] is 90 deg, etc).
   std::vector<std::vector<std::pair<int, int>>> 
                         cells{{{0, 1}, {1, 0}, {1, 1}, {2, 0}}, 
                               {{0, 0}, {0, 1}, {1, 1}, {1, 2}}, 
@@ -17,9 +20,4 @@ ZBlock::ZBlock() {
   rotation_ = 0;
   x_ = 0;
   y_ = 13;
-}
-
-ZBlock::~ZBlock() {
-  // TODO: implement this
-
 }
