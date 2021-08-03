@@ -296,7 +296,7 @@ void GraphicalDisplay::generateBoard() {
 	// Clearing the grid:
 	for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 18; j++) {
-				buttonUpcomingBlockGrid.at(i).at(j)->set_label(" ");
+				buttonBoardGrid.at(i).at(j)->set_label(" ");
 			}
 	}
 
