@@ -115,34 +115,38 @@ void GraphicalDisplay::windowInit() {
 	// creating the grids for the board and for the upcoming block respectively (default colour is grey):
 	// game board:
 	for (int i = 0; i < 11; i++) {
-		std::vector<Gtk::ColorButton*> row;
+		//std::vector<Gtk::ColorButton> row;
 		for (int j = 0; j < 18; j++){
-			Gtk::ColorButton* cell = new Gtk::ColorButton();
+			Gtk::ColorButton* cell = new Gtk::ColorButton;
 			cell->set_sensitive(false);
 			cell->set_label(" ");
-			row.push_back(Gtk::manage(cell));
+			boardGrid.attach(*cell, i, j, 1, 1);
+
+			//row.push_back(cell);
 		}
-		buttonBoardGrid.push_back(row);
+		//buttonBoardGrid.push_back(row);
 	}
 	for (int i = 0; i < 11; i++) {
 		for (int j = 0; j < 18; j++) {
-			boardGrid.attach(*buttonBoardGrid[i][j], i, j, 1, 1);
+			//boardGrid.attach(buttonBoardGrid[i][j], i, j, 1, 1);
 		}
 	}
 	// for showing next block:
 	for (int i = 0; i < 4; i++) {
-		std::vector<Gtk::ColorButton*> row;
+		//std::vector<Gtk::ColorButton> row;
 		for (int j = 0; j < 4; j++){
-			Gtk::ColorButton* cell = new Gtk::ColorButton();
+			Gtk::ColorButton* cell = new Gtk::ColorButton;
 			cell->set_sensitive(false);
 			cell->set_label(" ");
-			row.push_back(Gtk::manage(cell));
+			//row.push_back(cell);
+			upcomingBlockGrid.attach(*cell, i, j, 1, 1);
+
 		}
-		buttonUpcomingBlockGrid.push_back(row);
+		//buttonUpcomingBlockGrid.push_back(row);
 	}
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			upcomingBlockGrid.attach(*buttonUpcomingBlockGrid[i][j], i, j, 1, 1);
+			//upcomingBlockGrid.attach(buttonUpcomingBlockGrid[i][j], i, j, 1, 1);
 		}
 	}
 	// finally, organizing all the containing boxes and components and making a hierarchy:
@@ -272,42 +276,33 @@ void GraphicalDisplay::getNextBlock() {
 	std::pair <int, int> c = nextBlock->getCells().at(0).at(2);
 	std::pair <int, int> d = nextBlock->getCells().at(0).at(3);
 
-	std::cout << "YAY" << std::endl;
-
 	//resetting the grid to blank + colouring the four cells of the upcoming block
 	for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (j == a.first && i == (3 - a.second)){
-					buttonUpcomingBlockGrid.at(a.first).at(3 - a.second)->set_label(blockTypeToColour_.at(nextBlock->getType()));
+					static_cast<Gtk::ColorButton*>(upcomingBlockGrid.get_child_at(a.first, 3 - a.second))->set_label(blockTypeToColour_.at(nextBlock->getType()));
 				} else if (j == b.first && i == (3 - b.second)){
-					buttonUpcomingBlockGrid.at(b.first).at(3 - b.second)->set_label(blockTypeToColour_.at(nextBlock->getType()));
+					static_cast<Gtk::ColorButton*>(upcomingBlockGrid.get_child_at(b.first, 3 - b.second))->set_label(blockTypeToColour_.at(nextBlock->getType()));
 				} else if (j == c.first && i == (3 - c.second)){
-					buttonUpcomingBlockGrid.at(c.first).at(3 - c.second)->set_label(blockTypeToColour_.at(nextBlock->getType()));
+					static_cast<Gtk::ColorButton*>(upcomingBlockGrid.get_child_at(c.first, 3 - c.second))->set_label(blockTypeToColour_.at(nextBlock->getType()));
 				} else if (j == d.first && i == (3 - d.second)){
-					buttonUpcomingBlockGrid.at(d.first).at(3 - d.second)->set_label(blockTypeToColour_.at(nextBlock->getType()));
+					static_cast<Gtk::ColorButton*>(upcomingBlockGrid.get_child_at(d.first, 3 - d.second))->set_label(blockTypeToColour_.at(nextBlock->getType()));
 				} else {
-					buttonUpcomingBlockGrid.at(i).at(j)->set_label(" ");
+					static_cast<Gtk::ColorButton*>(upcomingBlockGrid.get_child_at(i, j))->set_label(blockTypeToColour_.at(nextBlock->getType()));
 				}
 			}
 	}
-	std::cout << "YAY - end" << std::endl;
 	return;
 }
 
 void GraphicalDisplay::generateBoard() {
 	// Clearing the grid:
-
-	std::cout << "start here" << std::endl;
 	for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 18; j++) {
-				if (buttonBoardGrid.at(i).at(j)->get_label() != " "){
-					buttonBoardGrid.at(i).at(j)->set_label(" ");
-				}
+				static_cast<Gtk::ColorButton*>(boardGrid.get_child_at(i, j))->set_label(" ");
 			}
 		}
-	std::cout << "end here" << std::endl;
 
-	return;
 	// Remaking the grid:
 //	std::vector <std::vector <std::pair<BlockType, int>>> curGrid = getBoardModel()->getGrid(); // the current grid
 //
@@ -350,4 +345,5 @@ void GraphicalDisplay::generateBoard() {
 //	      }
 //	    }
 //	  }
+	return;
 }

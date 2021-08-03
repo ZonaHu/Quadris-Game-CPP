@@ -73,8 +73,8 @@ public:
   Gtk::Grid upcomingBlockGrid;
 
   // cells of the grids:
-  std::vector<std::vector<Gtk::ColorButton*>> buttonBoardGrid;
-  std::vector<std::vector<Gtk::ColorButton*>> buttonUpcomingBlockGrid;
+  std::vector<std::vector<Gtk::ColorButton>> buttonBoardGrid;
+  std::vector<std::vector<Gtk::ColorButton>> buttonUpcomingBlockGrid;
 
   // functions for initializing, destructing, and drawing on the window:
   explicit GraphicalDisplay(std::shared_ptr<BoardModel>, Gtk::Window *win);
