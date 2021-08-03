@@ -293,6 +293,14 @@ void GraphicalDisplay::getNextBlock() {
 }
 
 void GraphicalDisplay::generateBoard() {
+	// Clearing the grid:
+	for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 18; j++) {
+				buttonUpcomingBlockGrid.at(i).at(j)->set_label(" ");
+			}
+	}
+
+	// Remaking the grid:
 	std::vector <std::vector <std::pair<BlockType, int>>> curGrid = getBoardModel()->getGrid(); // the current grid
 
 	  // Get cell information of current block
@@ -320,7 +328,7 @@ void GraphicalDisplay::generateBoard() {
 	          ((int)j == baseCoords.first+cell2.first && 18-1-(int)i == baseCoords.second+cell2.second) ||
 	          ((int)j == baseCoords.first+cell3.first && 18-1-(int)i == baseCoords.second+cell3.second)) {
 	        // current block
-	    	  buttonBoardGrid.at(i).at(j)->set_label(blockTypeToColour_.at(curBlock->getType()));
+	    	buttonBoardGrid.at(i).at(j)->set_label(blockTypeToColour_.at(curBlock->getType()));
 	      } else if (((int)j == hintBaseCoords.first+hintCell0.first && 18-1-(int)i == hintBaseCoords.second+hintCell0.second) ||
 	                 ((int)j == hintBaseCoords.first+hintCell1.first && 18-1-(int)i == hintBaseCoords.second+hintCell1.second) ||
 	                 ((int)j == hintBaseCoords.first+hintCell2.first && 18-1-(int)i == hintBaseCoords.second+hintCell2.second) ||
@@ -328,8 +336,9 @@ void GraphicalDisplay::generateBoard() {
 	        // hint block
 	    	  buttonBoardGrid.at(i).at(j)->set_label(blockTypeToColour_.at(hintBlock->getType()));
 	      } else {
-	        // blank cells
-	    	  buttonBoardGrid.at(i).at(j)->set_label(" ");
+	        // other blocks
+	         buttonBoardGrid.at(i).at(j)->set_label(blockTypeToColour_.at(getBoardModel()->getCell(j, 18-1-i).first));
+
 	      }
 	    }
 	  }
