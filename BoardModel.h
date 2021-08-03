@@ -37,9 +37,11 @@ private:
 
   // Pointer to the Block that the player currently has control over
   std::shared_ptr<GenericBlock> curBlock_;
+  int curBlockLevel_;
 
   // Pointer to the Block that comes next
   std::shared_ptr<GenericBlock> nextBlock_;
+  int nextBlockLevel_;
 
   // Pointer to the Hint block
   std::shared_ptr<GenericBlock> hintBlock_;

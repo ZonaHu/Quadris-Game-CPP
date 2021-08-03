@@ -35,6 +35,8 @@ void BoardModel::setLevels(std::vector <std::shared_ptr<GenericLevel>> levelArra
     levelArray_ = levelArray;
     curBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
     nextBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
+    curBlockLevel_ = level_;
+    nextBlockLevel_ = level_;
 }
 
 // Sets the block sequence for the current level
@@ -44,6 +46,8 @@ void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
         levelArray_.at(level_)->setIsNonRandom(true); // the non random flag should be true when setting the sequence ourselves
         curBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
         nextBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
+        curBlockLevel_ = level_;
+        nextBlockLevel_ = level_;
     }
 }
 
@@ -138,7 +142,7 @@ void BoardModel::left(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setCoords(curBlock_->getCoords().first - 1, curBlock_->getCoords().second);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -150,7 +154,7 @@ void BoardModel::right(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setCoords(curBlock_->getCoords().first + 1, curBlock_->getCoords().second);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -162,7 +166,7 @@ void BoardModel::down(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second - 1);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -174,7 +178,7 @@ void BoardModel::clockwise(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setRotation((curBlock_->getRotation() + 1) % 4);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -187,7 +191,7 @@ void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setRotation((curBlock_->getRotation() + 3) % 4);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -213,6 +217,8 @@ void BoardModel::drop(int m = 1) {
         checkCompletedRows();
         curBlock_ = nextBlock_; // update the current block
         nextBlock_ = levelArray_[level_]->generateNextBlock(); // update the next block
+        curBlockLevel_ = nextBlockLevel_;
+        nextBlockLevel_ = level_;
 
         isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
         m--;
@@ -370,6 +376,8 @@ void BoardModel::restart() {
     // generate new blocks
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    curBlockLevel_ = level_;
+    nextBlockLevel_ = level_;
     notify();
 }
 
