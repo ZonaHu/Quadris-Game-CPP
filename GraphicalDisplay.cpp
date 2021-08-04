@@ -3,18 +3,39 @@
 // Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
 // on 2021-07-16.
 
-// #include "GraphicalDisplay.h"
+
+#include "GraphicalDisplay.h"
+
+// The graphical display should be set up in a similar way to the text diaplay,
+// showing the current board, the current block, the next block to come, and the scoreboard in a single window
+GraphicalDisplay::GraphicalDisplay(std::shared_ptr<BoardModel>) {}
+GraphicalDisplay::~GraphicalDisplay() {}
+
+std::shared_ptr<BoardModel> GraphicalDisplay::getBoardModel() const {
+  return boardModel_.lock();
+}
+
+void GraphicalDisplay::update() {}
 
 // ===========================================================================
 //
 // MARKERS, PLEASE NOTE:
-// The graphical display portion is unfinished, and we just keep it commented 
-// out to show our work, as discussed with SK Sadman Sayeed in our private 
-// post on Piazza (@542). Thanks!
+// The graphical display portion is unfinished, and we kept our code commented 
+// out below to show our work, as discussed with SK Sadman Sayeed in our private 
+// post on Piazza (@542). Above is the boilerplate code for the class to get
+// it to compile. Thanks!
 //
 // ===========================================================================
 
-/*#include <gtkmm-3.0/gtkmm/window.h>
+/*
+GraphicalDisplay.cpp
+
+Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
+on 2021-07-16.
+
+#include "GraphicalDisplay.h"
+
+#include <gtkmm-3.0/gtkmm/window.h>
 #include <gtkmm-3.0/gtkmm/box.h>
 #include <gtkmm-3.0/gtkmm/label.h>
 #include <gtkmm-3.0/gtkmm/button.h>

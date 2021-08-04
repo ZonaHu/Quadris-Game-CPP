@@ -72,13 +72,11 @@ void GameManager::start() {
     // subscribe to both displays
     std::shared_ptr <Observer> t = std::make_shared<TextDisplay>(BoardModel_);
     BoardModel_->subscribe(t);
-
-    // PLEASE SEE COMMENTS IN GraphicalDisplay.cpp
-    // std::shared_ptr <Observer> g = std::make_shared<GraphicalDisplay>(BoardModel_);
-    // BoardModel_->subscribe(g);
+    std::shared_ptr <Observer> g = std::make_shared<GraphicalDisplay>(BoardModel_);
+    BoardModel_->subscribe(g);
   }
   while(!std::cin.eof()||!std::cin.fail()){
     //Begin an infinite while loop that reads user input from cin into the Controller input overload.
-    std::cin >> *controller_; // * allowed here since not expressing ownership.
+    std::cin >> *controller_; // dereference operator (*) is allowed here since we're not expressing ownership.
   }
 }

@@ -6,12 +6,46 @@
 #ifndef PROJECT_2_3_GRAPHICALDISPLAY_H
 #define PROJECT_2_3_GRAPHICALDISPLAY_H
 #include "Observer.h"
+
+
+class BoardModel;
+
+class GraphicalDisplay: public Observer{
+
+private:
+  std::weak_ptr<BoardModel> boardModel_; // pointer to the board model
+
+public:
+  GraphicalDisplay(std::shared_ptr<BoardModel>); // constructor
+  ~GraphicalDisplay(); // destructor
+  void update () override; //function for updating in observer
+  std::shared_ptr<BoardModel> getBoardModel() const; // getter for the board model
+};
+
+#endif // PROJECT_2_3_GRAPHICALDISPLAY_H
+
+// ===========================================================================
+//
+// MARKERS, PLEASE NOTE:
+// The graphical display portion is unfinished, and we kept our code commented 
+// out below to show our work, as discussed with SK Sadman Sayeed in our private 
+// post on Piazza (@542). Above is the boilerplate code for the class to get
+// it to compile. Thanks!
+//
+// ===========================================================================
+
+/*
+GraphicalDisplay.h
+
+Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
+on 2021-07-16.
+
+#ifndef PROJECT_2_3_GRAPHICALDISPLAY_H
+#define PROJECT_2_3_GRAPHICALDISPLAY_H
+#include "Observer.h"
 #include "BoardModel.h"
 
-// Please Note:
-// that graphical display portion is unfinished, and we just keep it commented out to show our work as discussed on Piazza.
-
-/*#include <gtkmm-3.0/gtkmm/window.h>
+#include <gtkmm-3.0/gtkmm/window.h>
 #include <gtkmm-3.0/gtkmm/box.h>
 #include <gtkmm-3.0/gtkmm/label.h>
 #include <gtkmm-3.0/gtkmm/button.h>
@@ -19,10 +53,11 @@
 #include <gtkmm-3.0/gtkmm/grid.h>
 #include <vector>
 #include <memory>
-#include <glib.h>*/
+#include <glib.h>
 #include <utility>
 #include <string>
 #include <unordered_map>
+
 
 class BoardModel;
 
@@ -32,7 +67,7 @@ private:
   std::unordered_map<BlockType, std::string> blockTypeToColour_;
 
 public:
-
+*/
 // Please Note:
 // that graphical display portion is unfinished, and we just keep it commented out to show our work as discussed on Piazza.
 
@@ -94,7 +129,8 @@ public:
   void getNextBlock(); // for updating what the upcoming block is (getting it from board model)
   void generateBoard(); // for updating the playing board
   std::shared_ptr<BoardModel> getBoardModel() const; // getter for the boardmodel
-  */
+  
 };
 
 #endif // PROJECT_2_3_GRAPHICALDISPLAY_H
+*/
