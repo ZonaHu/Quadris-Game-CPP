@@ -392,7 +392,7 @@ void BoardModel::hint() {
     // to the configuration that gives the lowest y position after a drop
 
     // Create a temp copy of curBlock to restore it after computing the hint
-    std::shared_ptr<GenericBlock> temp = std::make_shared<GenericBlock>(*curBlock_);
+    std::shared_ptr<GenericBlock> temp = std::make_shared<GenericBlock>(*curBlock_); // * allowed here since not expressing ownership.
     // Tracks values for the position that gives the lowest y value so far
     int bestY = 18;
     int bestRotation = 0;
@@ -440,7 +440,7 @@ void BoardModel::hint() {
     clockwise(bestRotation, false, false);
     right(bestX, false, false);
     down(18, false, false);
-    hintBlock_ = std::make_shared<GenericBlock>(*curBlock_);
+    hintBlock_ = std::make_shared<GenericBlock>(*curBlock_); // * allowed here since not expressing ownership.
 
     // Restore curBlock_
     curBlock_ = temp;
