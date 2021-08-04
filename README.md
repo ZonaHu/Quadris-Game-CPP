@@ -1,6 +1,6 @@
 # Quadris
 
-Please note the that graphical display portion is unfinished and has some memory issues. If you run the program with the `-text` flag, then there will be no leaked memory (apart from possibly lost: 1,352 bytes in 18 blocks, and still reachable: 51,981 bytes in 222 blocks from Gtkmm).
+**Please note** the that graphical display portion is unfinished and has some memory issues. If you run the program with the `-text` flag, then there will be no leaked memory (apart from `possibly lost: 1,352 bytes in 18 blocks`, and `still reachable: 51,981 bytes in 222 blocks` from Gtkmm).
 
 `<m>left`: Moves the current block left `m` times.
 
