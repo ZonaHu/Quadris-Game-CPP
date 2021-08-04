@@ -6,7 +6,8 @@
 
 #include "GraphicalDisplay.h"
 
-// TODO:
+// The graphical display should be set up in a similar way to the text diaplay,
+// showing the current board, the current block, the next block to come, and the scoreboard in a single window
 GraphicalDisplay::GraphicalDisplay(std::shared_ptr<BoardModel>) {}
 GraphicalDisplay::~GraphicalDisplay() {}
 

@@ -11,15 +11,15 @@
 class BoardModel;
 
 class GraphicalDisplay: public Observer{
-  // TODO: To be implemented
+
 private:
-  std::weak_ptr<BoardModel> boardModel_;
+  std::weak_ptr<BoardModel> boardModel_; // pointer to the board model
 
 public:
-  GraphicalDisplay(std::shared_ptr<BoardModel>);
-  ~GraphicalDisplay();
+  GraphicalDisplay(std::shared_ptr<BoardModel>); // constructor
+  ~GraphicalDisplay(); // destructor
   void update () override; //function for updating in observer
-  std::shared_ptr<BoardModel> getBoardModel() const;
+  std::shared_ptr<BoardModel> getBoardModel() const; // getter for the board model
 };
 
 #endif // PROJECT_2_3_GRAPHICALDISPLAY_H
