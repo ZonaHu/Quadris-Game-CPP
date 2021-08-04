@@ -3,11 +3,16 @@
 // Created by Simran Thind, Janakitti Ratana-Rueangsri, Zuomiao Hu
 // on 2021-07-16.
 
-#include "GraphicalDisplay.h"
+// #include "GraphicalDisplay.h"
 
-// Please Note:
-// that graphical display portion is unfinished, and we just keep it commented out to show our work as discussed on Piazza.
-
+// ===========================================================================
+//
+// MARKERS, PLEASE NOTE:
+// The graphical display portion is unfinished, and we just keep it commented 
+// out to show our work, as discussed with SK Sadman Sayeed in our private 
+// post on Piazza (@542). Thanks!
+//
+// ===========================================================================
 
 /*#include <gtkmm-3.0/gtkmm/window.h>
 #include <gtkmm-3.0/gtkmm/box.h>
@@ -36,13 +41,13 @@ GraphicalDisplay::GraphicalDisplay(std::shared_ptr<BoardModel> boardModel, Gtk::
   blockTypeToColour_[BlockType::EMPTY] = " "; // grey
   windowInit();
   update();
-}*/
+}
 
 std::shared_ptr<BoardModel> GraphicalDisplay::getBoardModel() const {
   return boardModel_.lock();
 }
 
-/*
+
 void GraphicalDisplay::windowInit() {
   // Creating all widgets for the windows
   // First, changing window title bar attributes

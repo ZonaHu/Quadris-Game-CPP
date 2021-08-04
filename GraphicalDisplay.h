@@ -92,8 +92,9 @@ public:
   void dialogGeneration(); // for obtaining file paths through the GUI
   void getStatistics(); // for updating statistics (and getting them from the board model)
   void getNextBlock(); // for updating what the upcoming block is (getting it from board model)
-  void generateBoard(); // for updating the playing board*/
+  void generateBoard(); // for updating the playing board
   std::shared_ptr<BoardModel> getBoardModel() const; // getter for the boardmodel
+  */
 };
 
 #endif // PROJECT_2_3_GRAPHICALDISPLAY_H
