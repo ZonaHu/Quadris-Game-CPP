@@ -77,6 +77,6 @@ void GameManager::start() {
   }
   while(!std::cin.eof()||!std::cin.fail()){
     //Begin an infinite while loop that reads user input from cin into the Controller input overload.
-    std::cin >> *controller_;
+    std::cin >> *controller_; // * allowed here since not expressing ownership.
   }
 }
