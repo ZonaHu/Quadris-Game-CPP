@@ -1,5 +1,7 @@
 # Quadris
 
+**Please note** the that graphical display portion is unfinished, and we just keep it commented out to show our work as discussed on Piazza.
+
 `<m>left`: Moves the current block left `m` times.
 
 `<m>right`: Moves the current block right `m` times.
