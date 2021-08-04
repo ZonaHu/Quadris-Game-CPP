@@ -78,7 +78,6 @@ public:
 
   // functions for initializing, destructing, and drawing on the window:
   explicit GraphicalDisplay(std::shared_ptr<BoardModel>, Gtk::Window *win);
-  ~GraphicalDisplay() override;
   void update () override; // function for updating in observer
   void windowInit(); // for drawing the initial state of the window
   void onButtonClicked(const Glib::ustring&); // callback for the buttons on the window

@@ -34,9 +34,6 @@ GraphicalDisplay::GraphicalDisplay(std::shared_ptr<BoardModel> boardModel, Gtk::
 	windowInit();
 	update();
 }
-GraphicalDisplay::~GraphicalDisplay() {
-	getBoardModel()->unsubscribe(this);
-}
 
 std::shared_ptr<BoardModel> GraphicalDisplay::getBoardModel() const {
   return boardModel_.lock();
