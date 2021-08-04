@@ -14,6 +14,7 @@
 #include <iostream>
 #include <fstream>
 
+// Constructor (boolean flag for enabling bonus features renaming and macro)
 Controller::Controller(bool enableBonus) {
 	commandList_ = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence",
 			"I", "J", "L", "S", "Z", "O", "T", "restart", "hint", "rename", "macro", "save", "load"};
@@ -22,6 +23,7 @@ Controller::Controller(bool enableBonus) {
 	enableBonus_ = enableBonus;
 }
 
+// Destructor (we need to clear all vectors associated with the Controller object)
 Controller::~Controller() {
 	commandList_.clear();
 	macroMap_.clear();
@@ -29,10 +31,12 @@ Controller::~Controller() {
 	tempMacroName_.clear();
 }
 
+// Setting the private variable boardModel_.
 void Controller::setBoard(std::shared_ptr <BoardModel> board) {
 	boardModel_ = board;
 }
 
+// For comparing command input against current valid command names.
 bool Controller::parse(std::string input, std::string command) {
 	if (input.size() == 0) return false;
 
@@ -45,7 +49,7 @@ bool Controller::parse(std::string input, std::string command) {
 	}
 	return flag;
 }
-
+// Updates the command vector (which contains existing command names) with a new valid command name.
 void Controller::rename(std::vector <std::string> args) {
 	// Where the original name is args[0], and the new name is args[1]
 	std::vector <std::string>::iterator it;
@@ -58,6 +62,11 @@ void Controller::rename(std::vector <std::string> args) {
 		std::cout << "When renaming, please first specify the name of a command in use, then a new name that is not the name of anything else already." << std::endl;
 	}
 }
+/* Handles macro arguments such as new, save, and exec.
+ * - new: we enter the macro state of input; so that commands that are entered into the console/command line are not executed immediately.
+ * - save: at the end of inputting commands for a new macro, we run "macro save" to properly store the macro and go back to normal state.
+ * - exec: "macro exec" executes all the commands sequentially in a given macro.
+ */
 
 void Controller::macro(std::vector <std::string> args) {
 	// The first element of args should either be new, save, or exec
@@ -97,6 +106,7 @@ void Controller::macro(std::vector <std::string> args) {
 	}
 }
 
+// For reading in from a file that contains commands to execute.
 void Controller::sequence(std::string fileName) {
 	std::ifstream file (fileName);
 	std::string line = "";
@@ -109,7 +119,7 @@ void Controller::sequence(std::string fileName) {
 		std::cout << "Unable to open file (for sequence command)." << std::endl;
 	}
 }
-
+// For reading in from a file to get the blocks we need for some commands.
 std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
 	std::ifstream file (fileName);
 	std::string line = "";
@@ -144,12 +154,13 @@ std::vector <BlockType> Controller::blockSequenceSource(std::string fileName) {
 	}
 	return blockList;
 }
-
+// After recognizing a valid command through parse(), executes it's relevant function.
 void Controller::execCommand(std::string input, int multiplier) {
 	if (multiplier == 0) {
 		return;
 	} else {
 		if (macroInputFlag_ && input.compare("macro save") && enableBonus_) {
+			// This section is for taking the commands inputted while in macro mode instead of executing them (by calling their functions).
 			int cmdNum = -1;
 			std::string cmd = "";
 			std::string args = "";
@@ -247,6 +258,7 @@ void Controller::execCommand(std::string input, int multiplier) {
 	}
 }
 
+// For getting the number of times a specific command needs to run.
 void Controller::extractMultiplier(std::string input) {
 	int multiplier = 1;
 	std::string command = "";
@@ -267,6 +279,7 @@ void Controller::extractMultiplier(std::string input) {
 	execCommand(command, multiplier);
 }
 
+//  Pass cin input to extractMultiplier().
 std::istream &operator>>(std::istream &in, Controller &control) {
 	std::string input;
 	std::getline(in, input);
