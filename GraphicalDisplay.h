@@ -7,6 +7,10 @@
 #define PROJECT_2_3_GRAPHICALDISPLAY_H
 #include "Observer.h"
 #include "BoardModel.h"
+
+// Please Note:
+// that graphical display portion is unfinished, and we just keep it commented out to show our work as discussed on Piazza.
+
 /*#include <gtkmm-3.0/gtkmm/window.h>
 #include <gtkmm-3.0/gtkmm/box.h>
 #include <gtkmm-3.0/gtkmm/label.h>
