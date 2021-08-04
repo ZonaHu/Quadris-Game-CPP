@@ -35,6 +35,8 @@ void BoardModel::setLevels(std::vector <std::shared_ptr<GenericLevel>> levelArra
     levelArray_ = levelArray;
     curBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
     nextBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
+    curBlockLevel_ = level_;
+    nextBlockLevel_ = level_;
 }
 
 // Sets the block sequence for the current level
@@ -44,6 +46,8 @@ void BoardModel::setBlockGenSequence(std::vector<BlockType> seq) {
         levelArray_.at(level_)->setIsNonRandom(true); // the non random flag should be true when setting the sequence ourselves
         curBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
         nextBlock_ = levelArray_.at(level_)->generateNextBlock(); // update current block
+        curBlockLevel_ = level_;
+        nextBlockLevel_ = level_;
     }
 }
 
@@ -138,7 +142,7 @@ void BoardModel::left(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setCoords(curBlock_->getCoords().first - 1, curBlock_->getCoords().second);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -150,7 +154,7 @@ void BoardModel::right(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setCoords(curBlock_->getCoords().first + 1, curBlock_->getCoords().second);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -162,7 +166,7 @@ void BoardModel::down(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setCoords(curBlock_->getCoords().first, curBlock_->getCoords().second - 1);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -174,7 +178,7 @@ void BoardModel::clockwise(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setRotation((curBlock_->getRotation() + 1) % 4);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -187,7 +191,7 @@ void BoardModel::counterclockwise(int m, bool doesPostMove, bool doesNotify) {
         curBlock_->setRotation((curBlock_->getRotation() + 3) % 4);
         m--;
     }
-    if (doesPostMove) levelArray_.at(level_)->postMoveOperation();
+    if (doesPostMove) levelArray_.at(curBlockLevel_)->postMoveOperation();
     if (doesNotify) notify();
 }
 
@@ -207,12 +211,14 @@ void BoardModel::drop(int m = 1) {
 
         levelArray_[level_]->postDropOperation(); // perform post drop operations
 
-        liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, level_)));
+        liveBlocks_.insert(std::make_pair(timestamp_, std::make_pair(4, curBlock_->getLevelGenerated())));
         timestamp_++; // increment the time stamp
 
         checkCompletedRows();
         curBlock_ = nextBlock_; // update the current block
         nextBlock_ = levelArray_[level_]->generateNextBlock(); // update the next block
+        curBlockLevel_ = nextBlockLevel_;
+        nextBlockLevel_ = level_;
 
         isGameOver_ = !checkIfValidMove(curBlock_->getCoords().first, curBlock_->getCoords().second, curBlock_->getRotation());
         m--;
@@ -305,6 +311,7 @@ void BoardModel::checkCompletedRows() {
 // function to handle the I command, change current block to I
 void BoardModel::I(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<IBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -312,6 +319,7 @@ void BoardModel::I(int m) {
 // function to handle the J command, change current block to J
 void BoardModel::J(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<JBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -319,6 +327,7 @@ void BoardModel::J(int m) {
 // function to handle the L command, change current block to L
 void BoardModel::L(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<LBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -326,6 +335,7 @@ void BoardModel::L(int m) {
 // function to handle the S command, change current block to S
 void BoardModel::S(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<SBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -333,6 +343,7 @@ void BoardModel::S(int m) {
 // function to handle the Z command, change current block to Z
 void BoardModel::Z(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<ZBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -340,6 +351,7 @@ void BoardModel::Z(int m) {
 // function to handle the O command, change current block to O
 void BoardModel::O(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<OBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -347,6 +359,7 @@ void BoardModel::O(int m) {
 // function to handle the T command, change current block to T
 void BoardModel::T(int m) {
     std::shared_ptr<GenericBlock> newBlock = std::make_shared<TBlock>();
+    newBlock->setLevelGenerated(level_);
     curBlock_ = newBlock;
     notify();
 }
@@ -363,6 +376,8 @@ void BoardModel::restart() {
     // generate new blocks
     curBlock_ = levelArray_.at(level_)->generateNextBlock();
     nextBlock_ = levelArray_.at(level_)->generateNextBlock();
+    curBlockLevel_ = level_;
+    nextBlockLevel_ = level_;
     notify();
 }
 

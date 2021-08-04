@@ -48,6 +48,7 @@ std::shared_ptr <GenericBlock> Level0::generateNextBlock() {  // level 0 follows
   } else {
     counter_++; // increment the counter
   }
+  res->setLevelGenerated(0);
   return res;
 }
 

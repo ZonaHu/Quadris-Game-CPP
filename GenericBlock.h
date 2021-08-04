@@ -36,9 +36,11 @@ protected:
   // x and y are coordinates for the bottom left corner of the block
   int x_;
   int y_;
+  int levelGenerated_;
 
 public:
   GenericBlock() = default; // default constructor
+  GenericBlock(int l);
   ~GenericBlock() = default; // destructor
 
   // getter for a block's type
@@ -58,6 +60,9 @@ public:
   std::pair <int, int> getCoords() const;
   // setter for current coordinates
   void setCoords(int, int);
+
+  int getLevelGenerated() const;
+  void setLevelGenerated(int);
 };
 
 class IBlock: public GenericBlock{
