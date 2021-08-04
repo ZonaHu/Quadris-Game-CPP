@@ -29,6 +29,9 @@
 `hint`: Suggests where to drop block using `?` symbol.
 
 ### Bonus Features
+**Smart Pointers for Memory Management**
+
+Completed the entire project without leaks, and  handle all memory management via STL vectors and smart pointers.
 
 **Renaming commands**
 
@@ -51,6 +54,7 @@
 ## Assumptions
 - Blocks maintain the heaviness property based on the level they were generated in (i.e. if the current block and next block were generated in Level 3, they will be "heavy" even if you level down to Level 0).
 - The bonus score is calculated using the level in which the block was generated in (i.e. bonus points = (level at which block was generated in + 1) ^2) (based on P2 design document)
+- command `c` will work as the command `clockwise`.
 - If the user types in the prefix of a command that is common among another commands, the program will run the command that comes first in the list on the project specification (i.e. if "c" is entered, the program will rotate the current block clockwise).
 - The randomness setting for Levels 3 and 4 are preserved for the specific level the command was ran on. For example, if `norandom` was run on Level 3, and the user levels up to Level 4, Level 4 will still be random. Going back to Level 3, the blocks will still be generated non-randomly.
 - If an invalid filename is passed with the `-scriptfile` flag, the program will use the default file `sequence.txt` for Level 0. If an invalid file is passed in the `norandom` command, the program will do nothing, staying in its current randomness state.
